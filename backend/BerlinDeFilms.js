@@ -12,9 +12,10 @@ function BerlinDeFilms() {
 }
 
 /*
-	@param startDate: valid startDate is ISO string: 'YYYY-MM-DD'
+ * @param {String} startDate valid startDate is ISO string: 'YYYY-MM-DD'
 		see http://momentjs.com/docs/#/parsing/
-	@param callback: function(err, result)
+ * @param {Function} callback function(err, result)
+ * @return {Array} the list of films as an array of json objects
 */
 BerlinDeFilms.prototype.getFilms = function(startDate, callback) {
 	var d = (startDate) ? moment(startDate).format('DD.MM.YYYY') : moment().format('DD.MM.YYYY');
@@ -60,8 +61,6 @@ BerlinDeFilms.prototype.getFilms = function(startDate, callback) {
 
 			console.log('---------------');
 			console.log(items[0]);
-			console.log(items[1]);
-			console.log(items[2]);
 			console.log(items[3]);
 			callback(null, items);;
 		});
