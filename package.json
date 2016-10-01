@@ -18,6 +18,7 @@
   },
   "homepage": "http://kinotimes.tk",
   "dependencies": {
+    "async": "^2.0.1",
     "express": "^4.14.0",
     "jsdom": "^9.5.0",
     "lodash": "^4.16.2",
