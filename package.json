@@ -1,0 +1,29 @@
+{
+  "name": "kinotimes",
+  "version": "1.0.0",
+  "description": "app for searching film times",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -L basic_app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grandvizier/kinotimes.git"
+  },
+  "author": "grandvizier",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grandvizier/kinotimes/issues"
+  },
+  "homepage": "http://kinotimes.tk",
+  "dependencies": {
+    "express": "^4.14.0",
+    "jsdom": "^9.5.0",
+    "moment": "^2.15.1",
+    "mongoose": "^4.6.2",
+    "nodemon": "^1.10.2",
+    "querystring": "^0.2.0",
+    "request": "^2.75.0"
+  }
+}
