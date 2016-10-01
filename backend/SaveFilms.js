@@ -6,14 +6,7 @@ var db = new (require('../utils/Database.js'));
 
 var stripParenthesis = /\s*\(.*?\)\s*/g;
 
-function SaveFilms() {
-	//connect to db
-	db.connect();
-}
-
-SaveFilms.prototype.closeConnection = function() {
-	db.disconnect();
-}
+function SaveFilms() {}
 
 
 /*
@@ -23,6 +16,7 @@ SaveFilms.prototype.closeConnection = function() {
  * @return {Number} sum
 */
 SaveFilms.prototype.save = function(films, dateUsed, callback) {
+	db.connect();
 	async.each(films, function(theater, cb) {
 		var theaterName = theater.name.replace(stripParenthesis, '');
 		// get theater id from DB
@@ -67,6 +61,7 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 
 	}, function(err) {
 		// if any of the saves produced an error, err would equal that error
+		db.disconnect();
 		if( err ) {
 			// One of the iterations produced an error.
 			// All processing will now stop.
@@ -79,7 +74,5 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 	});
 
 };
-
-
 
 module.exports = SaveFilms;

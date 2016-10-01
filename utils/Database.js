@@ -20,11 +20,16 @@ var filmSchema = new Schema({
 	id: Schema.Types.ObjectId,
 	title: String,
 	img: String,
+	imdbID: String,
 	details: {
 		director: String,
 		actors: String,
 		description: String,
-		rating: Number
+		rating: Number,
+		year: String,
+		genre: String,
+		language: String,
+		country: String
 	}
 });
 
@@ -48,6 +53,7 @@ Database.prototype.disconnect = function() {
 
 Database.prototype.getTheater = function(theaterName, cb) {
 	logger.debug('looking for theater', theaterName);
+	// todo try using FindOne()
 	TheaterModel.find({name : theaterName}, function (err, theaters) {
 		if (theaters.length){
 			logger.verbose('theater exists already. found: ', theaters.length);
@@ -91,6 +97,36 @@ Database.prototype.saveShowtime = function(toSave, cb) {
 			s.save(function(err, s){
 				cb(err,s);
 			});
+		}
+	});
+}
+
+Database.prototype.saveFilmInfo = function(toSave, cb) {
+	logger.debug('saving details of film', toSave);
+	FilmModel.update({title : toSave.title}, { $set: toSave}, cb);
+}
+
+Database.prototype.getAllFilms = function(cb) {
+	logger.debug('get all the films');
+	FilmModel.find(function (err, films) {
+		if (!films.length){
+			logger.warn('no films found');
+			cb('Error: no films found', null);
+		}else{
+			cb(err, films);
+		}
+	});
+}
+
+Database.prototype.getImbdFilmsOnly = function(cb) {
+	logger.debug('get all the films that have IMBD id, but no details');
+	FilmModel.find({imdbID: {$exists: true}, 'details.director': null},
+	function (err, films) {
+		if (!films.length){
+			logger.info('no films found needing update');
+			cb(null, null);
+		}else{
+			cb(err, films);
 		}
 	});
 }
