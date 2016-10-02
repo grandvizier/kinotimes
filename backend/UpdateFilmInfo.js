@@ -7,10 +7,10 @@ var logger = new (require('../utils/logger.js'));
 var db = new (require('../utils/Database.js'));
 
 function UpdateFilmInfo() {
-	this.ombd_url = "http://www.omdbapi.com/";
+	this.omdb_url = "http://www.omdbapi.com/";
 }
 
-UpdateFilmInfo.prototype.ombdUpdate = function(callback) {
+UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 	db.connect();
 	self = this;
 	db.getAllFilms(function(err, films){
@@ -25,7 +25,7 @@ UpdateFilmInfo.prototype.ombdUpdate = function(callback) {
 				logger.info(film.title, ' already has details');
 				return cb();
 			}
-			var url = self.ombd_url + '?t='+ film.title;
+			var url = self.omdb_url + '?t='+ film.title;
 			logger.verbose('getting details about: `' + film.title + '`. From url:', url);
 			request({uri: url}, function(err, response, body){
 				if(err && response.statusCode !== 200){
@@ -65,10 +65,9 @@ UpdateFilmInfo.prototype.ombdUpdate = function(callback) {
 }
 
 
-UpdateFilmInfo.prototype.imbdUpdateById = function(callback) {
+UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 	db.connect();
-	self = this;
-	db.getImbdFilmsOnly(function(err, films){
+	db.getImdbFilmsOnly(function(err, films){
 		if(err){
 			logger.error(err);
 			db.disconnect();

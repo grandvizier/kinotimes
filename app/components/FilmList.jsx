@@ -1,6 +1,6 @@
 var React = require("react");
 var FilmInfo = require("./FilmInfo.jsx");
-var AddImbdId = require("./AddImbdId.jsx");
+var AddImdbId = require("./AddImdbId.jsx");
 
 
 module.exports = React.createClass({
@@ -8,7 +8,7 @@ module.exports = React.createClass({
        return(
            <div className="row">
                 <div className="col-md-6">
-                    <AddImbdId/>
+                    <AddImdbId/>
                 </div>
                 <div className="col-md-6">
                     {

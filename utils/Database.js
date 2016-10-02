@@ -131,8 +131,8 @@ Database.prototype.getAllFilms = function(cb) {
 	});
 }
 
-Database.prototype.getImbdFilmsOnly = function(cb) {
-	logger.debug('get all the films that have IMBD id, but no details');
+Database.prototype.getImdbFilmsOnly = function(cb) {
+	logger.debug('get all the films that have IMDB id, but no details');
 	FilmModel.find({imdbID: {$exists: true}, 'details.director': null},
 	function (err, films) {
 		if (!films.length){

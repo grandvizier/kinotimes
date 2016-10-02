@@ -38,10 +38,10 @@ for (i = 0; i < argv.days; i++) {
 	});
 }
 
-updater.ombdUpdate(function(err){
+updater.omdbUpdate(function(err){
 	logger.info('done updating');
 });
 
-updater.imbdUpdateById(function(err){
+updater.imdbUpdateById(function(err){
 	logger.info('done updating');
 });

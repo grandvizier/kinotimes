@@ -15,8 +15,8 @@ function FilmStore() {
         });
     }
 
-    function addImbdId(film) {
-        filmService.addImbdId(film).then(function (res) {
+    function addImdbId(film) {
+        filmService.addImdbId(film).then(function (res) {
             console.log(res);
             triggerListeners();
         });
@@ -34,8 +34,8 @@ function FilmStore() {
         var split = payload.type.split(":");
         if (split[0] === "film") {
             switch (split[1]) {
-                case "addImbdId":
-                    addImbdId(payload.film);
+                case "addImdbId":
+                    addImdbId(payload.film);
                     break;
             }
         }

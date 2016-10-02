@@ -3,7 +3,7 @@ var db = new (require('../utils/Database.js'));
 var _ = require('lodash');
 
 var router = require("express").Router();
-router.route("/films/:id?").get(getFilms).post(addImbdId);
+router.route("/films/:id?").get(getFilms).post(addImdbId);
 
 function getFilms(req, res) {
     logger.info('getting....');
@@ -18,7 +18,7 @@ function getFilms(req, res) {
     });
 }
 
-function addImbdId(req, res) {
+function addImdbId(req, res) {
     var toSave = _.extend({}, req.body);
     db.updateImdbID(toSave, function (err) {
         if (err)

@@ -3,7 +3,7 @@ var promise = require("es6-promise");
 var resourceUrl = "http://localhost:8888/api/films";
 
 module.exports = {
-    addImbdId: function (film) {
+    addImdbId: function (film) {
         var Promise = promise.Promise;
         return new Promise(function (resolve, reject) {
             $.ajax({

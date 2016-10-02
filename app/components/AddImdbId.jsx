@@ -8,9 +8,9 @@ module.exports = React.createClass({
           imdbID:""
       }
     },
-    addImbdId:function(e){
+    addImdbId:function(e){
         e.preventDefault();
-        actions.addImbdId(this.state);
+        actions.addImdbId(this.state);
     },
     handleInputChange:function(e){
       e.preventDefault();
@@ -21,7 +21,7 @@ module.exports = React.createClass({
     },
     render:function(){
         return(
-            <form className="form" onSubmit={this.addImbdId}>
+            <form className="form" onSubmit={this.addImdbId}>
                 <div className="form-group">
                     <label className="control-label" htmlFor="title">Film Title:</label>
                     <input type="text" className="form-control" id="title" name="title" value={this.state.title} onChange={this.handleInputChange} placeholder="Film Title" />
