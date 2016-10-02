@@ -1,23 +1,23 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+moment = require('moment');
 var logger = new (require('../utils/logger.js'));
 var Schema = mongoose.Schema;
 
 var showtimeSchema = new Schema({
-	filmId: Schema.Types.ObjectId,
-	theaterId: Schema.Types.ObjectId,
+	_film: { type: Schema.Types.ObjectId, ref: 'Film' },
+	_theater: { type: Schema.Types.ObjectId, ref: 'Theater' },
 	timestamp: Date
 });
 
 var theaterSchema = new Schema({
-	id: Schema.Types.ObjectId,
 	name: String,
 	street: String,
 	kietz: String,
 	website: String,
+	showtimes: [{ type: Schema.Types.ObjectId, ref: 'Showtime' }]
 });
 
 var filmSchema = new Schema({
-	id: Schema.Types.ObjectId,
 	title: String,
 	img: String,
 	imdbID: String,
@@ -30,12 +30,14 @@ var filmSchema = new Schema({
 		genre: String,
 		language: String,
 		country: String
-	}
+	},
+	showtimes: [{ type: Schema.Types.ObjectId, ref: 'Showtime' }]
 });
 
 var FilmModel = mongoose.model('Film', filmSchema);
 var TheaterModel = mongoose.model('Theater', theaterSchema);
 var ShowtimeModel = mongoose.model('Showtime', showtimeSchema);
+
 
 function Database() {
 	//this.db = 'mongodb://mongo:27017/films';
@@ -57,7 +59,7 @@ mongoose.connection.on('connected', function () {
 });
 // If the connection throws an error
 mongoose.connection.on('error',function (err) {
-	logger.debug('Mongoose default connection error: ' + err);
+	logger.warn('Mongoose default connection error: ' + err);
 });
 // When the connection is disconnected
 mongoose.connection.on('disconnected', function () {
@@ -83,20 +85,8 @@ Database.prototype.getTheater = function(theaterName, cb) {
 
 Database.prototype.getFilm = function(filmName, cb) {
 	logger.debug('looking for film:', filmName);
-	FilmModel.find({title : filmName}, function (err, films) {
-		if (films.length == 1){
-			logger.verbose('film `' + filmName +'` exists already.');
-			cb(null, films[0]);
-		}else if(films.length){
-			logger.warn('found more than 1 film with title `' + filmName +'`, but getting the first', films.length);
-			cb(null, films[0]);
-		}else{
-			var f = new FilmModel({ title: filmName });
-			f.save(function(err, f){
-				cb(err,f);
-			});
-		}
-	});
+	var query = {title : filmName};
+	FilmModel.findOneAndUpdate(query, query, {new: true, upsert: true}, cb);
 }
 
 Database.prototype.saveShowtime = function(toSave, cb) {
