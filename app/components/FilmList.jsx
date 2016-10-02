@@ -1,12 +1,14 @@
 var React = require("react");
-var FilmInfo = require("./FilmInfo.jsx")
+var FilmInfo = require("./FilmInfo.jsx");
+var AddImbdId = require("./AddImbdId.jsx");
+
 
 module.exports = React.createClass({
    render:function(){
        return(
            <div className="row">
                 <div className="col-md-6">
-                    //We will add future functionality here
+                    <AddImbdId/>
                 </div>
                 <div className="col-md-6">
                     {

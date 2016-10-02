@@ -32,6 +32,7 @@ var logger = new winston.Logger({
 			timestamp: tsFormat,
 			maxsize: 5242880, //5MB
 			maxFiles: 5,
+			json: false,
 			colorize: false
 		}),
 		new winston.transports.Console({

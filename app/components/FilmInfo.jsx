@@ -5,10 +5,11 @@ module.exports = React.createClass({
         return(
             <div className="panel panel-default">
                 <div className="panel-heading">
-                    {this.props.info.name}
+                    {this.props.info.title}
                 </div>
                 <div className="panel-body">
-                    {this.props.info.tagline}
+                    {this.props.info.imdbID}
+                    <img src={this.props.info.img} alt="-" className="img-responsive thumbnail"/>
                 </div>
             </div>
         )

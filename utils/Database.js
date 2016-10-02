@@ -50,6 +50,19 @@ Database.prototype.disconnect = function() {
 	logger.verbose('closing connection');
 	mongoose.disconnect();
 }
+// CONNECTION EVENTS
+// When successfully connected
+mongoose.connection.on('connected', function () {
+	logger.debug('Mongoose default connection open to ' + this.db);
+});
+// If the connection throws an error
+mongoose.connection.on('error',function (err) {
+	logger.debug('Mongoose default connection error: ' + err);
+});
+// When the connection is disconnected
+mongoose.connection.on('disconnected', function () {
+	logger.debug('Mongoose default connection disconnected');
+});
 
 Database.prototype.getTheater = function(theaterName, cb) {
 	logger.debug('looking for theater', theaterName);
@@ -129,6 +142,11 @@ Database.prototype.getImbdFilmsOnly = function(cb) {
 			cb(err, films);
 		}
 	});
+}
+
+Database.prototype.updateImdbID = function(toSave, cb) {
+	logger.debug('update the IMDB id for film');
+	FilmModel.update({title : toSave.title}, { $set: toSave}, cb);
 }
 
 
