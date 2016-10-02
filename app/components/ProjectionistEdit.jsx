@@ -58,7 +58,7 @@ module.exports = React.createClass({
             </div>
 
             <form className="updateFilm col-xs-6 form-horizontal" onSubmit={this.addImdbId}>
-                <input type="text" className="form-control" id="title" name="title" value={this.props.info.title} readOnly type="hidden" />
+                <input type="text" className="form-control" id="title" name="title" value={this.props.info.title} readOnly />
                 <div className="form-group-sm col-xs-7">
                     <input type="text" className="form-control" id="imdbID" name="imdbID" value={this.state.imdbID} onChange={this.handleInputChange} placeholder="new IMDB id" />
                 </div>

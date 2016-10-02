@@ -91,15 +91,14 @@ Database.prototype.getFilm = function(filmName, cb) {
 
 Database.prototype.saveShowtime = function(toSave, cb) {
 	logger.debug('looking for showtime', toSave);
-	ShowtimeModel.find(toSave, function (err, showtimes) {
-		if (showtimes.length){
-			logger.verbose('showtime exists already.', toSave);
-			cb(null,false);
+	ShowtimeModel.findOneAndUpdate(toSave, toSave, {new: true, upsert: true}, function (err, showtime) {
+		if (err){
+			logger.verbose('showtime saving failed.', toSave);
+			cb(err);
 		}else{
-			var s = new ShowtimeModel(toSave);
-			s.save(function(err, s){
-				cb(err,s);
-			});
+			var conditions = {_id : toSave._film, 'showtimes': { "$nin": [showtime] } };
+			var update = {$addToSet: { showtimes: showtime } };
+			FilmModel.update(conditions, update, cb);
 		}
 	});
 }
@@ -117,6 +116,23 @@ Database.prototype.getAllFilms = function(cb) {
 			cb('Error: no films found', null);
 		}else{
 			cb(err, films);
+		}
+	});
+}
+
+Database.prototype.getAllFilmsWithTimes = function(days, cb) {
+	logger.debug('get all the films and their showtimes (for the next ${days} days)');
+	var cutoff = moment().add(days, 'days')
+	FilmModel.find().populate({
+		path: 'showtimes',
+		match: { timestamp: {$lt: cutoff.toDate()}},
+		populate: { path: '_theater' }
+	}).exec(function (err, showtimes) {
+		if (!showtimes.length){
+			logger.warn('no showtimes found');
+			cb('Error: no showtimes found', null);
+		}else{
+			cb(err, showtimes);
 		}
 	});
 }

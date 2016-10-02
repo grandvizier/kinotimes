@@ -16,18 +16,5 @@ module.exports = {
                 error: reject
             });
         });
-    },
-    getFilms: function () {
-        var Promise = promise.Promise;
-        console.log('projectionist service is still getting the films')
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                url: resourceUrl,
-                method: "GET",
-                dataType: "json",
-                success: resolve,
-                error: reject
-            });
-        });
     }
 }
