@@ -1,5 +1,6 @@
 var dispatcher = require("../dispatcher");
 var filmService = require("../services/filmService");
+var projectionistService = require("../services/projectionistService");
 
 function FilmStore() {
     var listeners = [];
@@ -16,7 +17,7 @@ function FilmStore() {
     }
 
     function addImdbId(film) {
-        filmService.addImdbId(film).then(function (res) {
+        projectionistService.addImdbId(film).then(function (res) {
             console.log(res);
             triggerListeners();
         });

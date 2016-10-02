@@ -13,11 +13,31 @@ gulp.task("bundle", function () {
         .pipe(gulp.dest("app/dist"))
 });
 
-gulp.task("copy", ["bundle"], function () {
+gulp.task("bundleProjectionist", ["bundle"], function () {
+    return browserify({
+        entries: "./app/projectionist/projectionist.jsx",
+        debug: true
+    }).transform(reactify)
+        .bundle()
+        .pipe(source("projectionist.js"))
+        .pipe(gulp.dest("app/dist/projectionist"))
+});
+
+gulp.task("copy", ["bundleProjectionist"], function () {
     return gulp.src(["app/index.html","app/lib/bootstrap-css/css/bootstrap.min.css","app/style.css"])
         .pipe(gulp.dest("app/dist"));
 });
 
-gulp.task("default",["copy"],function(){
+gulp.task("copyProjectionist", ["copy"], function () {
+    return gulp.src(["app/projectionist/*"])
+        .pipe(gulp.dest("app/dist/projectionist"));
+});
+
+gulp.task("default",["copyProjectionist"],function(){
    console.log("Gulp completed...");
+});
+
+// Watch Files For Changes
+gulp.task('watch', function () {
+    gulp.watch('app/**/*.js*', ['default']);
 });

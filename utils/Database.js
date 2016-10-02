@@ -145,7 +145,9 @@ Database.prototype.getImdbFilmsOnly = function(cb) {
 }
 
 Database.prototype.updateImdbID = function(toSave, cb) {
-	logger.debug('update the IMDB id for film');
+	logger.debug('update the IMDB id for film', toSave);
+	// wipe out all the film details, so the next update uses the correct info
+	toSave.details = null;
 	FilmModel.update({title : toSave.title}, { $set: toSave}, cb);
 }
 
