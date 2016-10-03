@@ -121,7 +121,7 @@ Database.prototype.getAllFilms = function(cb) {
 }
 
 Database.prototype.getAllFilmsWithTimes = function(days, cb) {
-	logger.debug('get all the films and their showtimes (for the next ${days} days)');
+	logger.debug('get all the films and their showtimes (for the next', days, 'days)');
 	var cutoff = moment().add(days, 'days')
 	FilmModel.find().populate({
 		path: 'showtimes',
