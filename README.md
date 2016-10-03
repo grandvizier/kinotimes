@@ -8,3 +8,4 @@ app for searching film times
 
 
 first time, use: `docker-compose up --build`
+* initialize data: `docker exec KINOTIMES_WEB_1 npm run initialData`
