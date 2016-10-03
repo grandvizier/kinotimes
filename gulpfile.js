@@ -4,17 +4,14 @@ var reactify = require("reactify");
 var source = require("vinyl-source-stream");
 
 gulp.task("bundle", function () {
-    return browserify({
+    browserify({
         entries: "./app/main.jsx",
         debug: true
     }).transform(reactify)
         .bundle()
         .pipe(source("main.js"))
         .pipe(gulp.dest("app/dist"))
-});
-
-gulp.task("bundleProjectionist", ["bundle"], function () {
-    return browserify({
+    browserify({
         entries: "./app/projectionist/projectionist.jsx",
         debug: true
     }).transform(reactify)
@@ -23,17 +20,14 @@ gulp.task("bundleProjectionist", ["bundle"], function () {
         .pipe(gulp.dest("app/dist/projectionist"))
 });
 
-gulp.task("copy", ["bundleProjectionist"], function () {
-    return gulp.src(["app/index.html","app/lib/bootstrap-css/css/bootstrap.min.css","app/style.css"])
+gulp.task("copy", ["bundle"], function () {
+    gulp.src(["app/index.html","app/lib/bootstrap-css/css/bootstrap.min.css","app/style.css"])
         .pipe(gulp.dest("app/dist"));
-});
-
-gulp.task("copyProjectionist", ["copy"], function () {
-    return gulp.src(["app/projectionist/*"])
+    gulp.src(["app/projectionist/*"])
         .pipe(gulp.dest("app/dist/projectionist"));
 });
 
-gulp.task("default",["copyProjectionist"],function(){
+gulp.task("default",["copy"],function(){
    console.log("Gulp completed...");
 });
 
