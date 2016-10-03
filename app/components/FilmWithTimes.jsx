@@ -2,6 +2,23 @@ var React = require("react"),
 moment = require('moment'),
 _ = require('lodash');
 
+
+// override isEmpty using _.isEmpty(obj, true)
+// check that all nested arrays in an object are empty
+_.mixin( function() {
+    var _isEmptyOrig = _.isEmpty;
+        return {
+        isEmpty: function(value, defined) {
+            if (defined && _.isObject(value)) {
+                return !_.some( value, function(innerValue, key) {
+                    return innerValue !== undefined && !_isEmptyOrig(innerValue);
+                });
+            }
+            return _isEmptyOrig(value);
+        }
+    }
+}());
+
 var daysToShow = 4;
 
 function mapTimestoDays(showtimes){
@@ -88,7 +105,10 @@ function showFilmDetails(film){
 
 module.exports = React.createClass({
     render:function(){
-        mappedShowtimes = mapTimestoDays(this.props.info.showtimes);
+        var mappedShowtimes = mapTimestoDays(this.props.info.showtimes);
+        if(_.isEmpty(mappedShowtimes, true)){
+            return false;
+        }
         return(
             <div className="panel panel-default col-xs-10">
                 <div className="panel-heading">

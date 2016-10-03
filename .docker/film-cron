@@ -1,4 +1,2 @@
 # update the films/showtimes on Sun, Tues and Thursday at 5:20am
 20 5 * * 0,2,4 root /usr/local/bin/node core/getFilmsJob.js --days 5 >> /var/log/cron.log 2>&1
-
-* * * * * root echo "Hello world" >> /var/log/cron.log 2>&1
