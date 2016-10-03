@@ -22,8 +22,9 @@ module.exports = React.createClass({
     render:function(){
         var imdbUrl = 'http://www.imdb.com/find?ref_=nv_sr_fn&s=all&q='+this.props.info.title;
         var filmDetails = (this.props.info.details) ? this.props.info.details : {};
+        var isfilmReviewd = (this.props.info.reviewed) ? true : false;
         return(
-          <div className="col-xs-6 editDetails">
+          <div className={"col-xs-6 editDetails "+ (isfilmReviewd ? 'reviewed' : '')}>
             <h4>{this.props.info.title}</h4>
             <div className="row">
               <div className="details col-xs-6">
@@ -58,9 +59,9 @@ module.exports = React.createClass({
             </div>
 
             <form className="updateFilm col-xs-6 form-horizontal" onSubmit={this.addImdbId}>
-                <input type="text" className="form-control" id="title" name="title" value={this.props.info.title} readOnly />
+                <input type="text" className="form-control hide" id="title" name="title" value={this.props.info.title} readOnly />
                 <div className="form-group-sm col-xs-7">
-                    <input type="text" className="form-control hide" id="imdbID" name="imdbID" value={this.state.imdbID} onChange={this.handleInputChange} placeholder="new IMDB id" />
+                    <input type="text" className="form-control" id="imdbID" name="imdbID" value={this.state.imdbID} onChange={this.handleInputChange} placeholder="new IMDB id" />
                 </div>
                 <div className="form-group-sm col-xs-4">
                     <button className="btn btn-sm" type="submit">Update Film</button>

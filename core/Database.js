@@ -23,6 +23,7 @@ var filmSchema = new Schema({
 	title: String,
 	img: String,
 	imdbID: String,
+	reviewed: Boolean,
 	details: {
 		director: String,
 		actors: String,
@@ -155,6 +156,7 @@ Database.prototype.updateImdbID = function(toSave, cb) {
 	logger.debug('update the IMDB id for film', toSave);
 	// wipe out all the film details, so the next update uses the correct info
 	toSave.details = null;
+	toSave.reviewed = true;
 	FilmModel.update({title : toSave.title}, { $set: toSave}, cb);
 }
 
