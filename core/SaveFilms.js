@@ -16,7 +16,6 @@ function SaveFilms() {}
  * @return {Number} sum
 */
 SaveFilms.prototype.save = function(films, dateUsed, callback) {
-	db.connect();
 	async.each(films, function(theater, cb) {
 		var theaterName = theater.name.replace(stripParenthesis, '');
 		// get theater id from DB
@@ -61,7 +60,6 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 
 	}, function(err) {
 		// if any of the saves produced an error, err would equal that error
-		db.disconnect();
 		if( err ) {
 			// One of the iterations produced an error.
 			// All processing will now stop.

@@ -11,12 +11,10 @@ function UpdateFilmInfo() {
 }
 
 UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
-	db.connect();
 	self = this;
 	db.getAllFilms(function(err, films){
 		if(err){
 			logger.error(err);
-			db.disconnect();
 			return callback(err);
 		}
 		async.each(films, function(film, cb){
@@ -58,7 +56,6 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 				}
 			});
 		}, function(err) {
-			db.disconnect();
 			callback();
 		});
 	});
@@ -66,11 +63,9 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 
 
 UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
-	db.connect();
 	db.getImdbFilmsOnly(function(err, films){
 		if(err){
 			logger.error(err);
-			db.disconnect();
 			return callback(err);
 		}
 		async.each(films, function(film, cb){
@@ -100,11 +95,21 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 				});
 			});
 		}, function(err) {
-			db.disconnect();
 			callback();
 		});
 	});
 }
 
+UpdateFilmInfo.prototype.removeShowtimes = function(callback) {
+	db.removeShowtimesEverywhere(function(err){
+		callback(err);
+	});
+}
+
+UpdateFilmInfo.prototype.removeFilmsWithoutShowtimes = function(callback) {
+	db.removeFilmsWithoutShowtimes(function(err){
+		callback(err);
+	});
+}
 
 module.exports = UpdateFilmInfo;

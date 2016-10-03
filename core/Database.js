@@ -105,6 +105,16 @@ Database.prototype.saveShowtime = function(toSave, cb) {
 	});
 }
 
+Database.prototype.removeShowtimesEverywhere = function(cb) {
+	ShowtimeModel.remove(function(next){
+		// pre-hook doesn't work, so calling individually here
+		FilmModel.update({}, { $set: { showtimes: [] }}, {multi: true}, cb);
+	});
+}
+Database.prototype.removeFilmsWithoutShowtimes = function(cb) {
+	FilmModel.find({ showtimes: []}).remove( cb );
+}
+
 Database.prototype.saveFilmInfo = function(toSave, cb) {
 	logger.debug('saving details of film', toSave);
 	FilmModel.update({title : toSave.title}, { $set: toSave}, cb);
