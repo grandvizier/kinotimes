@@ -1,6 +1,6 @@
 var $ = require("jquery");
 var promise = require("es6-promise");
-var resourceUrl = "http://localhost:8888/adminapi/projectionist/admin";
+var resourceUrl = "/adminapi/projectionist/admin";
 
 module.exports = {
     addImdbId: function (film) {

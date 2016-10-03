@@ -1,6 +1,8 @@
 var mongoose = require('mongoose'),
 moment = require('moment');
 var logger = new (require('../utils/logger.js'));
+var config = require('config').get('App');
+
 var Schema = mongoose.Schema;
 
 var showtimeSchema = new Schema({
@@ -40,8 +42,7 @@ var ShowtimeModel = mongoose.model('Showtime', showtimeSchema);
 
 
 function Database() {
-	this.db = 'mongodb://mongo:27017/films';
-	//this.db = 'mongodb://localhost/films';
+	this.db = "mongodb://" + config.db.host + "/" + config.db.db;
 }
 
 Database.prototype.connect = function() {

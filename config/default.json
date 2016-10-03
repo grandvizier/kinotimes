@@ -1,0 +1,12 @@
+{
+  "App": {
+    "app": {
+      "base_url": "http://localhost",
+      "port": "8888"
+    },
+    "db": {
+        "host": "mongo:27017",
+        "db": "films"
+    }
+  }
+}

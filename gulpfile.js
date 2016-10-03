@@ -6,6 +6,7 @@ var source = require("vinyl-source-stream");
 gulp.task("bundle", function () {
     browserify({
         entries: "./app/main.jsx",
+        ignoreMissing: true,
         debug: true
     }).transform(reactify)
         .bundle()
@@ -13,6 +14,7 @@ gulp.task("bundle", function () {
         .pipe(gulp.dest("app/dist"))
     browserify({
         entries: "./app/projectionist/projectionist.jsx",
+        ignoreMissing: true,
         debug: true
     }).transform(reactify)
         .bundle()
