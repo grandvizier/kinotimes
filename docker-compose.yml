@@ -1,7 +1,29 @@
 version: "2"
 services:
+  base-app:
+    build:
+      context: .
+      dockerfile: ./.docker/base-app.dockerfile
+    image: kinotimes_base:latest
+    ports:
+      - "9200:9200"
+    container_name: base_app
+  worker:
+    build:
+      context: .
+      dockerfile: ./.docker/worker.dockerfile
+    depends_on:
+      - base-app
+    volumes:
+      - ./:/app
+    links:
+      - mongo
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: ./.docker/web.dockerfile
+    depends_on:
+      - base-app
     volumes:
       - ./:/app
     ports:

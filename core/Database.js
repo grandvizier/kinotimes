@@ -40,8 +40,8 @@ var ShowtimeModel = mongoose.model('Showtime', showtimeSchema);
 
 
 function Database() {
-	//this.db = 'mongodb://mongo:27017/films';
-	this.db = 'mongodb://localhost/films';
+	this.db = 'mongodb://mongo:27017/films';
+	//this.db = 'mongodb://localhost/films';
 }
 
 Database.prototype.connect = function() {
