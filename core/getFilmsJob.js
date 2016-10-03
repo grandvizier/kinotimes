@@ -2,14 +2,21 @@ var logger = new (require('../utils/logger.js'));
 var moment = require('moment');
 
 var argv = require('yargs')
-	.usage('Usage: $0 -d [num]')
-	.demand(['d'])
+	.usage('Usage: $0 -d [num] [--imdb | --genUpdate]')
 	.alias('d', 'days')
+	.coerce('d', function (arg) {
+		if (arg > 0 && arg < 14 && typeof arg != 'boolean'){
+			return arg;
+		} else { throw "Invalid day range"; }
+	})
+	.help('h')
+	.alias('h', 'help')
 	.argv;
-// TODO validate days to be > 0 and < 14
+
 // TODO add start date of not today
+logger.debug("args parsed (days, imdb, genUpdate):", argv.d, argv.imdb, argv.genUpdate);
 logger.verbose("Days to search ahead (including today):", argv.days);
-// TODO: option for only updating films
+
 
 // TODO: option for picking different film sites to parse
 var BerlinDeFilms = require('./BerlinDeFilms.js');
