@@ -5,4 +5,5 @@ COPY package.json /app
 RUN npm install
 COPY . /app
 EXPOSE 8888
+CMD ["npm", "run", "initialData"]
 CMD ["npm", "start"]

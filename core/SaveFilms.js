@@ -2,7 +2,7 @@ var moment = require('moment'),
 async = require('async'),
 mongoose = require('mongoose');
 var logger = new (require('../utils/logger.js'));
-var db = new (require('../utils/Database.js'));
+var db = new (require('./Database.js'));
 
 var stripParenthesis = /\s*\(.*?\)\s*/g;
 

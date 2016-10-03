@@ -4,7 +4,7 @@ request = require('request'),
 imdb = require('imdb-api');
 
 var logger = new (require('../utils/logger.js'));
-var db = new (require('../utils/Database.js'));
+var db = new (require('./Database.js'));
 
 function UpdateFilmInfo() {
 	this.omdb_url = "http://www.omdbapi.com/";

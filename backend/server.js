@@ -1,7 +1,7 @@
 var express = require("express");
 var path = require("path");
 var bodyParser = require("body-parser");
-var db = new (require('../utils/Database.js'));
+var db = new (require('../core/Database.js'));
 
 //controllers
 var filmController = require("./filmController");

@@ -1,5 +1,5 @@
 var logger = new (require('../utils/logger.js'));
-var db = new (require('../utils/Database.js'));
+var db = new (require('../core/Database.js'));
 var _ = require('lodash');
 
 var router = require("express").Router();

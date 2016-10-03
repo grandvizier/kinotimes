@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -L frontend/server.js"
+    "initialData": "node core/getFilmsJob.js --days 1",
+    "start": "nodemon -L backend/server.js"
   },
   "repository": {
     "type": "git",
