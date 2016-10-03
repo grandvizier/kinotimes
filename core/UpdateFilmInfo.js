@@ -94,9 +94,7 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 					return cb(err);
 				});
 			});
-		}, function(err) {
-			callback();
-		});
+		}, callback);
 	});
 }
 

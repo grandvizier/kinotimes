@@ -33,23 +33,35 @@ if (argv.days){
 	// first remove all the showtimes
 	updater.removeShowtimes(function(err){
 		logger.info('done removing old showtimes', err);
-
-		for (i = 0; i < argv.days; i++) {
-		    var day = moment().add(i, 'days').format('YYYY-MM-DD');
-			parser.getFilms(day, function(err, films){
-				if(err){
-					logger.error(err);
-				} else {
-					saver.save(films, day, function(err, films){
-						if(err){
-							logger.error(err);
-						} else {
-							logger.info('done');
+		var tasksToGo = argv.days;
+		var onComplete = function() {
+			logger.info('done');
+			db.disconnect();
+		};
+		if (tasksToGo === 0) {
+			onComplete();
+		} else {
+			// There is at least one element, so the callback will be called.
+			for (i = 0; i < argv.days; i++) {
+				var day = moment().add(i, 'days').format('YYYY-MM-DD');
+				parser.getFilms(day, function(err, films){
+					if(err){
+						logger.error(err);
+						if (--tasksToGo === 0) {
+							// No tasks left, good to go
+							onComplete();
 						}
-						db.disconnect();
-					});
-				}
-			});
+					} else if (films.length == 0) {
+						logger.warn('No films found for ', day);
+						if (--tasksToGo === 0) onComplete();
+					} else {
+						saver.save(films, day, function(err, films){
+							(err) ? logger.error(err) : logger.info('saved');
+							if (--tasksToGo === 0) onComplete();
+						});
+					}
+				});
+			}
 		}
 	});
 }

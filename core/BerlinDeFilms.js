@@ -57,11 +57,6 @@ BerlinDeFilms.prototype.getFilms = function(startDate, callback) {
 			if(theaterName){
 				items.push({'name': theaterName, 'films': films});
 			}
-
-
-			console.log('---------------');
-			console.log(items[0]);
-			console.log(items[3]);
 			callback(null, items);;
 		});
 	});
