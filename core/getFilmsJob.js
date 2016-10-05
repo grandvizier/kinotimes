@@ -1,5 +1,6 @@
 var logger = new (require('../utils/logger.js'));
-var moment = require('moment');
+var moment = require('moment'),
+async = require('async');
 
 var argv = require('yargs')
 	.usage('Usage: $0 -d [num] [--imdb | --genUpdate]')
@@ -30,39 +31,31 @@ var UpdateFilmInfo = require('./UpdateFilmInfo.js');
 var updater = new UpdateFilmInfo();
 
 if (argv.days){
+	var daysToCheck = [];
+	for (i = 0; i < argv.days; i++) {
+		daysToCheck.push(moment().add(i, 'days').format('YYYY-MM-DD'));
+	}
 	// first remove all the showtimes
 	updater.removeShowtimes(function(err){
 		logger.info('done removing old showtimes', err);
-		var tasksToGo = argv.days;
-		var onComplete = function() {
-			logger.info('done');
+		async.each(daysToCheck, function(day, cb){
+			parser.getFilms(day, function(err, films){
+				if(err){
+					return cb(err);
+				} else if (films.length == 0) {
+					logger.warn('No films found for ', day);
+					cb();
+				} else {
+					saver.save(films, day, function(err, films){
+						cb(err);
+					});
+				}
+			});
+
+		}, function(err) {
+			(err) ? logger.error(err) : logger.info('done');
 			db.disconnect();
-		};
-		if (tasksToGo === 0) {
-			onComplete();
-		} else {
-			// There is at least one element, so the callback will be called.
-			for (i = 0; i < argv.days; i++) {
-				var day = moment().add(i, 'days').format('YYYY-MM-DD');
-				parser.getFilms(day, function(err, films){
-					if(err){
-						logger.error(err);
-						if (--tasksToGo === 0) {
-							// No tasks left, good to go
-							onComplete();
-						}
-					} else if (films.length == 0) {
-						logger.warn('No films found for ', day);
-						if (--tasksToGo === 0) onComplete();
-					} else {
-						saver.save(films, day, function(err, films){
-							(err) ? logger.error(err) : logger.info('saved');
-							if (--tasksToGo === 0) onComplete();
-						});
-					}
-				});
-			}
-		}
+		});
 	});
 }
 

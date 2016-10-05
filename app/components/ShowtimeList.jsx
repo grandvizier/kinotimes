@@ -13,6 +13,7 @@ module.exports = React.createClass({
                       )
                   })
               }
+              <div>nothing to show</div>
           </div>
        )
    }

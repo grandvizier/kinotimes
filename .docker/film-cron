@@ -1,2 +1,6 @@
-# update the films/showtimes on Sun, Tues and Thursday at 5:20am
+# get new films/showtimes on Sun, Tues and Thursday at 5:20am
 20 5 * * 0,2,4 root /usr/local/bin/node core/getFilmsJob.js --days 5 >> /var/log/cron.log 2>&1
+
+# update the films a litte bit later
+40 5 * * 0,2,4 root /usr/local/bin/node core/getFilmsJob.js --genUpdate >> /var/log/cron.log 2>&1
+
