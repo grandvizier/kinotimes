@@ -4,6 +4,15 @@
     max-height: 135px
 }
 
+.allDetails img:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    height: 100px;
+    width: 59%;
+    background-image: url(image_not_found.jpg);
+}
+
 .allDetails .row, .showtime{
     padding-bottom: 8px;
 }

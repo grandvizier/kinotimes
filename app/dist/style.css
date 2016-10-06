@@ -4,8 +4,17 @@
     max-height: 135px
 }
 
+.allDetails img:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    height: 100px;
+    width: 59%;
+    background-image: url(image_not_found.jpg);
+}
+
 .allDetails .row, .showtime{
-	padding-bottom: 8px;
+    padding-bottom: 8px;
 }
 
 .details .type{
@@ -15,12 +24,12 @@
 
 .editDetails {
     font-size: small;
-	border: solid 1px;
+    border: solid 1px;
 }
 
 .updateFilm {
-	border: solid 1px;
-	padding: 8px;
+    border: solid 1px;
+    padding: 8px;
 }
 
 .hide {
