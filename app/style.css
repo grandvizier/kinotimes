@@ -1,17 +1,26 @@
 
+
+.allDetails img{
+    max-height: 135px
+}
+
+.allDetails .row, .showtime{
+    padding-bottom: 8px;
+}
+
 .details .type{
-	font-weight: bold;
-	padding-right: 10px;
+    font-weight: bold;
+    padding-right: 10px;
 }
 
 .editDetails {
-	font-size: small;
-	border: solid 1px;
+    font-size: small;
+    border: solid 1px;
 }
 
 .updateFilm {
-	border: solid 1px;
-	padding: 8px;
+    border: solid 1px;
+    padding: 8px;
 }
 
 .hide {
