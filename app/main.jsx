@@ -1,4 +1,11 @@
 var React = require("react");
+
+require('react-safe-render')(React, {
+  errorHandler: function (errReport) {
+    console.error("Error in the rendering...", errReport.error);
+  }
+});
+
 var ReactDOM = require("react-dom");
 var ShowtimeList = require("./components/ShowtimeList.jsx");
 var filmsStore = require("./stores/filmsStore");

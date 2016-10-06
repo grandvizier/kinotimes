@@ -37,6 +37,7 @@
     "nodemon": "^1.10.2",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-safe-render": "^2.0.0",
     "reactify": "^1.1.1",
     "request": "^2.75.0",
     "stack-trace": "0.0.9",
