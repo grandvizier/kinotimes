@@ -1,11 +1,20 @@
 
+
+.allDetails img{
+    max-height: 135px
+}
+
+.allDetails .row, .showtime{
+	padding-bottom: 8px;
+}
+
 .details .type{
-	font-weight: bold;
-	padding-right: 10px;
+    font-weight: bold;
+    padding-right: 10px;
 }
 
 .editDetails {
-	font-size: small;
+    font-size: small;
 	border: solid 1px;
 }
 

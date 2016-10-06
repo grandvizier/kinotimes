@@ -35,7 +35,7 @@ function mapTimestoDays(showtimes){
                 // ignore old showtimes
                 break;
             } else if(t.format('X') <= key){
-                mappedTimes[key].push(showtimes[j].timestamp);
+                mappedTimes[key].push(showtimes[j]);
                 break;
             }
         }
@@ -48,56 +48,52 @@ function createDayView(mappedTimes){
         return(
             <div className="col-xs-3">
                 <div className="panel-heading">{moment(key, 'x').add(-6, 'hours').format('ddd Do')}</div>
-                {eachTime(mapped)}
+                {eachTime(_.sortBy(mapped, ['timestamp']))}
             </div>
         )
     })
 }
 function eachTime(mapped){
     return _.map(mapped, function(t){
-        return(<div className="panel-body">{moment(t).format('LT')}</div>)
+        return(
+            <div className="showtime">{moment(t.timestamp).format('LT')}
+                <div className="small">({t._theater.name})</div>
+            </div>
+        )
     });
 }
 
 function showFilmDetails(film){
     var filmDetails = (film.details) ? film.details : {};
     return(
-      <div className="allDetails">
-        <div className="row">
-            <div className="details col-xs-6">
-                <span className="type col-xs-6">Director</span>
-                <span className="value">{filmDetails.director}</span>
+      <div className="panel-body col-xs-4">
+          <h3>{film.title}</h3>
+          <div className="allDetails small">
+            <div className="row">
+                <div className="details col-xs-8">
+                    {filmDetails.genre}
+                </div>
+                <span>{filmDetails.year}</span>
             </div>
-            <div className="details col-xs-6">
-                <span className="type col-xs-4">Rating</span>
-                <span className="value">{filmDetails.rating}</span>
+            <div className="row">
+                <div className="details col-xs-8">
+                    {filmDetails.director ? 'Director: ' + filmDetails.director : null}
+                </div>
+                <span>{filmDetails.rating}</span>
             </div>
-        </div>
-        <div className="row">
-            <div className="details col-xs-6">
-                <span className="type col-xs-6">Language</span>
-                <span className="value">{filmDetails.language}</span>
+            <div className="row">
+                <div className="details col-xs-12 small">
+                    {filmDetails.actors}
+                </div>
+                <span>{(filmDetails.language && filmDetails.language.indexOf("English") !== -1) ? null : filmDetails.language}</span>
             </div>
-            <div className="details col-xs-6">
-                <span className="type col-xs-4">Year</span>
-                <span className="value">{filmDetails.year}</span>
+            <div className="row">
+                <div className="details col-xs-8">
+                    <em>{filmDetails.description}</em>
+                </div>
+                <img className="img-responsive img-thumbnail pull-right" src={film.img} />
             </div>
-        </div>
-        <div className="details">
-            <span className="type col-xs-2">Actors</span>
-            <span className="value">{filmDetails.actors}</span>
-        </div>
-        <div className="details">
-            <span className="type col-xs-2">Genre</span>
-            <span className="value">{filmDetails.genre}</span>
-        </div>
-        <div className="details">
-            <span className="type col-xs-2">Plot</span>
-            <span className="value">{filmDetails.description}</span>
-        </div>
-        <div className="details col-xs-6">
-            <img src={film.img} className="img-responsive img-thumbnail pull-right"/>
-        </div>
+          </div>
       </div>
     )
 }
@@ -114,9 +110,7 @@ module.exports = React.createClass({
                 <div className="panel-heading">
                     {this.props.info.title}
                 </div>
-                <div className="panel-body col-xs-4">
-                    {showFilmDetails(this.props.info)}
-                </div>
+                {showFilmDetails(this.props.info)}
                 <div className="panel-body col-xs-8">
                     <div className="panel panel-info">
                         {createDayView(mappedShowtimes)}
