@@ -42,7 +42,7 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 
 					// add new showtimes (timestamp, theaterId, filmId)
 					async.each(film.times, function(time, cb3){
-						var t = moment(dateUsed + ' ' + time, "YYYY-MM-DD HH:mm");
+						var t = moment(dateUsed + ' ' + time, "YYYY-MM-DD HH:mm").utc();
 						var toSave = {'_theater': theaterId, '_film': filmId, 'timestamp': t.format('YYYY-MM-DDTHH:mm:ss.SSSZ')};
 						db.saveShowtime(toSave, function(err, saved){
 							if(err){
