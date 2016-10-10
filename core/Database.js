@@ -139,7 +139,7 @@ Database.prototype.getAllFilmsWithTimes = function(days, cb) {
 		path: 'showtimes',
 		match: { timestamp: {$lt: cutoff.toDate()}},
 		populate: { path: '_theater' }
-	}).exec(function (err, showtimes) {
+	}).sort('title').exec(function (err, showtimes) {
 		if (!showtimes.length){
 			logger.warn('no showtimes found');
 			cb('Error: no showtimes found', null);
