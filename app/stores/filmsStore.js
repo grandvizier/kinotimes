@@ -6,16 +6,10 @@ function FilmStore() {
     var listeners = [];
 
     function onChange(listener) {
-        getFilms(listener);
         getFilmsWithTimes(listener);
         listeners.push(listener);
     }
 
-    function getFilms(cb) {
-        filmService.getFilms().then(function (res) {
-            cb(res);
-        });
-    }
 
     function getFilmsWithTimes(cb) {
         filmService.getFilmsWithTimes().then(function (res) {
@@ -31,11 +25,6 @@ function FilmStore() {
     }
 
     function triggerListeners() {
-        getFilms(function (res) {
-            listeners.forEach(function (listener) {
-                listener(res);
-            });
-        });
         getFilmsWithTimes(function (res) {
             listeners.forEach(function (listener) {
                 listener(res);
