@@ -6,7 +6,8 @@ var config = require('config').get('App');
 var tmdb = require('moviedb')(config.app.tmdb_token);
 var tmdb_settings = {
     "images_url": "http://image.tmdb.org/t/p/",
-    "image_size": "w92"
+    "image_size": "w92",
+    "max_calls": 40
 };
 
 
@@ -24,6 +25,7 @@ ImageStoring.prototype.getImages = function(films, callback) {
 			logger.error(err);
 			return callback(err);
 		}
+		var callsMade = 0;
 		async.each(films, function(film, cb){
 			if(!film.imdbID){
 				logger.info('`' + film.title + '` doesnt have an imdb id');
@@ -32,6 +34,11 @@ ImageStoring.prototype.getImages = function(films, callback) {
 				logger.verbose('`' + film.title + '` already has updated image');
 				return cb();
 			} else {
+				callsMade++;
+				if(callsMade >= tmdb_settings.max_calls){
+					logger.warn('too many images updated already, postpone the rest for the next run');
+					return cb();
+				}
 				logger.verbose('else call to get image info', film.imdbID);
 				tmdb.movieImages({id: film.imdbID}, function(err, res) {
 					if(err){
