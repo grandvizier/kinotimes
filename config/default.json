@@ -2,7 +2,8 @@
   "App": {
     "app": {
       "base_url": "http://localhost",
-      "port": "8888"
+      "port": "8888",
+      "tmdb_token": "6e9ee3ed3a7bb1ca60fad638e6cb68f2"
     },
     "db": {
         "host": "mongo:27017",

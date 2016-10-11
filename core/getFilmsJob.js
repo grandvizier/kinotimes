@@ -3,7 +3,7 @@ var moment = require('moment'),
 async = require('async');
 
 var argv = require('yargs')
-	.usage('Usage: $0 -d [num] [--imdb | --genUpdate]')
+	.usage('Usage: $0 -d [num] [--imdb | --genUpdate | --images]')
 	.alias('d', 'days')
 	.coerce('d', function (arg) {
 		if (arg > 0 && arg < 14 && typeof arg != 'boolean'){
@@ -15,7 +15,7 @@ var argv = require('yargs')
 	.argv;
 
 // TODO add start date of not today
-logger.debug("args parsed (days, imdb, genUpdate):", argv.d, argv.imdb, argv.genUpdate);
+logger.debug("args parsed (days, imdb, genUpdate, images):", argv.d, argv.imdb, argv.genUpdate, argv.images);
 logger.verbose("Days to search ahead (including today):", argv.days);
 
 
@@ -29,6 +29,8 @@ var SaveFilms = require('./SaveFilms.js');
 var saver = new SaveFilms();
 var UpdateFilmInfo = require('./UpdateFilmInfo.js');
 var updater = new UpdateFilmInfo();
+var ImageStoring = require('./ImageStoring.js');
+var imager = new ImageStoring();
 
 if (argv.days){
 	var daysToCheck = [];
@@ -69,6 +71,11 @@ if (argv.genUpdate){
 	});
 } else if (argv.imdb){
 	updater.imdbUpdateById(function(err){
+		logger.info('done imdb updating');
+		db.disconnect();
+	});
+} else if (argv.images){
+	imager.getImages([], function(err){
 		logger.info('done imdb updating');
 		db.disconnect();
 	});

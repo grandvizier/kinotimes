@@ -91,7 +91,7 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 					}
 				};
 				db.saveFilmInfo(toSave, function(err, saved){
-					return cb(err);
+					cb(err);
 				});
 			});
 		}, callback);
