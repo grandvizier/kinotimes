@@ -7,7 +7,7 @@ var tmdb = require('moviedb')(config.app.tmdb_token);
 var tmdb_settings = {
     "images_url": "http://image.tmdb.org/t/p/",
     "image_size": "w92",
-    "max_calls": 40
+    "max_calls": 20
 };
 
 
