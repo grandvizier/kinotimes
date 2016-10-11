@@ -26,7 +26,10 @@ ImageStoring.prototype.getImages = function(films, callback) {
 		}
 		async.each(films, function(film, cb){
 			if(!film.imdbID){
-				logger.warn('`' + film.title + '` doesnt have an imdb id');
+				logger.info('`' + film.title + '` doesnt have an imdb id');
+				return cb();
+			} else if(film.img && film.img.indexOf(tmdb_settings.images_url) > -1) {
+				logger.verbose('`' + film.title + '` already has updated image');
 				return cb();
 			} else {
 				logger.verbose('else call to get image info', film.imdbID);
