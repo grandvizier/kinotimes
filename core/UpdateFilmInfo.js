@@ -47,7 +47,7 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 							'director': film_details.Director,
 							'actors': film_details.Actors,
 							'description': film_details.Plot,
-							'rating': film_details.imdbRating,
+							'rating': parseFloat(film_details.imdbRating) ? film_details.imdbRating : null,
 							'year': film_details.Year,
 							'genre': film_details.Genre,
 							'language': film_details.Language,

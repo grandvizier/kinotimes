@@ -16,6 +16,7 @@ function SaveFilms() {}
  * @return {Number} sum
 */
 SaveFilms.prototype.save = function(films, dateUsed, callback) {
+	var timezone = " +02"
 	async.each(films, function(theater, cb) {
 		var theaterName = theater.name.replace(stripParenthesis, '');
 		// get theater id from DB
@@ -42,7 +43,7 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 
 					// add new showtimes (timestamp, theaterId, filmId)
 					async.each(film.times, function(time, cb3){
-						var t = moment(dateUsed + ' ' + time, "YYYY-MM-DD HH:mm").utc();
+						var t = moment(dateUsed + ' ' + time + timezone, "YYYY-MM-DD HH:mm Z").utc();
 						var toSave = {'_theater': theaterId, '_film': filmId, 'timestamp': t.format('YYYY-MM-DDTHH:mm:ss.SSSZ')};
 						db.saveShowtime(toSave, function(err, saved){
 							if(err){
