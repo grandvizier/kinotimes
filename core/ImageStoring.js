@@ -61,11 +61,13 @@ ImageStoring.prototype.getImages = function(films, callback) {
 					newPosterPath = tmdb_settings.images_url + tmdb_settings.image_size + pathToUse;
 					logger.info(newPosterPath);
 					db.saveFilmInfo({'title': film.title, 'img': newPosterPath}, function(err, saved){
-						cb(err);
+						if(err) logger.error(err);
+						cb();
 					});
 				});
 			}
 		}, function(err) {
+			if(err) logger.error(err);
 			callback();
 		});
 	});

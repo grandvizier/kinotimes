@@ -49,13 +49,15 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 						}
 					};
 					db.saveFilmInfo(toSave, function(err, saved){
-						cb(err);
+						if(err) logger.error(err);
+						cb();
 					});
 				} else {
 					cb();
 				}
 			});
 		}, function(err) {
+			if(err) logger.error(err);
 			callback();
 		});
 	});
@@ -83,7 +85,7 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 						'director': movie.director,
 						'actors': movie.actors,
 						'description': movie.plot,
-						'rating': movie.rating,
+						'rating': parseFloat(movie.rating) ? movie.rating : null,
 						'year': movie._year_data,
 						'genre': movie.genres,
 						'language': movie.language,
@@ -91,10 +93,14 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 					}
 				};
 				db.saveFilmInfo(toSave, function(err, saved){
-					cb(err);
+					if(err) logger.error(err);
+					cb();
 				});
 			});
-		}, callback);
+		}, function(err) {
+			if(err) logger.error(err);
+			callback();
+		});
 	});
 }
 
