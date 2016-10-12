@@ -43,7 +43,7 @@ ImageStoring.prototype.getImages = function(films, callback) {
 				tmdb.movieImages({id: film.imdbID}, function(err, res) {
 					if(err){
 					    logger.error(err);
-					    return cb(err);
+					    return cb();
 					}
 					var pathToUse = '',
 					previousVote = -1;

@@ -29,9 +29,15 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 				if(err && response.statusCode !== 200){
 				    logger.error(err);
 				    logger.error('Request error.', response);
-				    cb(err);
+				    return cb();
 				}
-				film_details = JSON.parse(body);
+				try{
+					film_details = JSON.parse(body);
+				} catch(err){
+					logger.error(err);
+					logger.debug(body);
+					return cb();
+				}
 				if(film_details.Response == "True"){
 					var toSave = {
 						'title': film.title,
