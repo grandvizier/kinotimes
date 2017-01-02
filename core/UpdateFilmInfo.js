@@ -81,7 +81,7 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 			imdb.getReq({ id: film.imdbID }, function(err, movie) {
 				if(err){
 				    logger.error('IMDB error.', film.imdbID);
-				    cb(err);
+				    return cb(err);
 				}
 				var toSave = {
 					'title': film.title,
