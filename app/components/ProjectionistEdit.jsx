@@ -28,8 +28,8 @@ module.exports = React.createClass({
             <h4>{this.props.info.title}</h4>
             <div className="row">
               <div className="details col-xs-6">
-                <span className="type col-xs-6">Current IMDB</span>
-                <span className="value">{this.props.info.imdbID}</span>
+                <span className="type col-xs-6">Current IMDB </span>
+                <span className="value"> {this.props.info.imdbID} </span>
               </div>
               <div className="details col-xs-6">
                 <span className="type col-xs-4">Country</span>

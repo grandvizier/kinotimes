@@ -80,8 +80,8 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 			logger.verbose('getting details about: `' + film.title + '`. From:', film.imdbID);
 			imdb.getReq({ id: film.imdbID }, function(err, movie) {
 				if(err){
-				    logger.error('IMDB error.', film.imdbID);
-				    return cb(err);
+				    logger.error('IMDB error.', film.imdbID, err);
+				    return cb();
 				}
 				var toSave = {
 					'title': film.title,
@@ -94,7 +94,7 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 						'rating': parseFloat(movie.rating) ? movie.rating : null,
 						'year': movie._year_data,
 						'genre': movie.genres,
-						'language': movie.language,
+						'language': movie.languages,
 						'country': movie.country
 					}
 				};
