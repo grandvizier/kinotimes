@@ -26,7 +26,8 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 			var url = self.omdb_url + '?t='+ film.title;
 			logger.verbose('getting details about: `' + film.title + '`. From url:', url);
 			request({uri: url}, function(err, response, body){
-				if(err && response.statusCode !== 200){
+				if(err || response.statusCode !== 200){
+				    logger.info("error with " + film.title + " response");
 				    logger.error(err);
 				    logger.error('Request error.', response);
 				    return cb();
@@ -35,7 +36,7 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 					film_details = JSON.parse(body);
 				} catch(err){
 					logger.error(err);
-					logger.debug(body);
+					logger.debug("Problem parsing resonse from " + film.title + ": " + body);
 					return cb();
 				}
 				if(film_details.Response == "True"){
