@@ -51,7 +51,8 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 							'year': film_details.Year,
 							'genre': film_details.Genre,
 							'language': film_details.Language,
-							'country': film_details.Country
+							'country': film_details.Country,
+							'aka': ''
 						}
 					};
 					db.saveFilmInfo(toSave, function(err, saved){
@@ -95,7 +96,8 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 						'year': movie._year_data,
 						'genre': movie.genres,
 						'language': movie.languages,
-						'country': movie.country
+						'country': movie.country,
+						'aka': (film.title != movie.title) movie.title : ""
 					}
 				};
 				db.saveFilmInfo(toSave, function(err, saved){

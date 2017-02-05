@@ -32,7 +32,8 @@ var filmSchema = new Schema({
 		year: String,
 		genre: String,
 		language: String,
-		country: String
+		country: String,
+		aka: String,
 	},
 	showtimes: [{ type: Schema.Types.ObjectId, ref: 'Showtime' }]
 });
