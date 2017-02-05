@@ -23,9 +23,10 @@ module.exports = React.createClass({
         var imdbUrl = 'http://www.imdb.com/find?ref_=nv_sr_fn&s=all&q='+this.props.info.title;
         var filmDetails = (this.props.info.details) ? this.props.info.details : {};
         var isfilmReviewd = (this.props.info.reviewed) ? true : false;
+        var showtimesCount = (this.props.info.showtimes.length == 1) ? this.props.info.showtimes[0].timestamp : this.props.info.showtimes.length;
         return(
           <div className={"col-xs-6 editDetails "+ (isfilmReviewd ? 'reviewed' : '')}>
-            <h4>{this.props.info.title}</h4>
+            <h4>{this.props.info.title} <small>({showtimesCount})</small></h4>
             <div className="row">
               <div className="details col-xs-6">
                 <span className="type col-xs-6">Current IMDB </span>
