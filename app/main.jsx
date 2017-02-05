@@ -7,6 +7,7 @@ require('react-safe-render')(React, {
 });
 
 var ReactDOM = require("react-dom");
+var Navbar = require("./components/Navbar.jsx");
 var ShowtimeList = require("./components/ShowtimeList.jsx");
 var filmsStore = require("./stores/filmsStore");
 var _showtimes = [];
@@ -17,6 +18,7 @@ var getFilmsWithTimesCallback = function(showtimes){
 filmsStore.onChange(getFilmsWithTimesCallback);
 
 function render(){
+    ReactDOM.render(<Navbar />, document.getElementById("navbar"));
     ReactDOM.render(<ShowtimeList showtimes={_showtimes} />, document.getElementById("container"));
 }
 render();
