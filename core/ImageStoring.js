@@ -42,8 +42,12 @@ ImageStoring.prototype.getImages = function(films, callback) {
 				logger.verbose('else call to get image info', film.imdbID);
 				tmdb.movieImages({id: film.imdbID}, function(err, res) {
 					if(err){
-					    logger.error(err);
-					    return cb();
+						if(err.status && err.status == '404'){
+							logger.error("Image search error:", film.title, err['status'], err.message);
+						} else {
+							logger.error("Image search error:", film.title, err);
+						}
+						return cb();
 					}
 					var pathToUse = '',
 					previousVote = -1;

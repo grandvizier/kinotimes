@@ -98,7 +98,7 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 						'genre': movie.genres,
 						'language': movie.languages,
 						'country': movie.country,
-						'aka': (film.title != movie.title) movie.title : ""
+						'aka': (film.title != movie.title) ? movie.title : ""
 					}
 				};
 				db.saveFilmInfo(toSave, function(err, saved){
