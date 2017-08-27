@@ -27,16 +27,22 @@ export function filmsHasErrored(bool) {
     };
 }
 
+export const toggleFilmFilter = (id) => {
+    return {
+        type: 'FILM_FILTER',
+        filterFilm: id
+    };
+}
+
 export const filmsIsLoading = (bool) => {
-    return dispatch => {
-        dispatch({
-            type: 'FILMS_IS_LOADING',
-            isLoading: bool
-        })
+    return {
+        type: 'FILMS_IS_LOADING',
+        isLoading: bool
     };
 }
 
 export const switchView = (newView) => {
+    // let newView = 'byTheater';
     return dispatch => {
         dispatch({
             type: 'films/SWITCH_VIEW',

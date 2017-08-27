@@ -1,4 +1,4 @@
-const { _ } = require('lodash')
+const sortBy = require('lodash/sortBy');
 
 // Action types:
 export const FILMS_HAS_ERRORED = 'films/HAS_ERRORED'
@@ -67,10 +67,11 @@ export const filters = (state = initialFilterState, action) => {
 
 
 function sortFilms(films, by){
-	if (by == "byTitle"){
-		return _.sortBy(films, 'name');
-	} else if (by == "byTheater"){
-		return _.sortBy(films, 'name');
+	console.log(by);
+	if (by === "byTitle"){
+		return sortBy(films, 'name');
+	} else if (by === "byTheater"){
+		return sortBy(films, 'createdAt');
 	} else {
 		return films;
 	}

@@ -21,7 +21,7 @@ it('handles errors', () => {
 		films: {
 			hasErrored: true
 		},
-		filters: initialFilterState, 
+		filters: initialFilterState,
 		"routing": {"location": null}
 	};
 
@@ -31,31 +31,31 @@ it('handles errors', () => {
 	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
 });
 
-it('switches views', () => {
+it('sort by title', () => {
 	const stateBefore = {
 		films: [
-			{'id': '1', 'name': 'first'},
-			{'id': '2', 'name': '2 second'}
+			{'id': '2', 'name': 'second'},
+			{'id': '1', 'name': 'first'}
 		],
 		filters: initialFilterState
 	};
 	const action = {
 		type: 'films/SWITCH_VIEW',
-		viewType: 'byTheater'
+		viewType: 'byTitle'
 	}
 	const stateAfter = {
 		films: [
-			{'id': '2', 'name': '2 second'},
-			{'id': '1', 'name': 'first'}
+			{'id': '1', 'name': 'first'},
+			{'id': '2', 'name': 'second'}
 		],
 		filters: {
-			viewType: 'byTheater',
+			viewType: 'byTitle',
 			filterDateTime: {
 				start: null,
 				end: null
 			},
 			filterFilms: []
-		}, 
+		},
 		"routing": {"location": null}
 	};
 

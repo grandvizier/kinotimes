@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom'
-import Film from '../film'
+import { Route } from 'react-router-dom'
+import Film from '../../components/App'
 import Admin from '../projectionist'
 
 const App = () => (

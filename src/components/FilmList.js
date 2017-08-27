@@ -1,57 +1,24 @@
-import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import {
-    filmsFetchData,
-    filmsIsLoading,
-    filmsHasErrored,
-    switchView
-} from '../../actions';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Film from './Film'
 
-
-class FilmList extends Component {
-    componentDidMount() {
-        this.props.fetchData('http://599dccc2d3276800116b9c80.mockapi.io/films');
-    }
-
-    render() {
-        if (this.props.filmsHasErrored) {
-            return <p>Sorry! There was an error loading the films</p>;
-        }
-
-        if (this.props.filmsIsLoading) {
-            return <p>Loading…</p>;
-        }
-
-        return (
-            <ul>
-                {this.props.films.map((film) => (
-                    <li key={film.id}>
-                        {film.name}
-                    </li>
-                ))}
-            </ul>
-        );
-    }
-}
+const FilmList = ({ films, onFilmClick }) => (
+  <ul>
+    {films.map(film => (
+      <Film key={film.id} {...film} onClick={() => onFilmClick(film.id)} />
+    ))}
+  </ul>
+)
 
 FilmList.propTypes = {
-    fetchData: PropTypes.func.isRequired,
-    films: PropTypes.array.isRequired,
-};
+  films: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      createdAt: PropTypes.number.isRequired
+    }).isRequired
+  ).isRequired,
+  onFilmClick: PropTypes.func.isRequired
+}
 
-const mapStateToProps = state => ({
-  films: state.films,
-  filters: state.filters
-})
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  switchView,
-  fetchData: (url) => dispatch(filmsFetchData('http://599dccc2d3276800116b9c80.mockapi.io/films')),
-}, dispatch)
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FilmList)
+export default FilmList
