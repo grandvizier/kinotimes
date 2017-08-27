@@ -3,12 +3,10 @@ import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import createHistory from 'history/createBrowserHistory'
 import rootReducer from './modules'
-import {loadState, saveState} from './localStorage'
-import throttle from 'lodash/throttle'
 
 export const history = createHistory()
 
-const initialState = loadState();
+const initialState = {}
 const enhancers = []
 const middleware = [
   thunk,
@@ -33,10 +31,6 @@ const store = createStore(
   initialState,
   composedEnhancers
 )
-store.subscribe(throttle(() => {
-  saveState({
-    filters: store.getState().filters
-  });
-}, 3000));
+
 
 export default store
