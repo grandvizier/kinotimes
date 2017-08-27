@@ -1,6 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { filmsFetchData } from '../actions/films';
+import {
+    filmsFetchData,
+    filmsIsLoading,
+    filmsHasErrored,
+    switchView
+} from '../../actions';
+
 
 class FilmList extends Component {
     componentDidMount() {
@@ -8,11 +15,11 @@ class FilmList extends Component {
     }
 
     render() {
-        if (this.props.hasErrored) {
+        if (this.props.filmsHasErrored) {
             return <p>Sorry! There was an error loading the films</p>;
         }
 
-        if (this.props.isLoading) {
+        if (this.props.filmsIsLoading) {
             return <p>Loading…</p>;
         }
 
@@ -31,22 +38,20 @@ class FilmList extends Component {
 FilmList.propTypes = {
     fetchData: PropTypes.func.isRequired,
     films: PropTypes.array.isRequired,
-    hasErrored: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state) => {
-    return {
-        films: state.films,
-        hasErrored: state.filmsHasErrored,
-        isLoading: state.filmsIsLoading
-    };
-};
+const mapStateToProps = state => ({
+  films: state.films,
+  filters: state.filters
+})
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchData: (url) => dispatch(filmsFetchData(url))
-    };
-};
+const mapDispatchToProps = dispatch => bindActionCreators({
+  switchView,
+  fetchData: (url) => dispatch(filmsFetchData('http://599dccc2d3276800116b9c80.mockapi.io/films')),
+}, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilmList);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FilmList)

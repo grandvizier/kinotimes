@@ -1,45 +1,55 @@
-import React from 'react'
-import { push } from 'react-router-redux'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { filmsFetchData } from '../actions/films';
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { 
+  // filmsFetchData,
+  filmsIsLoading,
+  filmsHasErrored,
+  switchView
+} from '../../actions';
 
-const Film = props => (
-  <div>
-    <h1>Films</h1>
-    <ul>
-        {props.films.map((film) => (
-            <li key={film.id}>
-                {film.name}
-            </li>
-            // <p>
-            //   <button onClick={props.increment} disabled={props.isIncrementing}>Increment</button>
-            //   <button onClick={props.incrementAsync} disabled={props.isIncrementing}>Increment Async</button>
-            // </p>
-        ))}
-    </ul>
 
-  </div>
-)
+class Film extends Component {
+    // componentDidMount() {
+    //     this.props.fetchData('http://599dccc2d3276800116b9c80.mockapi.io/films');
+    // }
 
-// FilmList.propTypes = {
-//     fetchData: PropTypes.func.isRequired,
-//     films: PropTypes.array.isRequired,
-//     hasErrored: PropTypes.bool.isRequired,
-//     isLoading: PropTypes.bool.isRequired
-// };
+    render() {
+        if (this.props.filmsHasErrored) {
+            return <p>Sorry! There was an error loading the films</p>;
+        }
+
+        if (this.props.filmsIsLoading) {
+            return <p>Loading…</p>;
+        }
+
+        return (
+            <ul>
+                {this.props.films.map((film) => (
+                    <li key={film.id}>
+                        {film.name}
+                    </li>
+                ))}
+            </ul>
+        );
+    }
+}
+
+Film.propTypes = {
+    // fetchData: PropTypes.func.isRequired,
+    films: PropTypes.array.isRequired,
+};
 
 const mapStateToProps = state => ({
   films: state.films,
-  hasErrored: state.filmsHasErrored,
-  isLoading: state.filmsIsLoading
+  filters: state.filters
 })
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchData: (url) => dispatch(filmsFetchData(url))
-    };
-}
+const mapDispatchToProps = dispatch => bindActionCreators({
+  switchView,
+  // fetchData: (url) => dispatch(filmsFetchData(url)),
+}, dispatch)
+
 
 export default connect(
   mapStateToProps,
