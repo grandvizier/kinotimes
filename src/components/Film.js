@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Film = ({ onClick, title, details, createdAt }) => (
+const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => (
   <li
     onClick={onClick}
   >
@@ -10,8 +10,8 @@ const Film = ({ onClick, title, details, createdAt }) => (
             {title}
         </div>
         <div className="panel-body">
-            {details.imdbID}
-            <img src={details.img} alt="-" className="img-responsive thumbnail"/>
+            { imdbID ? imdbID : ""}
+            <img src={img ? img : ""} alt="-" className="img-responsive thumbnail"/>
         </div>
     </div>
 
@@ -21,9 +21,9 @@ const Film = ({ onClick, title, details, createdAt }) => (
 
 Film.propTypes = {
   onClick: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  details: PropTypes.object.isRequired,
-  createdAt: PropTypes.number.isRequired
+  title: PropTypes.string.isRequired
+  // details: PropTypes.object.isRequired,
+  // createdAt: PropTypes.number.isRequired
 }
 
 export default Film

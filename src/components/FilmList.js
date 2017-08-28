@@ -5,7 +5,7 @@ import Film from './Film'
 const FilmList = ({ films, onFilmClick }) => (
   <ul>
     {films.map(film => (
-      <Film key={film.id} {...film} onClick={() => onFilmClick(film.id)} />
+      <Film key={film._id} {...film} onClick={() => onFilmClick(film._id)} />
     ))}
   </ul>
 )

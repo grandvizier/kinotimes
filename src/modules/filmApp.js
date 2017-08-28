@@ -21,10 +21,7 @@ const initialFilterState = {
 export const films = (state = [], action) => {
 	switch (action.type) {
 		case FILMS_HAS_ERRORED:
-			return {
-				...state,
-				hasErrored: action.hasErrored
-			}
+			return []
 
 		case FILMS_FETCH_DATA_SUCCESS:
 			return action.films
@@ -44,6 +41,12 @@ export const filters = (state = initialFilterState, action) => {
 			return {
 				...state,
 				viewType: action.viewType
+			}
+
+		case FILMS_HAS_ERRORED:
+			return {
+				...state,
+				hasErrored: action.hasErrored
 			}
 
 		case FILTER_FILM_FILTER:

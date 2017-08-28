@@ -17,12 +17,12 @@ export function filmsHasSaved(bool) {
     };
 }
 
-export function filmsHasErrored(bool) {
-    console.log("OH DAMM");
+export function filmsHasErrored(bool, err) {
+    console.log("OH DAMM", err);
     return dispatch => {
         dispatch({
             type: 'films/HAS_ERRORED',
-            isLoading: bool
+            hasErrored: bool
         })
     };
 }
@@ -67,6 +67,6 @@ export const filmsFetchData = (url) => {
             })
             .then((response) => response.json())
             .then((films) => dispatch(filmsFetchDataSuccess(films)))
-            .catch(() => dispatch(filmsHasErrored(true)));
+            .catch((e) => dispatch(filmsHasErrored(true, e)));
     };
 }

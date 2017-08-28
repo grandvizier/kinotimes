@@ -14,14 +14,11 @@ it('handles errors', () => {
 	const stateBefore = {};
 	const action = {
 		type: 'films/HAS_ERRORED',
-		films: null,
 		hasErrored: true
 	}
 	const stateAfter = {
-		films: {
-			hasErrored: true
-		},
-		filters: initialFilterState,
+		films: [],
+		filters: {...initialFilterState, hasErrored: true},
 		"routing": {"location": null}
 	};
 
