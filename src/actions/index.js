@@ -1,6 +1,6 @@
 export function filmsFetchDataSuccess(films) {
     return {
-        type: 'FILMS_FETCH_DATA_SUCCESS',
+        type: 'films/FETCH_DATA_SUCCESS',
         films
     };
 }
@@ -29,8 +29,8 @@ export function filmsHasErrored(bool) {
 
 export const toggleFilmFilter = (id) => {
     return {
-        type: 'FILM_FILTER',
-        filterFilm: id
+        type: 'filters/FILM_FILTER',
+        filterFilmId: id
     };
 }
 
@@ -52,7 +52,6 @@ export const switchView = (newView) => {
 }
 
 export const filmsFetchData = (url) => {
-    console.log("getting data", url);
     return (dispatch) => {
         dispatch(filmsIsLoading(true));
 

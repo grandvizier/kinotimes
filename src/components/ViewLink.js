@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ViewLink = ({ active, children, onClick }) => {
+const ViewLink = ({ allFilters, active, children, onClick }) => {
   if (active) {
     return <span>{children}</span>
   }

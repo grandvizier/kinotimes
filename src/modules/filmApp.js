@@ -2,7 +2,10 @@ const sortBy = require('lodash/sortBy');
 
 // Action types:
 export const FILMS_HAS_ERRORED = 'films/HAS_ERRORED'
+export const FILMS_FETCH_DATA_SUCCESS = 'films/FETCH_DATA_SUCCESS'
 export const FILMS_SWITCH_VIEW = 'films/SWITCH_VIEW'
+
+export const FILTER_FILM_FILTER = 'filters/FILM_FILTER'
 
 
 const initialFilterState = {
@@ -14,34 +17,17 @@ const initialFilterState = {
 	filterFilms: []
 }
 
-const initialFilms = [
-{
-"id": "1",
-"createdAt": 1503513900,
-"name": "name 1",
-"details": {}
-},
-{
-"id": "2",
-"createdAt": 1503513840,
-"name": "name 2",
-"details": {}
-},
-{
-"id": "3",
-"createdAt": 1503513780,
-"name": "name 3",
-"details": {}
-}
-]
 
-export const films = (state = initialFilms, action) => {
+export const films = (state = [], action) => {
 	switch (action.type) {
 		case FILMS_HAS_ERRORED:
 			return {
 				...state,
 				hasErrored: action.hasErrored
 			}
+
+		case FILMS_FETCH_DATA_SUCCESS:
+			return action.films
 
 		case FILMS_SWITCH_VIEW:
 			return sortFilms(state, action.viewType)
@@ -60,6 +46,21 @@ export const filters = (state = initialFilterState, action) => {
 				viewType: action.viewType
 			}
 
+		case FILTER_FILM_FILTER:
+			let idAlreadyExists = state.filterFilms.indexOf(action.filterFilmId) > -1;
+			let filterFilms = state.filterFilms.slice();
+
+			if(idAlreadyExists) {
+				filterFilms = filterFilms.filter(id => id !== action.filterFilmId);
+			}
+			else {
+				filterFilms.push(action.filterFilmId);
+			}
+			return {
+				...state,
+				filterFilms
+			}
+
 		default:
 			return state
 	}
@@ -69,7 +70,7 @@ export const filters = (state = initialFilterState, action) => {
 function sortFilms(films, by){
 	console.log(by);
 	if (by === "byTitle"){
-		return sortBy(films, 'name');
+		return sortBy(films, 'title');
 	} else if (by === "byTheater"){
 		return sortBy(films, 'createdAt');
 	} else {

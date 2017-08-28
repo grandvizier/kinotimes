@@ -11,13 +11,7 @@ const FilmList = ({ films, onFilmClick }) => (
 )
 
 FilmList.propTypes = {
-  films: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      createdAt: PropTypes.number.isRequired
-    }).isRequired
-  ).isRequired,
+  films: PropTypes.array.isRequired,
   onFilmClick: PropTypes.func.isRequired
 }
 

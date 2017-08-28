@@ -1,24 +1,21 @@
 import { connect } from 'react-redux'
-import { switchView } from '../actions'
-import ViewLink from '../components/ViewLink'
+import FilterBlock from '../components/FilterBlock'
+import {
+  toggleFilmFilter,
+} from '../actions'
 
-const mapStateToProps = (state, ownProps) => {
+
+const mapStateToProps = state => {
   return {
-    active: ownProps.filter === state.filter
+    filterDateTime: state.filters.filterDateTime,
+    filterFilms: state.filters.filterFilms,
+    allFilms: state.films
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    onClick: () => {
-      dispatch(switchView(ownProps.filter))
-    }
-  }
-}
-
-const Filter = connect(
+const Filters = connect(
   mapStateToProps,
-  mapDispatchToProps
-)(ViewLink)
+  { onFilmClick: toggleFilmFilter}
+)(FilterBlock)
 
-export default Filter
+export default Filters

@@ -1,3 +1,4 @@
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   toggleFilmFilter,
@@ -6,13 +7,23 @@ import {
 import FilmList from '../components/FilmList'
 
 const getVisibleFilms = (films, filters) => {
-  switch (filters) {
-    case 'SHOW_ALL':
-      return films
-    case 'SHOW_COMPLETED':
-      return films
-    default:
-      return films
+  if (filters.filterFilms.length) {
+    return films.filter(function( obj ) {
+      // console.log("show only", filters.filterFilms)
+      return !filters.filterFilms.includes(obj.id);
+    });
+  } else {
+    return films
+  }
+}
+
+class VisibleFilmList extends Component {
+  componentDidMount() {
+    this.props.fetchData('http://599dccc2d3276800116b9c80.mockapi.io/films');
+  }
+
+  render() {
+    return <FilmList {...this.props} />
   }
 }
 
@@ -22,18 +33,9 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onFilmClick: id => {
-      dispatch(toggleFilmFilter(id))
-    }
-  }
-}
-// fetchData: (url) => dispatch(filmsFetchData(url)),
-
-const VisibleFilmList = connect(
+VisibleFilmList = connect(
   mapStateToProps,
-  mapDispatchToProps
-)(FilmList)
+  { onFilmClick: toggleFilmFilter, fetchData : filmsFetchData}
+)(VisibleFilmList)
 
 export default VisibleFilmList

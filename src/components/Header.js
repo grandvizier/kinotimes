@@ -1,22 +1,22 @@
 import React from 'react'
+import ViewFilter from '../containers/ViewFilters'
 import Filters from '../containers/Filters'
 
 const Header = () => (
-  <p>
-    Show:
-    {' '}
-    <Filters filter="byTitle">
+  <div>
+    <ViewFilter filter="byTitle">
       Title
-    </Filters>
-    {', '}
-    <Filters filter="byTheater">
+    </ViewFilter>
+    {'  '}
+    <ViewFilter filter="byTheater">
       Theater
-    </Filters>
-    {', '}
-    <Filters filter="byTime">
+    </ViewFilter>
+    {'  '}
+    <ViewFilter filter="byTime">
       Time
-    </Filters>
-  </p>
+    </ViewFilter>
+    <Filters />
+  </div>
 )
 
 export default Header
