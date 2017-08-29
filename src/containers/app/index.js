@@ -1,15 +1,31 @@
 import React from 'react';
-import { Route } from 'react-router-dom'
+import { Route } from 'react-router-dom';
+import { Grid, Jumbotron, Navbar } from 'react-bootstrap';
+
 import Film from '../../components/App'
 import Admin from '../projectionist'
 
 const App = () => (
-  <div>
-    <main>
-      <Route exact path="/" component={Film} />
-      <Route exact path="/projectionist" component={Admin} />
-    </main>
-  </div>
+	<div>
+	<Navbar inverse fixedTop>
+		<Grid>
+			<Navbar.Header>
+				<Navbar.Brand>
+				<a href="/">React App</a>
+				</Navbar.Brand>
+				<Navbar.Toggle />
+			</Navbar.Header>
+		</Grid>
+	</Navbar>
+	<Jumbotron>
+    	<Grid>
+			<main>
+				<Route exact path="/" component={Film} />
+				<Route exact path="/projectionist" component={Admin} />
+			</main>
+		</Grid>
+	</Jumbotron>
+	</div>
 )
 
 export default App

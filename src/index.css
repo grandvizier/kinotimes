@@ -3,3 +3,43 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.allDetails img{
+    max-height: 135px
+}
+
+.allDetails img:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    height: 100px;
+    width: 59%;
+    background-image: url(image_not_found.jpg);
+}
+
+.allDetails .row, .showtime{
+    padding-bottom: 8px;
+}
+
+.details .type{
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+.editDetails {
+    font-size: small;
+    border: solid 1px;
+}
+
+.updateFilm {
+    border: solid 1px lightgrey;
+    padding: 12px 8px 0px 4px;
+}
+
+.hide {
+    display: none;
+}
+
+.reviewed {
+    opacity: 0.4;
+}

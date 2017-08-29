@@ -1,3 +1,5 @@
+const apiBaseUrl = "http://localhost:8888/"
+
 export function filmsFetchDataSuccess(films) {
     return {
         type: 'films/FETCH_DATA_SUCCESS',
@@ -6,14 +8,15 @@ export function filmsFetchDataSuccess(films) {
 }
 export function filmsIsSaving(bool) {
     return {
-        type: 'FILMS_IS_SAVING',
+        type: 'films/IS_SAVING',
         isSaving: bool
     };
 }
-export function filmsHasSaved(bool) {
+export function filmsHasSaved(response) {
+    console.log('saved... now what', response)
     return {
-        type: 'FILMS_HAS_SAVED',
-        hasSaved: bool
+        type: 'films/HAS_SAVED',
+        hasSaved: response
     };
 }
 
@@ -51,11 +54,11 @@ export const switchView = (newView) => {
     };
 }
 
-export const filmsFetchData = (url) => {
+export const filmsFetchData = () => {
     return (dispatch) => {
         dispatch(filmsIsLoading(true));
 
-        fetch(url)
+        fetch(apiBaseUrl + "api")
             .then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);
@@ -70,3 +73,28 @@ export const filmsFetchData = (url) => {
             .catch((e) => dispatch(filmsHasErrored(true, e)));
     };
 }
+
+export const filmUpdateImdb = (title, imdbID) => {
+    return (dispatch) => {
+        dispatch(filmsIsSaving(true));
+
+        fetch(apiBaseUrl + 'adminapi/projectionist/admin/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"title":title,"imdbID":imdbID})
+            })
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                dispatch(filmsIsSaving(false));
+                return response;
+            })
+            .then((response) => response.json())
+            .then((resp) => dispatch(filmsHasSaved(resp)))
+            .catch((e) => dispatch(filmsHasErrored(true, e)));
+    };
+}
+

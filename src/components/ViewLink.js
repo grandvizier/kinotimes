@@ -7,15 +7,12 @@ const ViewLink = ({ allFilters, active, children, onClick }) => {
   }
 
   return (
-    <a
-      href="#"
-      onClick={e => {
-        e.preventDefault()
-        onClick()
-      }}
-    >
+    <button onClick={e => {
+      e.preventDefault()
+      onClick()
+    }} >
       {children}
-    </a>
+    </button>
   )
 }
 

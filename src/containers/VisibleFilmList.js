@@ -19,7 +19,7 @@ const getVisibleFilms = (films, filters) => {
 
 class VisibleFilmList extends Component {
   componentDidMount() {
-    this.props.fetchData('http://localhost:8888/api/');
+    this.props.fetchData();
   }
 
   render() {

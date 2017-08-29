@@ -13,7 +13,6 @@
   },
   "homepage": "http://kinotimes.tk",
   "private": true,
-
   "scripts": {
     "start-backend": "nodemon -L backend/server.js",
     "start": "react-scripts start",
@@ -22,10 +21,10 @@
     "eject": "react-scripts eject",
     "initialData": "node core/getFilmsJob.js --days 1"
   },
-
   "dependencies": {
     "async": "^2.0.1",
     "body-parser": "^1.15.2",
+    "bootstrap": "^3.3.7",
     "config": "^1.21.0",
     "express": "^4.14.0",
     "guid": "0.0.12",
@@ -37,6 +36,7 @@
     "mongoose": "^4.6.2",
     "moviedb": "^0.2.6",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.2",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.1.2",
