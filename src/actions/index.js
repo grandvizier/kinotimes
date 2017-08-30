@@ -12,11 +12,13 @@ export function filmsIsSaving(bool) {
         isSaving: bool
     };
 }
-export function filmsHasSaved(response) {
+export function filmsHasSaved(response, film, newId) {
     console.log('saved... now what', response)
     return {
         type: 'films/HAS_SAVED',
-        hasSaved: response
+        hasSaved: response,
+        film: film,
+        imdbID: newId
     };
 }
 
@@ -74,7 +76,7 @@ export const filmsFetchData = () => {
     };
 }
 
-export const filmUpdateImdb = (title, imdbID) => {
+export const filmUpdateImdb = (film, imdbID) => {
     return (dispatch) => {
         dispatch(filmsIsSaving(true));
 
@@ -83,7 +85,7 @@ export const filmUpdateImdb = (title, imdbID) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({"title":title,"imdbID":imdbID})
+            body: JSON.stringify({"title":film.title,"imdbID":imdbID})
             })
             .then((response) => {
                 if (!response.ok) {
@@ -93,7 +95,7 @@ export const filmUpdateImdb = (title, imdbID) => {
                 return response;
             })
             .then((response) => response.json())
-            .then((resp) => dispatch(filmsHasSaved(resp)))
+            .then((resp) => dispatch(filmsHasSaved(resp, film, imdbID)))
             .catch((e) => dispatch(filmsHasErrored(true, e)));
     };
 }

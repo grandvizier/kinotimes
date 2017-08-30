@@ -19,6 +19,7 @@ it('handles errors', () => {
 	const stateAfter = {
 		films: [],
 		filters: {...initialFilterState, hasErrored: true},
+		"form": {},
 		"routing": {"location": null}
 	};
 
@@ -44,6 +45,37 @@ it('successful data fetch', () => {
 			{'id': '2', 'title': 'second'}
 		],
 		filters: initialFilterState,
+		"form": {},
+		"routing": {"location": null}
+	};
+
+	deepFreeze(stateBefore);
+	deepFreeze(action);
+
+	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
+});
+
+it('has saved', () => {
+	const stateBefore = {
+		films: [
+			{'_id': '1', 'title': 'first'},
+			{'_id': '2', 'title': 'second'}
+		],
+		filters: initialFilterState
+	};
+	const action = {
+		type: 'films/HAS_SAVED',
+		hasSaved: "response string",
+		imdbID: "tt123",
+		film: {'_id': '1', 'title': 'first'}
+	}
+	const stateAfter = {
+		films: [
+			{'_id': '1', 'title': 'first', 'reviewed': true, 'imdbID': 'tt123'},
+			{'_id': '2', 'title': 'second'}
+		],
+		filters: initialFilterState,
+		"form": {},
 		"routing": {"location": null}
 	};
 
@@ -79,6 +111,7 @@ it('sort by title', () => {
 			},
 			filterFilms: []
 		},
+		"form": {},
 		"routing": {"location": null}
 	};
 
@@ -113,6 +146,7 @@ it('filter film by id', () => {
 			},
 			filterFilms: ['1']
 		},
+		"form": {},
 		"routing": {"location": null}
 	};
 
@@ -154,6 +188,7 @@ it('remove filtered film by id', () => {
 			},
 			filterFilms: []
 		},
+		"form": {},
 		"routing": {"location": null}
 	};
 

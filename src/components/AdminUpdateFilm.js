@@ -1,32 +1,41 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { Field, reduxForm } from 'redux-form'
 
-import { Col, Button, Form, FormControl, FormGroup } from 'react-bootstrap';
+import { Col, FormControl, FormGroup } from 'react-bootstrap';
 
-const AdminUpdateFilm = ({ addImdbId, imdbID }) => (
-    <Form horizontal>
-        <Col xs={6}>
-          <FormGroup controlId="imdbID" bsSize="sm">
-              <FormControl type="text" defaultValue={imdbID} placeholder="new IMDB id" />
-          </FormGroup>
-        </Col>
-
-        <Col xs={3}>
-        <FormGroup>
-          <Col smOffset={2} sm={10}>
-            <Button type="submit" onClick={e => {
-		      e.preventDefault()
-		      addImdbId()
-		    }}>Update Film</Button>
-          </Col>
-        </FormGroup>
-        </Col>
-    </Form>
-)
-
-
-AdminUpdateFilm.propTypes = {
-  addImdbId: PropTypes.func.isRequired
+const FieldInput = ({ input, meta, type, placeholder, min, max }) => {
+	return (
+		<FormControl
+			type={type}
+			defaultValue={placeholder}
+			placeholder={placeholder}
+			onFocus={input.onChange}
+			onChange={input.onChange} />
+	)
 }
 
-export default AdminUpdateFilm
+
+let AdminUpdateFilm = ({ form, handleSubmit, imdbID }) => {
+	return (
+		<form onSubmit={ handleSubmit }>
+			<Col xs={6}>
+				<FormGroup controlId="imdbID" bsSize="sm">
+					<Field name="imdbID"
+						type='text'
+						component={FieldInput}
+						placeholder={imdbID}
+					/>
+				</FormGroup>
+			</Col>
+			<Col xs={6}>
+				<FormGroup>
+					<button type="submit">Update Film</button>
+				</FormGroup>
+			</Col>
+		</form>
+	)
+}
+
+AdminUpdateFilm = reduxForm()(AdminUpdateFilm)
+
+export default AdminUpdateFilm;

@@ -4,6 +4,7 @@ const sortBy = require('lodash/sortBy');
 export const FILMS_HAS_ERRORED = 'films/HAS_ERRORED'
 export const FILMS_FETCH_DATA_SUCCESS = 'films/FETCH_DATA_SUCCESS'
 export const FILMS_SWITCH_VIEW = 'films/SWITCH_VIEW'
+export const FILMS_HAS_SAVED = 'films/HAS_SAVED'
 
 export const FILTER_FILM_FILTER = 'filters/FILM_FILTER'
 
@@ -28,6 +29,15 @@ export const films = (state = [], action) => {
 
 		case FILMS_SWITCH_VIEW:
 			return sortFilms(state, action.viewType)
+
+		case FILMS_HAS_SAVED:
+			const updatedFilms = state.map(film => {
+				if(film._id === action.film._id){
+					return { ...film, reviewed: true, imdbID: action.imdbID }
+				}
+				return film
+			})
+			return updatedFilms
 
 		default:
 			return state

@@ -43,6 +43,7 @@
     "react-router-redux": "next",
     "react-scripts": "1.0.11",
     "redux": "^3.7.2",
+    "redux-form": "^7.0.3",
     "redux-thunk": "^2.2.0",
     "request": "^2.75.0",
     "stack-trace": "0.0.9",

@@ -4,7 +4,7 @@ import AdminUpdateFilm from './AdminUpdateFilm'
 
 import { Image, Col, Row } from 'react-bootstrap';
 
-const AdminFilm = ({ onSubmit, title, imdbID, img, details, showtimes, reviewed }) => {
+const AdminFilm = ({ handleSubmit, _id, title, imdbID, img, details, showtimes, reviewed }) => {
   let imdbUrl = 'http://www.imdb.com/find?ref_=nv_sr_fn&s=all&q='+title;
   let filmDetails = (details) ? details : {};
   let isfilmReviewd = (reviewed) ? true : false;
@@ -50,7 +50,7 @@ const AdminFilm = ({ onSubmit, title, imdbID, img, details, showtimes, reviewed 
     </div>
 
     <Col xs={6} className="updateFilm">
-      <AdminUpdateFilm imdbID={imdbID} addImdbId={onSubmit} />
+      <AdminUpdateFilm form={`updateImdb_${_id}`} imdbID={imdbID} onSubmit={handleSubmit} />
     </Col>
 
     <Col sm={6} md={6} className="details">

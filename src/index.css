@@ -34,6 +34,7 @@ body {
 .updateFilm {
     border: solid 1px lightgrey;
     padding: 12px 8px 0px 4px;
+    margin-bottom: 2px;
 }
 
 .hide {
