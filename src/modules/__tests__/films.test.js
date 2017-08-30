@@ -35,14 +35,14 @@ it('successful data fetch', () => {
 	const action = {
 		type: 'films/FETCH_DATA_SUCCESS',
 		films: [
-			{'id': '1', 'title': 'first'},
-			{'id': '2', 'title': 'second'}
+			{'_id': '1', 'title': 'first'},
+			{'_id': '2', 'title': 'second'}
 		]
 	}
 	const stateAfter = {
 		films: [
-			{'id': '1', 'title': 'first'},
-			{'id': '2', 'title': 'second'}
+			{'_id': '1', 'title': 'first'},
+			{'_id': '2', 'title': 'second'}
 		],
 		filters: initialFilterState,
 		"form": {},
@@ -89,8 +89,8 @@ it('has saved', () => {
 it('sort by title', () => {
 	const stateBefore = {
 		films: [
-			{'id': '2', 'title': 'second'},
-			{'id': '1', 'title': 'first'}
+			{'_id': '2', 'title': 'second'},
+			{'_id': '1', 'title': 'first'}
 		],
 		filters: initialFilterState
 	};
@@ -100,8 +100,8 @@ it('sort by title', () => {
 	}
 	const stateAfter = {
 		films: [
-			{'id': '1', 'title': 'first'},
-			{'id': '2', 'title': 'second'}
+			{'_id': '1', 'title': 'first'},
+			{'_id': '2', 'title': 'second'}
 		],
 		filters: {
 			viewType: 'byTitle',
@@ -124,8 +124,8 @@ it('sort by title', () => {
 it('filter film by id', () => {
 	const stateBefore = {
 		films: [
-			{'id': '1', 'title': 'first'},
-			{'id': '2', 'title': 'second'}
+			{'_id': '1', 'title': 'first'},
+			{'_id': '2', 'title': 'second'}
 		],
 		filters: initialFilterState
 	};
@@ -135,8 +135,8 @@ it('filter film by id', () => {
 	}
 	const stateAfter = {
 		films: [
-			{'id': '1', 'title': 'first'},
-			{'id': '2', 'title': 'second'}
+			{'_id': '1', 'title': 'first'},
+			{'_id': '2', 'title': 'second'}
 		],
 		filters: {
 			viewType: 'byTitle',
@@ -159,8 +159,8 @@ it('filter film by id', () => {
 it('remove filtered film by id', () => {
 	const stateBefore = {
 		films: [
-			{'id': '1', 'title': 'first'},
-			{'id': '2', 'title': 'second'}
+			{'_id': '1', 'title': 'first'},
+			{'_id': '2', 'title': 'second'}
 		],
 		filters: {
 			viewType: 'byTitle',
@@ -177,8 +177,8 @@ it('remove filtered film by id', () => {
 	}
 	const stateAfter = {
 		films: [
-			{'id': '1', 'title': 'first'},
-			{'id': '2', 'title': 'second'}
+			{'_id': '1', 'title': 'first'},
+			{'_id': '2', 'title': 'second'}
 		],
 		filters: {
 			viewType: 'byTitle',

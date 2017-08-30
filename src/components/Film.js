@@ -1,23 +1,47 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Col, Panel } from 'react-bootstrap'
 
-const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => (
-  <li
-    onClick={onClick}
-  >
-    <div className="panel panel-default">
-        <div className="panel-heading">
-            {title}
+const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => {
+  let filmDetails = (details) ? details : {};
+
+  return (
+  <Panel header={title}>
+    <Col xs={4} onClick={onClick}>
+      <div className="allDetails small">
+        <div className="row">
+            <div className="details col-xs-8">
+                {filmDetails.genre}
+            </div>
+            <span>{filmDetails.year}</span>
         </div>
-        <div className="panel-body">
-            { imdbID ? imdbID : ""}
-            <img src={img ? img : ""} alt="-" className="img-responsive thumbnail"/>
+        <div className="row">
+            <div className="details col-xs-8">
+                {filmDetails.director ? 'Director: ' + filmDetails.director : null}
+            </div>
+            <span>{filmDetails.rating}</span>
         </div>
+        <div className="row">
+            <div className="details col-xs-12 small">
+                {filmDetails.actors}
+            </div>
+            <span>{(filmDetails.language && filmDetails.language.indexOf("English") !== -1) ? null : filmDetails.language}</span>
+        </div>
+        <div className="row">
+            <div className="details col-xs-8">
+                <em>{filmDetails.description}</em>
+            </div>
+            <img className="img-responsive img-thumbnail pull-right" alt="" src={img} />
+        </div>
+      </div>
+    </Col>
+    <div className="panel-body col-xs-8">
+      <div className="panel panel-info">
+        createDayView(mappedShowtimes)
+      </div>
     </div>
-
-
-  </li>
-)
+  </Panel>
+)}
 
 Film.propTypes = {
   onClick: PropTypes.func.isRequired,

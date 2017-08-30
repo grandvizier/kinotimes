@@ -1,24 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Film from './Film'
+import FilmSmall from './FilmSmall'
+import { Row } from 'react-bootstrap'
 
 const FilterBlock = ({ filterDateTime, filterFilms, allFilms, onFilmClick }) => {
   let filteredFilms = allFilms.filter(function( obj ) {
-    return filterFilms.includes(obj.id);
+    return filterFilms.includes(obj._id);
   });
 
-  var divStyle = {
-    border: '1px solid'
-  };
-
   return (
-    <div style={divStyle}>
-      <ul>
+    <Row className="smallBorder">
         {filteredFilms.map(film => (
-          <Film key={film.id} {...film} onClick={() => onFilmClick(film.id)} />
+            <FilmSmall key={film._id} {...film} onClick={() => onFilmClick(film._id)} />
         ))}
-      </ul>
-    </div>
+    </Row>
   )
 }
 

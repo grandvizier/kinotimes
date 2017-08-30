@@ -9,8 +9,8 @@ import FilmList from '../components/FilmList'
 const getVisibleFilms = (films, filters) => {
   if (filters.filterFilms.length) {
     return films.filter(function( obj ) {
-      // console.log("show only", filters.filterFilms)
-      return !filters.filterFilms.includes(obj.id);
+      // console.log("show only", filters.filterFilms.includes(obj._id))
+      return !filters.filterFilms.includes(obj._id);
     });
   } else {
     return films

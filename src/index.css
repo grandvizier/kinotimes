@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+.smallBorder {
+    border: 1px solid;
+}
+
 .allDetails img{
     max-height: 135px
 }
