@@ -1,0 +1,14 @@
+{
+  "App": {
+    "app": {
+      "base_url": "http://localhost",
+      "port": "8888",
+      "tmdb_token": "",
+      "omdbApiKey": ""
+    },
+    "db": {
+        "host": "localhost:27017",
+        "db": "films"
+    }
+  }
+}

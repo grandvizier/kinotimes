@@ -1,7 +1,8 @@
 # kinotimes
 app for searching film times
 
-## To run:
+## To run in production mode:
+* copy config/example.json -> config/default.json _(and add tokens)_
 * `npm install`
 * `npm build`
 * `docker-compose up -d`
@@ -32,3 +33,9 @@ docker exec kinotimes_worker_1 node core/getFilmsJob.js --images
 55 5 * * 0,2,4 root /usr/local/bin/node core/getFilmsJob.js --images >> /var/log/cron.log 2>&1
 59 5 * * 0,2,4 root /usr/local/bin/node core/getFilmsJob.js --images >> /var/log/cron.log 2>&1
 ```
+
+## To run in dev mode:
+* `npm install`
+* `npm start`
+* `npm start-dev`
+* `npm test`
