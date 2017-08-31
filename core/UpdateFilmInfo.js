@@ -83,7 +83,7 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 		}
 		async.each(films, function(film, cb){
 			logger.verbose('getting details about: `' + film.title + '`. From:', film.imdbID);
-			imdb.getReq({ id: film.imdbID }, function(err, movie) {
+			imdb.getReq({ id: film.imdbID, opts: {apiKey: omdbApiKey, timeout: 6000} }, function(err, movie) {
 				if(err){
 				    logger.error('IMDB error.', film.imdbID, err);
 				    return cb();
