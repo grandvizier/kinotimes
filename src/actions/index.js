@@ -13,7 +13,6 @@ export function filmsIsSaving(bool) {
     };
 }
 export function filmsHasSaved(response, film, newId) {
-    console.log('saved... now what', response)
     return {
         type: 'films/HAS_SAVED',
         hasSaved: response,

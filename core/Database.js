@@ -49,7 +49,9 @@ function Database() {
 
 Database.prototype.connect = function() {
 	logger.verbose('connecting');
-	mongoose.connect(this.db);
+	mongoose.connect(this.db, {
+		useMongoClient: true
+	});
 }
 Database.prototype.disconnect = function() {
 	logger.verbose('closing connection');

@@ -1,0 +1,3 @@
+#ignore directories (src should be compiled into build/ )
+src
+logs
