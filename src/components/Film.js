@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Col, Panel } from 'react-bootstrap'
+import MapShowtimes from '../containers/MapShowtimes'
 
 const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => {
   let filmDetails = (details) ? details : {};
@@ -37,7 +38,7 @@ const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => 
     </Col>
     <div className="panel-body col-xs-8">
       <div className="panel panel-info">
-        createDayView(mappedShowtimes)
+        <MapShowtimes showtimes={showtimes} />
       </div>
     </div>
   </Panel>
