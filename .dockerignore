@@ -1,3 +1,7 @@
 #ignore directories (src should be compiled into build/ )
 src
 logs
+
+# node files
+node_modules
+npm-debug.log

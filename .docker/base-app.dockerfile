@@ -1,7 +1,10 @@
-FROM node:argon
+FROM node:boron
 MAINTAINER KinoTimes <admin@kintotimes.tk>
-RUN mkdir /app
-WORKDIR /app
-COPY package.json /app
+
+WORKDIR /usr/src/app
+COPY package.json .
+# For npm@5 or later, copy package-lock.json as well
+# COPY package.json package-lock.json ./
+
 RUN npm install
-COPY . /app
+COPY . .
