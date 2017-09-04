@@ -1,4 +1,4 @@
-const apiBaseUrl = "http://localhost:8888/"
+const apiBaseUrl = "http://localhost:8888"
 
 export function filmsFetchDataSuccess(films) {
     return {
@@ -59,7 +59,7 @@ export const filmsFetchData = () => {
     return (dispatch) => {
         dispatch(filmsIsLoading(true));
 
-        fetch(apiBaseUrl + "api")
+        fetch(apiBaseUrl + "/api")
             .then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);
@@ -79,7 +79,7 @@ export const filmUpdateImdb = (film, imdbID) => {
     return (dispatch) => {
         dispatch(filmsIsSaving(true));
 
-        fetch(apiBaseUrl + 'adminapi/projectionist/admin/', {
+        fetch(apiBaseUrl + '/adminapi/projectionist/admin/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

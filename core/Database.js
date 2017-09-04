@@ -44,11 +44,15 @@ var ShowtimeModel = mongoose.model('Showtime', showtimeSchema);
 
 
 function Database() {
-	this.db = "mongodb://" + config.db.host + "/" + config.db.db;
+	if (process.env.MONGO_PATH){
+		this.db = "mongodb://" + process.env.MONGO_PATH;
+	} else {
+		this.db = "mongodb://" + config.db.host + "/" + config.db.db;
+	}
 }
 
 Database.prototype.connect = function() {
-	logger.verbose('connecting');
+	logger.verbose('connecting', this.db);
 	mongoose.connect(this.db, {
 		useMongoClient: true
 	});
@@ -75,7 +79,7 @@ Database.prototype.getTheater = function(theaterName, cb) {
 	logger.debug('looking for theater', theaterName);
 	// todo try using FindOne()
 	TheaterModel.find({name : theaterName}, function (err, theaters) {
-		if (theaters.length){
+		if (theaters && theaters.length){
 			logger.verbose('theater exists already. found: ', theaters.length);
 			cb(null, theaters[0]);
 		}else{
