@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Panel } from 'react-bootstrap'
 import MapFilmsWithTimes from '../containers/MapFilmsWithTimes'
 
-const Theater = ({ onClick, name, street, kietz, website, showtimes }) => {
+const Theater = ({ onClick, name, street, kietz, website, showtimes, filters }) => {
   if (showtimes.length < 1) {
     return null
   }
@@ -11,13 +11,12 @@ const Theater = ({ onClick, name, street, kietz, website, showtimes }) => {
   return (
   <Panel header={name}>
     <span className="theaterDetails">{street} {kietz} {website}</span>
-    <MapFilmsWithTimes showtimes={showtimes} onClick={onClick} />
+    <MapFilmsWithTimes showtimes={showtimes} onClick={onClick} filters={filters} />
   </Panel>
 )}
 
 Theater.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired
+  onClick: PropTypes.func.isRequired
 }
 
 export default Theater

@@ -7,7 +7,7 @@ import { Col } from 'react-bootstrap'
 const TheaterList = ({ films, filters, onFilmClick }) => (
  	<Col xs={12}>
 		{films.map(theater => (
-			<Theater key={theater._id} {...theater} onClick={onFilmClick} />
+			<Theater key={theater._id} {...theater} filters={filters} onClick={onFilmClick} />
 		))}
 	</Col>
 )

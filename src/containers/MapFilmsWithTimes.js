@@ -14,9 +14,12 @@ const uuidv4 = () => {
   });
 }
 
-const compressShowtimes = (showtimes) => {
+const compressShowtimes = (showtimes, filters) => {
     let films = {}
     showtimes.forEach(function(showtime) {
+        if ( filters.filterFilms.includes(showtime._film._id) ) {
+            return;
+        }
         if (showtime._film._id in films) {
             films[showtime._film._id].times.push(showtime.timestamp)
         } else {
@@ -73,7 +76,7 @@ class MapFilmsWithTimes extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    filmAndTimes: compressShowtimes(ownProps.showtimes),
+    filmAndTimes: compressShowtimes(ownProps.showtimes, ownProps.filters),
     onFilmClick: ownProps.onClick
   }
 }
