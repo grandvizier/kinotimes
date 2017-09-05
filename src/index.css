@@ -4,8 +4,19 @@ body {
   font-family: sans-serif;
 }
 
-.smallBorder {
-    border: 1px solid;
+.smallBorder, .theaterTimes .film {
+    margin-top:10px;
+    border: #cdcdcd medium solid;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.theaterTimes {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
 }
 
 .allDetails img{

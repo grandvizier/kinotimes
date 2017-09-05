@@ -5,6 +5,7 @@ import {
   filmsFetchData
 } from '../actions'
 import FilmList from '../components/FilmList'
+import TheaterList from '../components/TheaterList'
 
 const getVisibleFilms = (films, filters) => {
   if (filters.filterFilms.length) {
@@ -19,17 +20,21 @@ const getVisibleFilms = (films, filters) => {
 
 class VisibleFilmList extends Component {
   componentDidMount() {
-    this.props.fetchData();
+    this.props.fetchData(this.props.filters.viewType);
   }
 
   render() {
-    return <FilmList {...this.props} />
+    if (this.props.filters.viewType === 'byTitle'){
+      return <FilmList {...this.props} />
+    }
+    return <TheaterList {...this.props} />
   }
 }
 
 const mapStateToProps = state => {
   return {
-    films: getVisibleFilms(state.films, state.filters)
+    films: getVisibleFilms(state.films, state.filters),
+    filters: state.filters
   }
 }
 

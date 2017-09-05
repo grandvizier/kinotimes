@@ -46,8 +46,9 @@ export const filmsIsLoading = (bool) => {
 }
 
 export const switchView = (newView) => {
-    // let newView = 'byTheater';
-    return dispatch => {
+    return (dispatch) => {
+        dispatch(filmsFetchData(newView));
+
         dispatch({
             type: 'films/SWITCH_VIEW',
             viewType: newView
@@ -55,11 +56,11 @@ export const switchView = (newView) => {
     };
 }
 
-export const filmsFetchData = () => {
+export const filmsFetchData = (filters) => {
     return (dispatch) => {
         dispatch(filmsIsLoading(true));
 
-        fetch(apiBaseUrl + "/api")
+        fetch(apiBaseUrl + "/api/" + filters)
             .then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);
