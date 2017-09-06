@@ -11,7 +11,8 @@ var whitelist = [config.app.base_url, 'http://kinotimes-web-kinotimes.apps.pspc.
 var corsOptions = {
 	origin: function (origin, callback) {
 		let approved = whitelist.filter(function( validUrl ) {
-			return origin.indexOf(validUrl) !== -1;
+			// TODO: call error - nobody should be calling api directly
+			return (origin) ? origin.indexOf(validUrl) !== -1 : true;
 		});
 		if (approved.length) {
 			callback(null, true)
