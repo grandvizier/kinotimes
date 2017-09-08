@@ -1,7 +1,6 @@
 var mongoose = require('mongoose'),
 moment = require('moment');
 var logger = new (require('../utils/logger.js'));
-var config = require('config').get('App');
 
 var Schema = mongoose.Schema;
 
@@ -45,11 +44,11 @@ var ShowtimeModel = mongoose.model('Showtime', showtimeSchema);
 
 function Database() {
 	if (!process.env.KT_MONGO_HOST || !process.env.KT_MONGO_DB){
-		logger.error("KT_MONGO_PATH or KT_MONGO_DB not set");
-		logger.warn("   KT_MONGO_PATH: localhost:27017");
+		logger.error("KT_MONGO_HOST or KT_MONGO_DB not set");
+		logger.warn("   KT_MONGO_HOST: localhost:27017");
 		logger.warn("   KT_MONGO_DB:   films");
 	}
-	let mongo_path = process.env.KT_MONGO_PATH + "/" + process.env.KT_MONGO_DB
+	let mongo_path = process.env.KT_MONGO_HOST + "/" + process.env.KT_MONGO_DB
 	this.db = "mongodb://" + mongo_path;
 }
 

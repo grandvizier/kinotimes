@@ -1,4 +1,4 @@
-const apiBaseUrl = ""
+const apiBaseUrl = process.env.REACT_APP_KT_URL + ":" + process.env.REACT_APP_KT_BACKEND_PORT
 
 export function filmsFetchDataSuccess(films) {
     return {
