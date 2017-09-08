@@ -3,7 +3,6 @@ app for searching film times
 
 ## To run in production mode:
 * copy config/example.json -> config/default.json _(and add tokens)_
-* `npm install`
 * `npm build`
 * `docker-compose up -d`
 
@@ -23,6 +22,11 @@ docker exec kinotimes_worker_1 node core/getFilmsJob.js --images
 ```
 0 5 * * * echo 'morning time...' >> /var/log/cron.log 2>&1
 
+----
+### env vars
+
+KT_HOST_PORT
+
 # get new films/showtimes on Sun, Tues and Thursday at 5:20am
 20 5 * * 0,2,4 docker exec kinotimes_worker_1 node core/getFilmsJob.js --days 5 >> /var/log/cron.log 2>&1
 
@@ -36,6 +40,7 @@ docker exec kinotimes_worker_1 node core/getFilmsJob.js --images
 
 ## To run in dev mode:
 * `npm install`
+In three terminals:
 * `npm start`
 * `npm start-dev`
 * `npm test`

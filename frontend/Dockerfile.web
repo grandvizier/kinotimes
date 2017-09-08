@@ -1,10 +1,13 @@
 FROM node:boron
 MAINTAINER KinoTimes <admin@kintotimes.tk>
 
+# add JS backend
 WORKDIR /usr/src/app
 COPY package.json .
-# For npm@5 or later, copy package-lock.json as well
+# For npm@5 or later
 # COPY package.json package-lock.json ./
-
 RUN npm install
-COPY . .
+COPY ./build ./build
+
+EXPOSE 8888
+CMD ["npm", "run", "start-prod"]
