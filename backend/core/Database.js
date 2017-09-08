@@ -44,11 +44,13 @@ var ShowtimeModel = mongoose.model('Showtime', showtimeSchema);
 
 
 function Database() {
-	if (process.env.MONGO_PATH){
-		this.db = "mongodb://" + process.env.MONGO_PATH;
-	} else {
-		this.db = "mongodb://" + config.db.host + "/" + config.db.db;
+	if (!process.env.KT_MONGO_HOST || !process.env.KT_MONGO_DB){
+		logger.error("KT_MONGO_PATH or KT_MONGO_DB not set");
+		logger.warn("   KT_MONGO_PATH: localhost:27017");
+		logger.warn("   KT_MONGO_DB:   films");
 	}
+	let mongo_path = process.env.KT_MONGO_PATH + "/" + process.env.KT_MONGO_DB
+	this.db = "mongodb://" + mongo_path;
 }
 
 Database.prototype.connect = function() {

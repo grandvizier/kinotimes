@@ -3,7 +3,7 @@ MAINTAINER KinoTimes <admin@kintotimes.tk>
 
 # Add local cron file to the cron directory
 RUN apt-get update && apt-get install -y cron
-COPY ./.docker/film-cron /etc/cron.d/film-cron
+COPY film-cron /etc/cron.d/film-cron
 RUN chmod 0644 /etc/cron.d/film-cron
 RUN touch /var/log/cron.log
 
@@ -15,4 +15,5 @@ COPY package.json .
 RUN npm install
 COPY . .
 
+EXPOSE ${REACT_APP_KT_BACKEND_PORT}
 CMD cron && npm start

@@ -1,8 +1,8 @@
 var logger = new (require('../utils/logger.js'));
 var db = new (require('../core/Database.js'));
-var _ = require('lodash');
-
 var router = require("express").Router();
+
+// routes served at /adminapi/...
 router.route("/projectionist/admin/:id?").post(addImdbId);
 
 function addImdbId(req, res) {

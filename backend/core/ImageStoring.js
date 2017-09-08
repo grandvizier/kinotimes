@@ -2,8 +2,7 @@ var async = require('async'),
 mongoose = require('mongoose');
 var logger = new (require('../utils/logger.js'));
 var db = new (require('./Database.js'));
-var config = require('config').get('App');
-var tmdb = require('moviedb')(config.app.tmdb_token);
+var tmdb = require('moviedb')(process.env.TMDB_TOKEN);
 var tmdb_settings = {
     "images_url": "http://image.tmdb.org/t/p/",
     "image_size": "w92",
