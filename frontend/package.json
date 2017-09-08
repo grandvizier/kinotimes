@@ -1,0 +1,59 @@
+{
+  "name": "kinotimes",
+  "version": "1.0.0",
+  "description": "app for searching film times",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grandvizier/kinotimes.git"
+  },
+  "author": "grandvizier",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grandvizier/kinotimes/issues"
+  },
+  "homepage": "http://kinotimes.tk",
+  "private": true,
+  "scripts": {
+    "start": "nodemon -L backend/server.js",
+    "start-prod": "backend/server.js",
+    "start-dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "initialData": "node core/getFilmsJob.js --days 1"
+  },
+  "dependencies": {
+    "async": "^2.0.1",
+    "body-parser": "^1.15.2",
+    "bootstrap": "^3.3.7",
+    "config": "^1.21.0",
+    "cors": "^2.8.4",
+    "express": "^4.14.0",
+    "guid": "0.0.12",
+    "imdb-api": "^3.1.0",
+    "jquery": "^3.1.1",
+    "jsdom": "^9.5.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.15.1",
+    "mongoose": "^4.6.2",
+    "moviedb": "^0.2.6",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.2",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.1.2",
+    "react-router-redux": "next",
+    "react-scripts": "1.0.11",
+    "redux": "^3.7.2",
+    "redux-form": "^7.0.3",
+    "redux-thunk": "^2.2.0",
+    "request": "^2.75.0",
+    "stack-trace": "0.0.9",
+    "whatwg-fetch": "^2.0.3",
+    "winston": "^2.2.0",
+    "yargs": "^6.0.0"
+  },
+  "devDependencies": {
+    "deep-freeze": "0.0.1"
+  }
+}
