@@ -1,4 +1,4 @@
-const apiBaseUrl = "http://localhost:8888"
+const apiBaseUrl = ""
 
 export function filmsFetchDataSuccess(films) {
     return {
@@ -32,6 +32,7 @@ export function filmsHasErrored(bool, err) {
 }
 
 export const toggleFilmFilter = (id) => {
+    console.log(id)
     return {
         type: 'filters/FILM_FILTER',
         filterFilmId: id

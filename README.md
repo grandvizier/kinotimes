@@ -26,6 +26,14 @@ docker exec kinotimes_worker_1 node core/getFilmsJob.js --images
 ### env vars
 
 KT_HOST_PORT
+KT_BASE_URL
+KT_MONGO_HOST
+KT_MONGO_DB
+TMDB_TOKEN
+OMDB_APIKEY
+REACT_APP_KT_BACKEND_PORT
+REACT_APP_KT_PORT
+
 
 # get new films/showtimes on Sun, Tues and Thursday at 5:20am
 20 5 * * 0,2,4 docker exec kinotimes_worker_1 node core/getFilmsJob.js --days 5 >> /var/log/cron.log 2>&1

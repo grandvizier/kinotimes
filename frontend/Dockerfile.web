@@ -1,13 +1,14 @@
 FROM node:boron
 MAINTAINER KinoTimes <admin@kintotimes.tk>
 
-# add JS backend
 WORKDIR /usr/src/app
+
+# add JS
 COPY package.json .
 # For npm@5 or later
 # COPY package.json package-lock.json ./
 RUN npm install
 COPY ./build ./build
 
-EXPOSE 8888
-CMD ["npm", "run", "start-prod"]
+EXPOSE ${REACT_APP_KT_PORT}
+CMD ["npm", "start"]

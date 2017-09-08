@@ -1,8 +1,9 @@
 FROM node:boron
 MAINTAINER KinoTimes <admin@kintotimes.tk>
 
-# Add local cron file to the cron directory
 RUN apt-get update && apt-get install -y cron
+
+# Add local cron file to the cron directory
 COPY film-cron /etc/cron.d/film-cron
 RUN chmod 0644 /etc/cron.d/film-cron
 RUN touch /var/log/cron.log
@@ -13,7 +14,10 @@ COPY package.json .
 # For npm@5 or later
 # COPY package.json package-lock.json ./
 RUN npm install
-COPY . .
+
+COPY ./app ./app
+COPY ./core ./core
+COPY ./utils ./utils
 
 EXPOSE ${REACT_APP_KT_BACKEND_PORT}
 CMD cron && npm start
