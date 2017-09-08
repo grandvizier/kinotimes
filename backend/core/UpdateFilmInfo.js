@@ -5,9 +5,8 @@ imdb = require('imdb-api');
 
 var logger = new (require('../utils/logger.js'));
 var db = new (require('./Database.js'));
-var config = require('config').get('App');
 
-var omdbApiKey = config.app.omdbApiKey
+var omdbApiKey = process.env.OMDB_APIKEY
 
 function UpdateFilmInfo() {
 	this.omdb_url = "http://www.omdbapi.com/";
