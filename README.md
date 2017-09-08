@@ -48,7 +48,9 @@ REACT_APP_KT_PORT
 
 ## To run in dev mode:
 * `npm install`
+* `npm install -g create-react-app`
+
 In three terminals:
-* `npm start`
-* `npm start-dev`
-* `npm test`
+* backend: `npm run start-dev`
+* frontend: `npm run start-dev`
+* frontend: `npm test`

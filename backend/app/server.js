@@ -5,9 +5,11 @@ var cors = require('cors');
 var path = require("path");
 var bodyParser = require("body-parser");
 var db = new (require('../core/Database.js'));
-var config = require('config').get('App');
 
-var whitelist = [config.app.base_url, 'http://kinotimes-web-kinotimes.apps.pspc.ws', 'http://kinotimes.tk']
+let port = process.env.REACT_APP_KT_BACKEND_PORT
+let localUrl = process.env.REACT_APP_KT_URL + ":" + process.env.REACT_APP_KT_PORT
+
+var whitelist = [localUrl, 'http://kinotimes.tk']
 var corsOptions = {
 	origin: function (origin, callback) {
 		let approved = whitelist.filter(function( validUrl ) {
@@ -28,19 +30,14 @@ var projectionistController = require("./projectionistController");
 
 //Express request pipeline
 var app = express();
-app.use(express.static(path.join(__dirname, "../build")));
 app.use(cors(corsOptions));
 
 app.use(bodyParser.json())
 app.use("/api", filmController);
 app.use("/adminapi", projectionistController);
 
-app.get('/*', function (req, res) {
-	res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-});
-
-app.listen(8888,function(){
-    console.log("Started listening on port", 8888);
+app.listen(port, function(){
+    console.log("Started listening on port", port);
 });
 
 db.connect();
