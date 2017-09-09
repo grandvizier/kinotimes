@@ -8,15 +8,10 @@ env:
     - DOCKER_ACC=quay.io/kinotimes
     - CI=true
 
-
 build:
-
-  pre_ci_boot:
-    image_name: 0x20h/create-react-app
-    image_tag: latest
-    pull: true
-
   ci:
+    - npm install -g create-react-app
+
     # build backend
     - shippable_retry cd backend/; npm install
 
