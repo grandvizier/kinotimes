@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 COPY package.json .
 # For npm@5 or later
 # COPY package.json package-lock.json ./
-COPY ./node_modules ./node_modules
+RUN npm install
 COPY ./build ./build
 COPY ./server.js ./server.js
 
