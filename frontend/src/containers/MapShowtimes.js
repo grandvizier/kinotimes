@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 const mapObj = require('lodash/map');
 
-const uuidv4 = () => {
+const uid = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3);
     return v.toString(16);
   });
 }
@@ -46,7 +46,7 @@ const DayView = ({ day, mapped }) => {
     <div className="col-xs-3">
       <div className="panel-heading">{moment(day, 'x').add(-6, 'hours').format('ddd Do')}</div>
       {mapObj(mapped, (t) => (
-        <EachTime key={uuidv4()} t={t} />
+        <EachTime key={uid()} t={t} />
       ))}
     </div>
   )
@@ -57,7 +57,7 @@ class MapShowtimes extends Component {
     return (
       <div>
         {mapObj(this.props.mappedShowtimes, (mapped, key) => (
-          <DayView key={uuidv4()} day={key} mapped={mapped} />
+          <DayView key={uid()} day={key} mapped={mapped} />
         ))}
       </div>
     )

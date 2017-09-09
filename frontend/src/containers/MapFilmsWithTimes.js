@@ -7,9 +7,9 @@ import {
 } from '../actions'
 const mapObj = require('lodash/map');
 
-const uuidv4 = () => {
+const uid = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3);
     return v.toString(16);
   });
 }
@@ -53,7 +53,7 @@ const FilmView = ({ film }) => {
           </Col>
           <Col xs={6} className="details">
               {film.times.map(time => (
-                  <EachTime key={uuidv4()} t={time} />
+                  <EachTime key={uid()} t={time} />
               ))}
           </Col>
         </Row>
@@ -66,7 +66,7 @@ class MapFilmsWithTimes extends Component {
     return (
       <Row className="theaterTimes">
         {mapObj(this.props.filmAndTimes, (film, key) => (
-          <FilmView key={uuidv4()} film={film} onClick={() => this.props.onFilmClick(film.film_id)} />
+          <FilmView key={uid()} film={film} onClick={() => this.props.onFilmClick(film.film_id)} />
         ))}
       </Row>
     )
