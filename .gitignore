@@ -1,13 +1,13 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+*/node_modules
 
 # testing
 /coverage
 
 # production
-/build
+frontend/build
 
 # misc
 .DS_Store
@@ -23,5 +23,3 @@ yarn-debug.log*
 yarn-error.log*
 logs
 *.log
-
-config/default.json

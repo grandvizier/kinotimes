@@ -19,5 +19,14 @@ COPY ./app ./app
 COPY ./core ./core
 COPY ./utils ./utils
 
-EXPOSE ${REACT_APP_KT_BACKEND_PORT}
+# set env vars
+ENV KT_MONGO_HOST=mongo:27017
+ENV KT_MONGO_DB=films
+ENV TMDB_TOKEN=
+ENV OMDB_APIKEY=
+ENV REACT_APP_KT_BACKEND_PORT=8888
+
+#   REACT_APP_KT_BACKEND_PORT
+EXPOSE 8888
+
 CMD cron && npm start
