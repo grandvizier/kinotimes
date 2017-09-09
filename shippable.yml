@@ -1,0 +1,39 @@
+language: node_js
+branches:
+  only:
+    - master
+
+env:
+  global:
+    - DOCKER_ACC=quay.io/kinotimes
+    - CI=true
+
+
+build:
+
+  pre_ci_boot:
+    image_name: 0x20h/create-react-app
+    image_tag: latest
+    pull: true
+
+  ci:
+    # build backend
+    - shippable_retry cd backend/; npm install
+
+    # build frontend
+    - shippable_retry cd frontend/; npm install
+    - cd frontend/; npm test
+    - shippable_retry cd frontend/; npm run build
+
+    # build docker images
+    - docker build -f frontend/Dockerfile.web -t $DOCKER_ACC/web:$BUILD_NUMBER frontend/
+    - docker build -f backend/Dockerfile.backend -t $DOCKER_ACC/backend:$BUILD_NUMBER backend/
+
+  post_ci:
+    - docker push $DOCKER_ACC/web:$BUILD_NUMBER
+    - docker push $DOCKER_ACC/backend:$BUILD_NUMBER
+
+integrations:
+  hub:
+    - integrationName: quay
+      type: quay.io
