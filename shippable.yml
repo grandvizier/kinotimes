@@ -35,5 +35,5 @@ build:
 
 integrations:
   hub:
-    - integrationName: quay
+    - integrationName: quay-integration
       type: quay.io
