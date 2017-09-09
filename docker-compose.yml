@@ -1,21 +1,29 @@
 version: "2"
 services:
 
-  worker:
-    image: quay.io/grandvizier/kinotimes_backend:latest
+  backend:
+    image: quay.io/kinotimes/backend:latest
     volumes:
       - ./:/app
     links:
       - mongo
+    environment:
+    - KT_MONGO_HOST=mongo:27017
+    - KT_MONGO_DB=films
+    - TMDB_TOKEN=$TMDB_TOKEN
+    - OMDB_APIKEY=$OMDB_APIKEY
+    - REACT_APP_KT_BACKEND_PORT="8888"
 
   web:
-    image: quay.io/grandvizier/kinotimes_web:latest
+    image: quay.io/kinotimes/web:latest
     volumes:
       - ./:/app
     ports:
-      - "${KT_HOST_PORT}:8888"
-    links:
-      - mongo
+      - "80:3000"
+    environment:
+    - REACT_APP_KT_URL=http://kinotimes.tk
+    - REACT_APP_KT_BACKEND_PORT="8888"
+    - REACT_APP_KT_PORT="3000"
 
   mongo:
     image: mongo
