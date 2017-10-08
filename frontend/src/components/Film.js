@@ -5,6 +5,7 @@ import MapShowtimes from '../containers/MapShowtimes'
 
 const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => {
   let filmDetails = (details) ? details : {};
+  let imagePath = (img !== 'N/A') ? img : '/image_not_found.jpg';
 
   return (
   <Panel header={title}>
@@ -32,7 +33,7 @@ const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => 
             <div className="details col-xs-8">
                 <em>{filmDetails.description}</em>
             </div>
-            <img className="img-responsive img-thumbnail pull-right" alt="" src={img} />
+            <img className="img-responsive img-thumbnail pull-right" alt="" src={imagePath} />
         </div>
       </div>
     </Col>
