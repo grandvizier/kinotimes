@@ -7,6 +7,7 @@ branches:
 
 env:
   global:
+    - secure: QVmBmBLqkM19fFHduPgNwk6dsOxFbpC7ftdZS9D7/SNW+UEdFO+NE9x3eeLWU67JuXPieEY3UN97mOBHNa0Mg0qCNlvPIYG6NJKcz956CAZqzlJfGN9t1tB9EkpDWxbmZ2JcOZvmHUvDbDOE6yk2j7S761ql1+mVjKmpUeuv+wS51jehXbkLl+QjcWS+8sAUCfFzmF6Ud2hPZHwHEdwWpr7uppayfWbgZG9SKmmQ+Wt9CCTJybYDDRcVEozDDDhu86JJs4Tpeigo5D6D5OWxZLE5uTUXHE3CjUA2HkUSzsetPbopK/P/5WbpL4KiSjghStmMRRTdIEfNLMpT6Um+ww==
     - DOCKER_ACC=quay.io/kinotimes
     - CI=true
     - REACT_APP_KT_BACKEND_PORT=8888
@@ -32,7 +33,7 @@ build:
 
     # build docker images
     - docker build -f $SHIPPABLE_BUILD_DIR/frontend/Dockerfile.web -t $DOCKER_ACC/web:$BUILD_NUMBER $SHIPPABLE_BUILD_DIR/frontend/
-    - docker build -f $SHIPPABLE_BUILD_DIR/backend/Dockerfile.backend -t $DOCKER_ACC/backend:$BUILD_NUMBER $SHIPPABLE_BUILD_DIR/backend/
+    - docker build -f $SHIPPABLE_BUILD_DIR/backend/Dockerfile.backend -t $DOCKER_ACC/backend:$BUILD_NUMBER  --build-arg tmdb_token=$TMDB_TOKEN --build-arg omdb_apikey=$OMDB_APIKEY $SHIPPABLE_BUILD_DIR/backend/
 
   post_ci:
     - docker push $DOCKER_ACC/web:$BUILD_NUMBER
