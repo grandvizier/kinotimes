@@ -9,6 +9,9 @@ env:
   global:
     - DOCKER_ACC=quay.io/kinotimes
     - CI=true
+    - REACT_APP_KT_BACKEND_PORT=8888
+    - REACT_APP_KT_PORT=3000
+    - REACT_APP_KT_URL=http://kintotimes.tk
 
 build:
   cache: true
