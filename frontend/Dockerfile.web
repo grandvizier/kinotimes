@@ -1,7 +1,7 @@
 FROM node:boron
 MAINTAINER KinoTimes <admin@kintotimes.tk>
 
-WORKDIR /usr/src/app
+WORKDIR /usr/app
 
 # add JS
 COPY package.json .
