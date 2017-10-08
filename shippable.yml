@@ -12,7 +12,7 @@ env:
     - CI=true
     - REACT_APP_KT_BACKEND_PORT=8888
     - REACT_APP_KT_PORT=3000
-    - REACT_APP_KT_URL=http://kintotimes.tk
+    - REACT_APP_KT_URL=http://kinotimes.tk
 
 build:
   cache: true

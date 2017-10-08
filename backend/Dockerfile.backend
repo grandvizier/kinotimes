@@ -1,5 +1,5 @@
 FROM node:boron
-MAINTAINER KinoTimes <admin@kintotimes.tk>
+MAINTAINER KinoTimes <admin@kinotimes.tk>
 
 RUN mkdir /usr/app
 WORKDIR /usr/app
