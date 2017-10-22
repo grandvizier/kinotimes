@@ -150,12 +150,15 @@ Database.prototype.getAllFilms = function(cb) {
 	});
 }
 
-Database.prototype.getAllFilmsWithTimes = function(days, cb) {
-	logger.debug('get all the films and their showtimes (for the next', days, 'days)');
-	var cutoff = moment().add(days, 'days')
+Database.prototype.getAllFilmsWithTimes = function(daysBehind, daysAhead, cb) {
+	logger.debug('get all the films and their showtimes (for the next', daysAhead, 'days)');
+	var startPoint = (daysBehind > 0) ?
+		moment().subtract(daysBehind, 'days').toDate() :
+		moment().subtract(2, 'hours').toDate();
+	var cutoff = moment().add(daysAhead, 'days').toDate()
 	FilmModel.find().populate({
 		path: 'showtimes',
-		match: { timestamp: {$lt: cutoff.toDate()}},
+		match: { timestamp: {$gt : startPoint, $lt: cutoff}},
 		populate: { path: '_theater' }
 	}).sort('title').exec(function (err, showtimes) {
 		if (!showtimes.length){

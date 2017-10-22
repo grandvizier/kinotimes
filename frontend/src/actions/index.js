@@ -57,7 +57,7 @@ export const switchView = (newView) => {
     };
 }
 
-export const filmsFetchData = (filters = 'byTitle') => {
+export const filmsFetchData = (filters = 'getAll') => {
     return (dispatch) => {
         dispatch(filmsIsLoading(true));
 

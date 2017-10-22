@@ -4,7 +4,7 @@ import { Panel } from 'react-bootstrap'
 import MapFilmsWithTimes from '../containers/MapFilmsWithTimes'
 
 const Theater = ({ onClick, name, street, kietz, website, showtimes, filters }) => {
-  if (showtimes.length < 1) {
+  if (!showtimes.length) {
     return null
   }
 

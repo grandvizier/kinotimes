@@ -6,6 +6,10 @@ import MapShowtimes from '../containers/MapShowtimes'
 const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => {
   let filmDetails = (details) ? details : {};
   let imagePath = (img !== 'N/A') ? img : '/image_not_found.jpg';
+  // don't show films if there's no times to display
+  if (!showtimes.length) {
+    return null
+  }
 
   return (
   <Panel header={title}>
