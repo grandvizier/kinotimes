@@ -4,13 +4,6 @@ MAINTAINER KinoTimes <admin@kinotimes.tk>
 RUN mkdir /usr/app
 WORKDIR /usr/app
 
-RUN apt-get update && apt-get install -y cron
-
-# Add local cron file to the cron directory
-COPY film-cron /etc/cron.d/film-cron
-RUN chmod 0644 /etc/cron.d/film-cron
-RUN touch /var/log/cron.log
-
 # add JS backend
 COPY package.json .
 # For npm@5 or later
@@ -31,4 +24,4 @@ ENV OMDB_APIKEY $omdb_apikey
 #   REACT_APP_KT_BACKEND_PORT
 EXPOSE 8888
 
-CMD cron && npm start
+CMD npm start
