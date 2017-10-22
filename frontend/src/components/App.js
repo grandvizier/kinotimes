@@ -12,7 +12,7 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				<Navbar inverse fixedTop>
+				<Navbar inverse >
 					<Navbar.Header>
 						<Navbar.Brand>
 							<a href="/">Kinotimes</a>
