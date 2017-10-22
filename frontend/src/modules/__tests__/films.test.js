@@ -2,6 +2,7 @@ import filmApp from '../index';
 var deepFreeze = require('deep-freeze');
 
 const initialFilterState = {
+	showFilters: true,
 	viewType: 'byTitle',
 	filterDateTime: {
 		start: null,
@@ -104,6 +105,7 @@ it('sort by title', () => {
 			{'_id': '2', 'title': 'second'}
 		],
 		filters: {
+			showFilters: true,
 			viewType: 'byTitle',
 			filterDateTime: {
 				start: null,
@@ -120,6 +122,47 @@ it('sort by title', () => {
 
 	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
 });
+
+
+it('show filters', () => {
+	const stateBefore = {
+		films: [],
+		filters: {...initialFilterState, showFilters: false}
+	};
+	const action = {
+		type: 'filters/SHOW_FILTERS'
+	}
+	const stateAfter = {
+		films: [],
+		filters: {...initialFilterState, showFilters: true},
+		"form": {},
+		"routing": {"location": null}
+	};
+
+	deepFreeze(stateBefore);
+	deepFreeze(action);
+
+	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
+});
+
+it('hide filters', () => {
+	const stateBefore = {};
+	const action = {
+		type: 'filters/SHOW_FILTERS'
+	}
+	const stateAfter = {
+		films: [],
+		filters: {...initialFilterState, showFilters: false},
+		"form": {},
+		"routing": {"location": null}
+	};
+
+	deepFreeze(stateBefore);
+	deepFreeze(action);
+
+	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
+});
+
 
 it('filter film by id', () => {
 	const stateBefore = {
@@ -139,6 +182,7 @@ it('filter film by id', () => {
 			{'_id': '2', 'title': 'second'}
 		],
 		filters: {
+			showFilters: true,
 			viewType: 'byTitle',
 			filterDateTime: {
 				start: null,
@@ -163,6 +207,7 @@ it('remove filtered film by id', () => {
 			{'_id': '2', 'title': 'second'}
 		],
 		filters: {
+			showFilters: true,
 			viewType: 'byTitle',
 			filterDateTime: {
 				start: null,
@@ -181,6 +226,7 @@ it('remove filtered film by id', () => {
 			{'_id': '2', 'title': 'second'}
 		],
 		filters: {
+			showFilters: true,
 			viewType: 'byTitle',
 			filterDateTime: {
 				start: null,

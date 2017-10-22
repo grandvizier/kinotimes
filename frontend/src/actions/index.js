@@ -31,6 +31,12 @@ export function filmsHasErrored(bool, err) {
     };
 }
 
+export function toggleFilters() {
+    return {
+        type: 'filters/SHOW_FILTERS'
+    };
+}
+
 export const toggleFilmFilter = (id) => {
     console.log(id)
     return {

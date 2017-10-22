@@ -6,10 +6,12 @@ export const FILMS_FETCH_DATA_SUCCESS = 'films/FETCH_DATA_SUCCESS'
 export const FILMS_SWITCH_VIEW = 'films/SWITCH_VIEW'
 export const FILMS_HAS_SAVED = 'films/HAS_SAVED'
 
+export const FILTER_SHOW_FILTERS = 'filters/SHOW_FILTERS'
 export const FILTER_FILM_FILTER = 'filters/FILM_FILTER'
 
 
 const initialFilterState = {
+	showFilters: true,
 	viewType: 'byTitle',
 	filterDateTime: {
 		start: null,
@@ -57,6 +59,12 @@ export const filters = (state = initialFilterState, action) => {
 			return {
 				...state,
 				hasErrored: action.hasErrored
+			}
+
+		case FILTER_SHOW_FILTERS:
+			return {
+				...state,
+				showFilters: !state.showFilters
 			}
 
 		case FILTER_FILM_FILTER:
