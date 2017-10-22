@@ -8,10 +8,10 @@ first time:
 * initialize data: `docker exec KINOTIMES_BACKEND npm run initialData`
 
 ```
-docker exec kinotimes_backend_1 node core/getFilmsJob.js --days 5
-docker exec kinotimes_backend_1 node core/getFilmsJob.js --genUpdate
-docker exec kinotimes_backend_1 node core/getFilmsJob.js --imdb
-docker exec kinotimes_backend_1 node core/getFilmsJob.js --images
+docker exec app_backend_1 node core/getFilmsJob.js --days 5
+docker exec app_backend_1 node core/getFilmsJob.js --genUpdate
+docker exec app_backend_1 node core/getFilmsJob.js --imdb
+docker exec app_backend_1 node core/getFilmsJob.js --images
 ```
 
 ### env vars
