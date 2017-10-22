@@ -2,7 +2,7 @@ version: "2"
 services:
 
   backend:
-    image: quay.io/kinotimes/backend:latest
+    image: quay.io/kinotimes/backend:$BUILD
     volumes:
       - ./:/app
     links:
@@ -11,7 +11,7 @@ services:
       - "8888:8888"
 
   web:
-    image: quay.io/kinotimes/web:latest
+    image: quay.io/kinotimes/web:$BUILD
     volumes:
       - ./:/app
     ports:
