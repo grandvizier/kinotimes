@@ -11,7 +11,7 @@ const App = () => (
 		<Grid>
 			<Navbar.Header>
 				<Navbar.Brand>
-				<a href="/">React App</a>
+				<a href="/">Kinotimes</a>
 				</Navbar.Brand>
 				<Navbar.Toggle />
 			</Navbar.Header>

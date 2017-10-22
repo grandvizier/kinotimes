@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Kinotimes",
+  "name": "Kinotimes.tk - what's playing in Berlin",
   "icons": [
     {
       "src": "favicon.ico",
