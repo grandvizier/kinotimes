@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
 import './index.css'
+import './dateTime.css'
 
 const target = document.querySelector('#root')
 

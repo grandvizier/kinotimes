@@ -1,6 +1,7 @@
 import React from 'react'
 import ViewFilter from '../containers/ViewFilters'
 import Filters from '../containers/Filters'
+import DateFilters from '../containers/DateFilters'
 
 const Header = () => (
   <div>
@@ -15,6 +16,7 @@ const Header = () => (
     <ViewFilter filter="byTime">
       Time
     </ViewFilter>
+    <DateFilters />
     <Filters />
   </div>
 )

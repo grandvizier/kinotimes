@@ -21,7 +21,7 @@ const mapTimestoDays = (showtimes) => {
     for(var j = 0; j < showtimes.length; j++){
         for(var key in mappedTimes){
             var t = moment(showtimes[j].timestamp);
-            if(t.format('X') <= moment().format('X')){
+            if(t.format('X') <= moment().subtract(2, 'hours').format('X')){
                 // ignore old showtimes
                 break;
             } else if(t.format('X') <= key){
@@ -42,6 +42,9 @@ const EachTime = ({ t }) => {
 }
 
 const DayView = ({ day, mapped }) => {
+  mapped.sort(function(a, b) {
+      return moment(a.timestamp).format('x') - moment(b.timestamp).format('x');
+  })
   return (
     <div className="col-xs-3">
       <div className="panel-heading">{moment(day, 'x').add(-6, 'hours').format('ddd Do')}</div>

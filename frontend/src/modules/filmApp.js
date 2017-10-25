@@ -1,3 +1,4 @@
+import moment from 'moment'
 const sortBy = require('lodash/sortBy');
 
 // Action types:
@@ -8,6 +9,7 @@ export const FILMS_HAS_SAVED = 'films/HAS_SAVED'
 
 export const FILTER_SHOW_FILTERS = 'filters/SHOW_FILTERS'
 export const FILTER_FILM_FILTER = 'filters/FILM_FILTER'
+export const FILTER_UPDATE_DATES = 'filters/UPDATE_DATES'
 
 
 const initialFilterState = {
@@ -31,6 +33,20 @@ export const films = (state = [], action) => {
 
 		case FILMS_SWITCH_VIEW:
 			return sortFilms(state, action.viewType)
+
+		case FILTER_UPDATE_DATES:
+			const updatedTimes = state.map(film => {
+				let acceptableTimes = film.showtimes.filter(function(showtime)
+				{
+				    var t = moment(showtime.timestamp)
+				    let after = (action.startDate) ? t.format('X') >= action.startDate : true
+				    let before = (action.endDate) ? t.format('X') <= action.endDate : true
+				    return (after && before)
+				})
+				return { ...film, showtimes: acceptableTimes }
+			})
+			return updatedTimes
+
 
 		case FILMS_HAS_SAVED:
 			const updatedFilms = state.map(film => {
@@ -82,6 +98,12 @@ export const filters = (state = initialFilterState, action) => {
 				filterFilms
 			}
 
+		case FILTER_UPDATE_DATES:
+			return {
+				...state,
+				filterDateTime: {start: action.startDate, end: action.endDate}
+			}
+
 		default:
 			return state
 	}
@@ -89,7 +111,6 @@ export const filters = (state = initialFilterState, action) => {
 
 
 function sortFilms(films, by){
-	console.log(by);
 	if (by === "byTitle"){
 		return sortBy(films, 'title');
 	} else if (by === "byTheater"){

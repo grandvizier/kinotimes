@@ -37,6 +37,14 @@ export function toggleFilters() {
     };
 }
 
+export function updateDateFilters(startDate, endDate) {
+    return {
+        type: 'filters/UPDATE_DATES',
+        startDate: startDate,
+        endDate: endDate
+    };
+}
+
 export const toggleFilmFilter = (id) => {
     console.log(id)
     return {

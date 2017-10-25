@@ -243,3 +243,97 @@ it('remove filtered film by id', () => {
 
 	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
 });
+
+
+it('filter film by start date', () => {
+	const unixTime = 1509052320 // 10/26/2017 @ 21:12 (UTC)
+	const stateBefore = {
+		films: [
+			{'_id': '1', 'title': 'first', 'showtimes': [
+				{_id: "59f", timestamp: "2017-10-25T18:00:00.000Z"},
+				{_id: "59c", timestamp: "2017-10-26T21:15:00.000Z"}
+			]},
+			{'_id': '2', 'title': 'second', 'showtimes': [
+				{_id: "59d", timestamp: "2017-10-25T17:30:00.000Z"}
+			]}
+		],
+		filters: initialFilterState
+	};
+	const action = {
+		type: 'filters/UPDATE_DATES',
+        startDate: unixTime,
+        endDate: null
+	}
+	const stateAfter = {
+		films: [
+			{'_id': '1', 'title': 'first', 'showtimes': [
+				{_id: "59c", timestamp: "2017-10-26T21:15:00.000Z"}
+			]},
+			{'_id': '2', 'title': 'second', 'showtimes': []}
+		],
+		filters: {
+			showFilters: true,
+			viewType: 'byTitle',
+			filterDateTime: {
+				start: unixTime,
+				end: null
+			},
+			filterFilms: []
+		},
+		"form": {},
+		"routing": {"location": null}
+	};
+
+	deepFreeze(stateBefore);
+	deepFreeze(action);
+
+	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
+});
+
+it('filter film by end date', () => {
+	const startTime = 1508959800 // 10/25/2017 @ 19:30 (UTC)
+	const endTime	= 1509052500 // 10/26/2017 @ 21:15 (UTC)
+	const stateBefore = {
+		films: [
+			{'_id': '1', 'title': 'first', 'showtimes': [
+				{_id: "59f", timestamp: "2017-10-25T18:00:00.000Z"},
+				{_id: "59c", timestamp: "2017-10-26T21:15:00.000Z"}
+			]},
+			{'_id': '2', 'title': 'second', 'showtimes': [
+				{_id: "59d", timestamp: "2017-10-25T19:30:00.000Z"}
+			]}
+		],
+		filters: initialFilterState
+	};
+	const action = {
+		type: 'filters/UPDATE_DATES',
+        startDate: startTime,
+        endDate: endTime
+	}
+	const stateAfter = {
+		films: [
+			{'_id': '1', 'title': 'first', 'showtimes': [
+				{_id: "59c", timestamp: "2017-10-26T21:15:00.000Z"}
+			]},
+			{'_id': '2', 'title': 'second', 'showtimes': [
+				{_id: "59d", timestamp: "2017-10-25T19:30:00.000Z"}
+			]}
+		],
+		filters: {
+			showFilters: true,
+			viewType: 'byTitle',
+			filterDateTime: {
+				start: startTime,
+				end: endTime
+			},
+			filterFilms: []
+		},
+		"form": {},
+		"routing": {"location": null}
+	};
+
+	deepFreeze(stateBefore);
+	deepFreeze(action);
+
+	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
+});
