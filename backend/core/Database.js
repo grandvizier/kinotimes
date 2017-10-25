@@ -1,6 +1,5 @@
 var mongoose = require('mongoose'),
-moment = require('moment');
-var logger = new (require('../utils/logger.js'));
+	logger = new (require('../utils/logger.js'));
 
 var Schema = mongoose.Schema;
 
@@ -150,12 +149,8 @@ Database.prototype.getAllFilms = function(cb) {
 	});
 }
 
-Database.prototype.getAllFilmsWithTimes = function(daysBehind, daysAhead, cb) {
-	logger.debug('get all the films and their showtimes (for the next', daysAhead, 'days)');
-	var startPoint = (daysBehind > 0) ?
-		moment().subtract(daysBehind, 'days').toDate() :
-		moment().subtract(2, 'hours').toDate();
-	var cutoff = moment().add(daysAhead, 'days').toDate()
+Database.prototype.getFilmsWithTimeFilter = function(startPoint, cutoff, cb) {
+	logger.debug('get all the films and their showtimes between', startPoint, cutoff);
 	FilmModel.find().populate({
 		path: 'showtimes',
 		match: { timestamp: {$gt : startPoint, $lt: cutoff}},
@@ -170,12 +165,11 @@ Database.prototype.getAllFilmsWithTimes = function(daysBehind, daysAhead, cb) {
 	});
 }
 
-Database.prototype.getTheatersWithTimes = function(days, cb) {
-	logger.debug('get films and showtimes (for the next', days, 'days) grouped by Theater');
-	var cutoff = moment().add(days, 'days')
+Database.prototype.getTheatersWithTimes = function(startPoint, cutoff, cb) {
+	logger.debug('get films and showtimes (grouped by Theater) between', startPoint, cutoff);
 	TheaterModel.find().populate({
 		path: 'showtimes',
-		match: { timestamp: {$lt: cutoff.toDate()}},
+		match: { timestamp: {$gt : startPoint, $lt: cutoff}},
 		populate: { path: '_film' }
 	}).sort('name').exec(function (err, showtimes) {
 		if (!showtimes.length){
