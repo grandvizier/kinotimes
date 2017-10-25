@@ -51,7 +51,13 @@ BerlinDeFilms.prototype.getFilms = function(startDate, callback) {
 					var times = timeStr.split(",").map(function(s) {
 						return s.trim();
 					});
-					films.push({'title': $(element).text(), 'times': times});
+					try{
+						var origID = $(element).find('a:first').attr('href');
+					} catch(e){
+						logger.error("can't get the original ID", e)
+						var origID = null;
+					}
+					films.push({'title': $(element).text(), 'times': times, 'origID': origID});
 				}
 			});
 			if(theaterName){

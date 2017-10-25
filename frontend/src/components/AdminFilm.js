@@ -4,11 +4,12 @@ import AdminUpdateFilm from './AdminUpdateFilm'
 
 import { Image, Col, Row } from 'react-bootstrap';
 
-const AdminFilm = ({ handleSubmit, _id, title, imdbID, img, details, showtimes, reviewed }) => {
+const AdminFilm = ({ handleSubmit, _id, title, originalID, imdbID, img, details, showtimes, reviewed }) => {
   let imdbUrl = 'http://www.imdb.com/find?ref_=nv_sr_fn&s=all&q='+title;
   let filmDetails = (details) ? details : {};
   let isfilmReviewd = (reviewed) ? true : false;
   let showtimesCount = (showtimes.length === 1) ? showtimes[0].timestamp : showtimes.length;
+  let origin = (originalID ? 'https://www.berlin.de/kino/_bin/'+originalID : '')
 
   return (
   <Col xs={9} md={6} className={"editDetails "+ (isfilmReviewd ? 'reviewed' : '')} >
@@ -45,9 +46,14 @@ const AdminFilm = ({ handleSubmit, _id, title, imdbID, img, details, showtimes, 
         <span className="value">{filmDetails.genre}</span>
       </Col>
     </Row>
-    <div>
-      <a href={imdbUrl} target="_blank">Search IMDB</a>
-    </div>
+    <Row>
+      <Col>
+        <a href={imdbUrl} target="_blank">Search IMDB</a>
+      </Col>
+      <Col>
+        <a href={origin} target="_blank">{(originalID ? 'Original data' : '')}</a>
+      </Col>
+    </Row>
 
     <Col xs={6} className="updateFilm">
       <AdminUpdateFilm form={`updateImdb_${_id}`} imdbID={imdbID} onSubmit={handleSubmit} />

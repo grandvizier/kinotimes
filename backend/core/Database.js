@@ -20,6 +20,7 @@ var theaterSchema = new Schema({
 
 var filmSchema = new Schema({
 	title: String,
+	originalID: String,
 	img: String,
 	imdbID: String,
 	reviewed: Boolean,
@@ -93,9 +94,8 @@ Database.prototype.getTheater = function(theaterName, cb) {
 	});
 }
 
-Database.prototype.getFilm = function(filmName, cb) {
-	logger.debug('looking for film:', filmName);
-	var query = {title : filmName};
+Database.prototype.getFilm = function(query, cb) {
+	logger.debug('looking for film:', query);
 	FilmModel.findOneAndUpdate(query, query, {new: true, upsert: true}, cb);
 }
 

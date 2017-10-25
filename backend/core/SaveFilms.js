@@ -33,7 +33,9 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 				// question - get the Omu/.../etc and save that??
 				var filmTitle = film.title.replace(stripParenthesis, '');
 				//for each film, get film id (or save it)
-				db.getFilm(filmTitle, function(err, filmModel){
+				db.getFilm(
+					{'title': filmTitle, 'originalID': film.origID},
+					function(err, filmModel){
 					if(err){
 						logger.error(typeof err);
 						logger.error(err);
@@ -44,7 +46,11 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 					// add new showtimes (timestamp, theaterId, filmId)
 					async.each(film.times, function(time, cb3){
 						var t = moment(dateUsed + ' ' + time + timezone, "YYYY-MM-DD HH:mm Z").utc();
-						var toSave = {'_theater': theaterId, '_film': filmId, 'timestamp': t.format('YYYY-MM-DDTHH:mm:ss.SSSZ')};
+						var toSave = {
+							'_theater': theaterId,
+							'_film': filmId,
+							'timestamp': t.format('YYYY-MM-DDTHH:mm:ss.SSSZ')
+						};
 						db.saveShowtime(toSave, function(err, saved){
 							if(err){
 								logger.error(typeof err);
