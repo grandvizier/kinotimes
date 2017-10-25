@@ -10,11 +10,12 @@ const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => 
   if (!showtimes.length) {
     return null
   }
+  let detailsStyle = "allDetails small" + (reviewed ? '' : ' reviewed') // the reviewed class greys things out
 
   return (
   <Panel header={title}>
     <Col xs={4} onClick={onClick}>
-      <div className="allDetails small">
+      <div className={detailsStyle}>
         <div className="row">
             <div className="details col-xs-8">
                 {filmDetails.genre}
