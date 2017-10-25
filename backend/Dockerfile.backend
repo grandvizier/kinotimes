@@ -10,6 +10,9 @@ COPY package.json .
 # COPY package.json package-lock.json ./
 RUN npm install
 
+# Temp fix for: https://github.com/worr/node-imdb-api/pull/55
+RUN sed -i -- 's/full/short/g'  node_modules/imdb-api/lib/imdb.js
+
 COPY ./app ./app
 COPY ./core ./core
 COPY ./utils ./utils
