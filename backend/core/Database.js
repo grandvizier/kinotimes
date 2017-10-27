@@ -170,16 +170,18 @@ Database.prototype.getFilmsWithTimeFilter = function(startPoint, cutoff, cb) {
 
 Database.prototype.getTheatersWithTimes = function(startPoint, cutoff, cb) {
 	logger.debug('get films and showtimes (grouped by Theater) between', startPoint, cutoff);
-	TheaterModel.find().populate({
+	TheaterModel.find({'showtimes.0': {$exists: true}}).populate({
 		path: 'showtimes',
 		match: { timestamp: {$gt : startPoint, $lt: cutoff}},
-		populate: { path: '_film' }
+		populate: {
+			path: '_film',
+			select: {'showtimes': 0}
+		}
 	}).sort('name').exec(function (err, showtimes) {
 		if (!showtimes.length){
-			logger.warn('no showtimes found');
+			logger.warn('no showtimes by theater found');
 			cb('Error: no showtimes found', null);
 		}else{
-			logger.warn('found, but where did they go', err, showtimes);
 			cb(err, showtimes);
 		}
 	});
