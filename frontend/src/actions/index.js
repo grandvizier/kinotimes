@@ -1,5 +1,11 @@
 const apiBaseUrl = process.env.REACT_APP_KT_URL + ":" + process.env.REACT_APP_KT_BACKEND_PORT
 
+export function clearCache() {
+    fetch(apiBaseUrl + "/api/cache/clear")
+    return {
+        type: 'clearCache'
+    };
+}
 export function filmsFetchDataSuccess(films) {
     return {
         type: 'films/FETCH_DATA_SUCCESS',

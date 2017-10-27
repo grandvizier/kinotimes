@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import AdminFilmList from '../../components/AdminFilmList'
 import {
   filmsFetchData,
-  filmUpdateImdb
+  filmUpdateImdb,
+  clearCache
 } from '../../actions'
 
 class Admin extends Component {
@@ -24,7 +25,11 @@ const mapStateToProps = state => {
 
 Admin = connect(
   mapStateToProps,
-  { fetchData : filmsFetchData, addImdbId: filmUpdateImdb }
+  {
+    fetchData : filmsFetchData,
+    addImdbId: filmUpdateImdb,
+    clearCache: clearCache
+  }
 )(Admin)
 
 export default Admin
