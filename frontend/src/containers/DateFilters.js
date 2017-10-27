@@ -21,7 +21,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onClick: () => {
+		updateClick: () => {
 			dispatch(updateDateFilters(startDate, endDate))
 		}
 	}

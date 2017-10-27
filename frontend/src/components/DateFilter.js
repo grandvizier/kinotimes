@@ -5,7 +5,7 @@ import Datetime from 'react-datetime'
 import moment from 'moment'
 require('moment/locale/de');
 
-const DateFilter = ({ onClick, handleStartDate, handleEndDate }) => {
+const DateFilter = ({ updateClick, handleStartDate, handleEndDate }) => {
   return (
     <div>
     <Datetime locale="de" onChange={handleStartDate} defaultValue={moment()} />
@@ -13,14 +13,14 @@ const DateFilter = ({ onClick, handleStartDate, handleEndDate }) => {
 
     <button onClick={e => {
       e.preventDefault()
-      onClick()
+      updateClick()
     }} >Update Dates</button>
     </div>
   )
 }
 
 DateFilter.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  updateClick: PropTypes.func.isRequired,
   handleStartDate: PropTypes.func.isRequired,
   handleEndDate: PropTypes.func.isRequired
 }
