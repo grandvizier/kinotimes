@@ -4,15 +4,13 @@ var router = require("express").Router();
 var moment = require('moment');
 
 // routes served at /api/...
-router.route("/getAll").get(getAllFilmsWithTimes);
+router.route("/getAll").get(getAllFilms);
 router.route("/byTitle").get(getFilmsWithTimes);
 router.route("/byTheater").get(getTheatersWithTimes);
 
-function getAllFilmsWithTimes(req, res) {
-    logger.info('get all films with all times from 5 days ago, to 6 days ahead');
-    var startPoint = moment().subtract(5, 'days').toDate();
-    var cutoff = moment().add(6, 'days').toDate();
-    db.getFilmsWithTimeFilter(startPoint, cutoff, function (err, films) {
+function getAllFilms(req, res) {
+    logger.info('get all films');
+    db.getAllFilms(function (err, films) {
         if (err){
             res.send(err);
         } else {

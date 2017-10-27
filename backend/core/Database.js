@@ -139,7 +139,7 @@ Database.prototype.saveFilmInfo = function(toSave, cb) {
 
 Database.prototype.getAllFilms = function(cb) {
 	logger.debug('get all the films');
-	FilmModel.find(function (err, films) {
+	FilmModel.find().sort('title').exec(function (err, films) {
 		if (!films.length){
 			logger.warn('no films found');
 			cb('Error: no films found', null);
