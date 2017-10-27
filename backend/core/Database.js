@@ -151,10 +151,13 @@ Database.prototype.getAllFilms = function(cb) {
 
 Database.prototype.getFilmsWithTimeFilter = function(startPoint, cutoff, cb) {
 	logger.debug('get all the films and their showtimes between', startPoint, cutoff);
-	FilmModel.find().populate({
+	FilmModel.find({'showtimes.0': {$exists: true}}).populate({
 		path: 'showtimes',
 		match: { timestamp: {$gt : startPoint, $lt: cutoff}},
-		populate: { path: '_theater' }
+		populate: {
+			path: '_theater',
+			select: {'_id': 1, 'name': 1}
+		}
 	}).sort('title').exec(function (err, showtimes) {
 		if (!showtimes.length){
 			logger.warn('no showtimes found');
