@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var express = require("express");
+var apicache = require("apicache");
 var cors = require('cors');
 var path = require("path");
 var bodyParser = require("body-parser");
@@ -31,6 +32,12 @@ var projectionistController = require("./projectionistController");
 //Express request pipeline
 var app = express();
 app.use(cors(corsOptions));
+
+let cache = apicache.middleware;
+app.use(cache());
+app.get('/api/cache/clear', (req, res) => {
+	res.json(apicache.clear())
+})
 
 app.use(bodyParser.json())
 app.use("/api", filmController);
