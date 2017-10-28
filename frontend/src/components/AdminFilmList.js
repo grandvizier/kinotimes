@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import AdminFilm from './AdminFilm'
 import { Col, Panel } from 'react-bootstrap'
 
-const AdminFilmList = ({ films, addImdbId, clearCache }) => (
+const AdminFilmList = ({ films, addImdbId, clearCache, updateImdb }) => (
 	<Col xs={18} md={12}>
 		<Panel>
 			<Col>Film count: { films.length }</Col>
@@ -11,6 +11,10 @@ const AdminFilmList = ({ films, addImdbId, clearCache }) => (
 		      e.preventDefault()
 		      clearCache()
 		    }} >Clear cache</button></Col>
+			<Col><button onClick={e => {
+		      e.preventDefault()
+		      updateImdb()
+		    }} >Update imdb</button></Col>
 		</Panel>
 		{films.map(film => (
 			<AdminFilm key={film._id} {...film}
@@ -23,9 +27,10 @@ const AdminFilmList = ({ films, addImdbId, clearCache }) => (
 )
 
 AdminFilmList.propTypes = {
-	clearCache: PropTypes.func.isRequired,
 	films: PropTypes.array.isRequired,
-	addImdbId: PropTypes.func.isRequired
+	addImdbId: PropTypes.func.isRequired,
+	clearCache: PropTypes.func.isRequired,
+	updateImdb: PropTypes.func.isRequired
 }
 
 export default AdminFilmList

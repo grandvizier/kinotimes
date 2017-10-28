@@ -9,8 +9,8 @@ let cache = apicache.middleware;
 
 // routes served at /api/...
 router.route("/getAll").get(getAllFilms);
-router.route("/byTitle").get(cache('1 minute'), getFilmsWithTimes);
-router.route("/byTheater").get(cache('1 minute'), getTheatersWithTimes);
+router.route("/byTitle").get(cache('1 hour'), getFilmsWithTimes);
+router.route("/byTheater").get(cache('1 hour'), getTheatersWithTimes);
 
 router.route("/updateImdb").get(updateFilms);
 
@@ -31,6 +31,7 @@ function getAllFilms(req, res) {
 }
 function getFilmsWithTimes(req, res) {
     logger.info('get showtimes at the controller');
+    req.apicacheGroup = "byTitle"
     var startPoint = moment().toDate();
     var cutoff = moment().add(4, 'days').toDate();
     db.getFilmsWithTimeFilter(startPoint, cutoff, function (err, films) {
@@ -44,6 +45,7 @@ function getFilmsWithTimes(req, res) {
 
 function getTheatersWithTimes(req, res) {
     logger.info('get showtimes based on theater');
+    req.apicacheGroup = "byTheater"
     var startPoint = moment().toDate();
     var cutoff = moment().add(4, 'days').toDate();
     db.getTheatersWithTimes(startPoint, cutoff, function (err, films) {

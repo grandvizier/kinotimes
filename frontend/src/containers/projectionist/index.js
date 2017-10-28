@@ -4,7 +4,8 @@ import AdminFilmList from '../../components/AdminFilmList'
 import {
   filmsFetchData,
   filmUpdateImdb,
-  clearCache
+  clearCache,
+  updateImdb
 } from '../../actions'
 
 class Admin extends Component {
@@ -28,7 +29,8 @@ Admin = connect(
   {
     fetchData : filmsFetchData,
     addImdbId: filmUpdateImdb,
-    clearCache: clearCache
+    clearCache: clearCache,
+    updateImdb: updateImdb
   }
 )(Admin)
 

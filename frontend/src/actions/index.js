@@ -6,6 +6,12 @@ export function clearCache() {
         type: 'clearCache'
     };
 }
+export function updateImdb() {
+    fetch(apiBaseUrl + "/api/updateImdb")
+    return {
+        type: 'updateImdb'
+    };
+}
 export function filmsFetchDataSuccess(films) {
     return {
         type: 'films/FETCH_DATA_SUCCESS',
