@@ -43,7 +43,7 @@ const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => 
             <img className="img-responsive img-thumbnail pull-right" alt="" src={imagePath} />
         </Row>
         <Row className="filterOut" onClick={onClick}>
-          <FontAwesome name='ban' size="1x"/>
+          <FontAwesome name='ban' />
           <span className="filterText">filter</span>
         </Row>
     </Col>
