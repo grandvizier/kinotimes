@@ -1,9 +1,9 @@
 # get new films/showtimes on Sun, Tues and Thursday at 5:20am
-20 5 * * 0,2,4 root /usr/local/bin/node /usr/app/core/getFilmsJob.js --days 5 >> /var/log/cron.log 2>&1
+20 5 * * 0,2,4 root docker exec app_backend_1 node core/getFilmsJob.js --days 5 >> /var/log/cron.log 2>&1
 
 # update the films a litte bit later
-40 5 * * 0,2,4 root /usr/local/bin/node /usr/app/core/getFilmsJob.js --genUpdate >> /var/log/cron.log 2>&1
+40 5 * * 0,2,4 root docker exec app_backend_1 node core/getFilmsJob.js --genUpdate >> /var/log/cron.log 2>&1
 
 # and then update the images
-55 5 * * 0,2,4 root /usr/local/bin/node /usr/app/core/getFilmsJob.js --images >> /var/log/cron.log 2>&1
-59 5 * * 0,2,4 root /usr/local/bin/node /usr/app/core/getFilmsJob.js --images >> /var/log/cron.log 2>&1
+55 5 * * 0,2,4 root docker exec app_backend_1 node core/getFilmsJob.js --images >> /var/log/cron.log 2>&1
+59 5 * * 0,2,4 root docker exec app_backend_1 node core/getFilmsJob.js --images >> /var/log/cron.log 2>&1
