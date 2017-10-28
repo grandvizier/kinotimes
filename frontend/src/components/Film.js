@@ -32,7 +32,9 @@ const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => 
             <Col xs={12} className="details small">
                 {filmDetails.actors}
             </Col>
-            <span>{(filmDetails.language && filmDetails.language.indexOf("English") !== -1) ? null : filmDetails.language}</span>
+            <span className="language">
+              {(filmDetails.language && filmDetails.language.indexOf("English") !== -1) ? null : filmDetails.language}
+            </span>
         </Row>
         <Row>
             <Col xs={8} className="details">
@@ -41,7 +43,7 @@ const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => 
             <img className="img-responsive img-thumbnail pull-right" alt="" src={imagePath} />
         </Row>
         <Row className="filterOut" onClick={onClick}>
-          <FontAwesome name='minus-circle' size="2x"/>
+          <FontAwesome name='ban' size="1x"/>
           <span className="filterText">filter</span>
         </Row>
     </Col>

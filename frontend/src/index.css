@@ -80,6 +80,10 @@ body {
     padding-right: 10px;
 }
 
+.allDetails .language{
+    font-weight: bold;
+}
+
 .filterOut {
     position: relative;
     bottom: -15px;
@@ -90,7 +94,7 @@ body {
 }
 .filterOut .filterText {
   padding-left: 3px;
-  font-size: 16px;
+  font-size: medium;
 }
 .filteredFilm .addFilm {
     display: none;
