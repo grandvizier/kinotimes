@@ -1,12 +1,21 @@
 var logger = new (require('../utils/logger.js'));
 var db = new (require('../core/Database.js'));
 var router = require("express").Router();
+var apicache = require("apicache");
 var moment = require('moment');
+
+apicache.options({ debug: true });
+let cache = apicache.middleware;
 
 // routes served at /api/...
 router.route("/getAll").get(getAllFilms);
-router.route("/byTitle").get(getFilmsWithTimes);
-router.route("/byTheater").get(getTheatersWithTimes);
+router.route("/byTitle").get(cache('1 minute'), getFilmsWithTimes);
+router.route("/byTheater").get(cache('1 minute'), getTheatersWithTimes);
+
+router.route("/cache/clear").get((req, res) => {
+    logger.info('clearing cache', apicache.getIndex());
+    res.json(apicache.clear())
+});
 
 function getAllFilms(req, res) {
     logger.info('get all films');
