@@ -48,10 +48,10 @@ const FilmView = ({ film }) => {
           {film.film_title}
         </Row>
         <Row>
-          <Col xs={6} className="details">
+          <Col xs={9} className="details">
               <Image src={film.film_image} thumbnail responsive />
           </Col>
-          <Col xs={6} className="details">
+          <Col xs={6} className="details showtimes">
               {film.times.map(time => (
                   <EachTime key={uid()} t={time} />
               ))}
