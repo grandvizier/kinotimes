@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import { Col, Row, Image } from 'react-bootstrap'
 
 const FilmSmall = ({ onClick, title, img }) => (
-    <Col xs={2} onClick={onClick}>
+    <Col xs={4} onClick={onClick}>
         <Row>
           <div>{title}</div>
         </Row>
         <Row>
-          <Col xs={6}>
+          <Col xs={9}>
             <Image src={img} thumbnail responsive />
           </Col>
         </Row>

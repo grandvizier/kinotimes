@@ -32,6 +32,16 @@ body {
     transition: margin 0.3s ease;
 }
 
+#sidebar .filters {
+    position: fixed;
+    width: 20%;
+}
+
+#sidebar .filters .panel-title{
+    font-size: 13px;
+    height: 6px;
+}
+
 /* ------- */
 
 .smallBorder, .theaterTimes .film {
@@ -42,7 +52,7 @@ body {
     -webkit-border-radius: 10px;
 }
 
-.theaterTimes {
+.smallBorder, .theaterTimes {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
