@@ -12,6 +12,8 @@ router.route("/getAll").get(getAllFilms);
 router.route("/byTitle").get(cache('1 minute'), getFilmsWithTimes);
 router.route("/byTheater").get(cache('1 minute'), getTheatersWithTimes);
 
+router.route("/updateImdb").get(updateFilms);
+
 router.route("/cache/clear").get((req, res) => {
     logger.info('clearing cache', apicache.getIndex());
     res.json(apicache.clear())
@@ -50,6 +52,21 @@ function getTheatersWithTimes(req, res) {
         } else {
             res.json(films);
         }
+    });
+}
+
+function updateFilms(req, res) {
+    var UpdateFilmInfo = require('../core/UpdateFilmInfo.js');
+    var ImageStoring = require('../core/ImageStoring.js');
+    var updater = new UpdateFilmInfo();
+    var imager = new ImageStoring();
+
+    logger.info('updating imdb...');
+    updater.imdbUpdateById(function(err){
+        logger.info('done imdb updating', err);
+        imager.getImages([], function(err){
+            logger.info('done image updating', err);
+        })
     });
 }
 
