@@ -57,6 +57,13 @@ export function updateDateFilters(startDate, endDate) {
     };
 }
 
+export function toggleGenreFilter(genre) {
+    return {
+        type: 'filters/GENRE_FILTER',
+        genre
+    };
+}
+
 export const toggleFilmFilter = (id) => {
     console.log(id)
     return {

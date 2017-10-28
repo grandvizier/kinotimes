@@ -8,7 +8,8 @@ const initialFilterState = {
 		start: null,
 		end: null
 	},
-	filterFilms: []
+	filterFilms: [],
+	filterGenres: []
 }
 
 it('handles errors', () => {
@@ -104,15 +105,7 @@ it('sort by title', () => {
 			{'_id': '1', 'title': 'first'},
 			{'_id': '2', 'title': 'second'}
 		],
-		filters: {
-			showFilters: true,
-			viewType: 'byTitle',
-			filterDateTime: {
-				start: null,
-				end: null
-			},
-			filterFilms: []
-		},
+		filters: initialFilterState,
 		"form": {},
 		"routing": {"location": null}
 	};
@@ -181,15 +174,7 @@ it('filter film by id', () => {
 			{'_id': '1', 'title': 'first'},
 			{'_id': '2', 'title': 'second'}
 		],
-		filters: {
-			showFilters: true,
-			viewType: 'byTitle',
-			filterDateTime: {
-				start: null,
-				end: null
-			},
-			filterFilms: ['1']
-		},
+		filters: {...initialFilterState, filterFilms: ['1']},
 		"form": {},
 		"routing": {"location": null}
 	};
@@ -213,7 +198,8 @@ it('remove filtered film by id', () => {
 				start: null,
 				end: null
 			},
-			filterFilms: ['1']
+			filterFilms: ['1'],
+			filterGenres: []
 		}
 	};
 	const action = {
@@ -232,7 +218,8 @@ it('remove filtered film by id', () => {
 				start: null,
 				end: null
 			},
-			filterFilms: []
+			filterFilms: [],
+			filterGenres: []
 		},
 		"form": {},
 		"routing": {"location": null}
@@ -278,7 +265,8 @@ it('filter film by start date', () => {
 				start: unixTime,
 				end: null
 			},
-			filterFilms: []
+			filterFilms: [],
+			filterGenres: []
 		},
 		"form": {},
 		"routing": {"location": null}
@@ -326,8 +314,74 @@ it('filter film by end date', () => {
 				start: startTime,
 				end: endTime
 			},
-			filterFilms: []
+			filterFilms: [],
+			filterGenres: []
 		},
+		"form": {},
+		"routing": {"location": null}
+	};
+
+	deepFreeze(stateBefore);
+	deepFreeze(action);
+
+	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
+});
+
+
+it('add genre filter', () => {
+	const stateBefore = {
+		films: [
+			{'_id': '1', 'title': 'first', 'details':
+				{'director': 'Kubrick', 'genre': 'Horror, Adventure'}
+			},
+			{'_id': '2', 'title': 'second'}
+		],
+		filters: initialFilterState
+	};
+	const action = {
+		type: 'filters/GENRE_FILTER',
+		genre: 'Adventure'
+	}
+	const stateAfter = {
+		films: [
+			{'_id': '1', 'title': 'first', 'details':
+				{'director': 'Kubrick', 'genre': 'Horror, Adventure'}
+			},
+			{'_id': '2', 'title': 'second'}
+		],
+		filters: {...initialFilterState, filterGenres: ['Adventure']},
+		"form": {},
+		"routing": {"location": null}
+	};
+
+	deepFreeze(stateBefore);
+	deepFreeze(action);
+
+	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
+});
+
+it('remove genre filter', () => {
+	const stateBefore = {
+		films: [
+			{'_id': '1', 'title': 'first', 'details':
+				{'director': 'Kubrick', 'genre': 'Horror, Adventure'}
+			},
+			{'_id': '2', 'title': 'second'}
+		],
+		filters: {...initialFilterState, filterGenres: ['Adventure']}
+	};
+	const action = {
+		type: 'filters/GENRE_FILTER',
+		genre: 'Adventure'
+	}
+	const stateAfter = {
+		films: [
+			{'_id': '1', 'title': 'first', 'details':
+				{'director': 'Kubrick', 'genre': 'Horror, Adventure'}
+			},
+			{'_id': '2', 'title': 'second'}
+		],
+		filters: initialFilterState,
 		"form": {},
 		"routing": {"location": null}
 	};

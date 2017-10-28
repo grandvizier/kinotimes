@@ -1,12 +1,13 @@
 import React from 'react'
 import ViewFilter from '../containers/ViewFilters'
 import Filters from '../containers/Filters'
+import Genres from '../containers/Genres'
 import DateFilters from '../containers/DateFilters'
 import { PanelGroup, Panel } from 'react-bootstrap'
 
 const Header = () => (
-  <PanelGroup className="filters">
-    <Panel collapsible expanded="true" eventKey="11">
+  <PanelGroup className="filters pre-scrollable">
+    <Panel collapsible expanded eventKey="11">
       <ViewFilter filter="byTitle">
         Title
       </ViewFilter>
@@ -19,12 +20,13 @@ const Header = () => (
         Time
       </ViewFilter>
     </Panel>
-    <Panel collapsible expanded="true" header="Time" eventKey="12">
+    <Panel collapsible expanded header="Time" eventKey="12">
       <DateFilters />
     </Panel>
-    <Panel collapsible expanded="true" header="Genres" eventKey="13">
+    <Panel collapsible expanded header="Genres" eventKey="13">
+      <Genres />
     </Panel>
-    <Panel collapsible expanded="true" eventKey="14">
+    <Panel collapsible expanded eventKey="14">
       <Filters />
     </Panel>
   </PanelGroup>

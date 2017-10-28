@@ -10,6 +10,7 @@ export const FILMS_HAS_SAVED = 'films/HAS_SAVED'
 export const FILTER_SHOW_FILTERS = 'filters/SHOW_FILTERS'
 export const FILTER_FILM_FILTER = 'filters/FILM_FILTER'
 export const FILTER_UPDATE_DATES = 'filters/UPDATE_DATES'
+export const FILTER_GENRE_FILTER = 'filters/GENRE_FILTER'
 
 
 const initialFilterState = {
@@ -19,7 +20,8 @@ const initialFilterState = {
 		start: null,
 		end: null
 	},
-	filterFilms: []
+	filterFilms: [],
+	filterGenres: []
 }
 
 
@@ -96,6 +98,21 @@ export const filters = (state = initialFilterState, action) => {
 			return {
 				...state,
 				filterFilms
+			}
+
+		case FILTER_GENRE_FILTER:
+			let indexGenre = state.filterGenres.indexOf(action.genre);
+			let filterGenres = state.filterGenres.slice();
+
+			if(indexGenre > -1) {
+				filterGenres.splice(indexGenre, 1);;
+			}
+			else {
+				filterGenres.push(action.genre);
+			}
+			return {
+				...state,
+				filterGenres
 			}
 
 		case FILTER_UPDATE_DATES:
