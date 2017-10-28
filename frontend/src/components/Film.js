@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Col, Panel } from 'react-bootstrap'
+import { Row, Col, Panel } from 'react-bootstrap'
 import MapShowtimes from '../containers/MapShowtimes'
+import FontAwesome from 'react-fontawesome'
 
 const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => {
   let filmDetails = (details) ? details : {};
@@ -14,33 +15,35 @@ const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => 
 
   return (
   <Panel header={title}>
-    <Col xs={4} onClick={onClick}>
-      <div className={detailsStyle}>
-        <div className="row">
-            <div className="details col-xs-8">
+    <Col xs={4} className={detailsStyle}>
+        <Row>
+            <Col xs={8} className="details">
                 {filmDetails.genre}
-            </div>
+            </Col>
             <span>{filmDetails.year}</span>
-        </div>
-        <div className="row">
-            <div className="details col-xs-8">
+        </Row>
+        <Row>
+            <Col xs={8} className="details">
                 {filmDetails.director ? 'Director: ' + filmDetails.director : null}
-            </div>
+            </Col>
             <span>{filmDetails.rating}</span>
-        </div>
-        <div className="row">
-            <div className="details col-xs-12 small">
+        </Row>
+        <Row>
+            <Col xs={12} className="details small">
                 {filmDetails.actors}
-            </div>
+            </Col>
             <span>{(filmDetails.language && filmDetails.language.indexOf("English") !== -1) ? null : filmDetails.language}</span>
-        </div>
-        <div className="row">
-            <div className="details col-xs-8">
+        </Row>
+        <Row>
+            <Col xs={8} className="details">
                 <em>{filmDetails.description}</em>
-            </div>
+            </Col>
             <img className="img-responsive img-thumbnail pull-right" alt="" src={imagePath} />
-        </div>
-      </div>
+        </Row>
+        <Row className="filterOut" onClick={onClick}>
+          <FontAwesome name='minus-circle' size="2x"/>
+          <span className="filterText">filter</span>
+        </Row>
     </Col>
     <div className="panel-body col-xs-8">
       <div className="panel panel-info">

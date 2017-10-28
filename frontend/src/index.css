@@ -80,6 +80,36 @@ body {
     padding-right: 10px;
 }
 
+.filterOut {
+    position: relative;
+    bottom: -15px;
+    cursor: pointer;
+}
+.filterOut:hover {
+  color: red;
+}
+.filterOut .filterText {
+  padding-left: 3px;
+  font-size: 16px;
+}
+.filteredFilm .addFilm {
+    display: none;
+    position: absolute;
+    top: 20px;
+    z-index: 30;
+    color: green;
+    text-shadow: 1px 1px 9px #333;
+}
+.filteredFilm:hover .addFilm, .filteredFilm.hover .addFilm {
+    display: block;
+}
+
+
+/* for now, in theater view, hide showtimes - todo: use toggle */
+/*.details.showtimes{
+    display: none;
+}*/
+
 .editDetails {
     font-size: small;
     border: solid 1px;
