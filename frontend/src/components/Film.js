@@ -15,6 +15,7 @@ const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => 
 
   return (
   <Panel header={title}>
+    {filmDetails.aka && <div className="altTitle">{filmDetails.aka}</div>}
     <Col xs={4} className={detailsStyle}>
         <Row>
             <Col xs={8} className="details">

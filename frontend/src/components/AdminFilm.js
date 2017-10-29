@@ -10,10 +10,12 @@ const AdminFilm = ({ handleSubmit, _id, title, originalID, imdbID, img, details,
   let isfilmReviewd = (reviewed) ? true : false;
   let showtimesCount = (showtimes.length === 1) ? showtimes[0].timestamp : showtimes.length;
   let origin = (originalID ? 'https://www.berlin.de/kino/_bin/'+originalID : '')
+  let altTitle = (filmDetails.aka) ? filmDetails.aka : null
 
   return (
   <Col xs={9} md={6} className={"editDetails "+ (isfilmReviewd ? 'reviewed' : '')} >
     <h4>{title} <small>({showtimesCount})</small></h4>
+    {altTitle && <div className="altTitle">{altTitle}</div>}
     <Row>
       <Col xs={6} className="details">
         <span className="type col-xs-6">Current IMDB </span>

@@ -84,6 +84,11 @@ body {
     font-weight: bold;
 }
 
+.altTitle {
+    font-weight: 600;
+    margin: -7px 1px 3px 0px;
+}
+
 .filterOut {
     position: relative;
     bottom: -15px;
