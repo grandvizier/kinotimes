@@ -5,7 +5,7 @@ import Filters from '../containers/Filters'
 import DateFilters from '../containers/DateFilters'
 import { PanelGroup, Panel } from 'react-bootstrap'
 
-const Header = () => (
+const Sidebar = () => (
   <PanelGroup className="filters pre-scrollable">
     <Panel collapsible expanded eventKey="11">
       <ViewFilter filter="byTitle">
@@ -35,4 +35,4 @@ const Header = () => (
   </PanelGroup>
 )
 
-export default Header
+export default Sidebar

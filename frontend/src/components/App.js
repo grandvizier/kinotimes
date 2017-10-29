@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Header from './Header'
+import Sidebar from './Sidebar'
 import VisibleFilmList from '../containers/VisibleFilmList'
 import { Col, Row, Navbar, Nav, NavItem } from 'react-bootstrap'
 import {
@@ -27,7 +27,7 @@ class App extends Component {
 				</Navbar>
 				<Row id="row-main">
 					<Col md={3} id="sidebar" className={(this.props.showSidebar ? null : 'collapsed')}>
-						<Header />
+						<Sidebar />
 					</Col>
 					<Col md={(this.props.showSidebar ? 9 : 12)} id="content">
 						<VisibleFilmList />
