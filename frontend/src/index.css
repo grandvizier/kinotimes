@@ -31,11 +31,17 @@ body {
     -o-transition: margin 0.3s ease;
     transition: margin 0.3s ease;
 }
-
-#sidebar .filters {
-    position: fixed;
-    width: 25%;
-    min-height: 500px;
+@media (max-width: 700px) {
+   #sidebar .filters {
+      position: relative;
+  }
+}
+@media (min-width: 701px) {
+    #sidebar .filters {
+        position: fixed;
+        width: 25%;
+        min-height: 500px;
+    }
 }
 
 #sidebar .filters .panel-title{

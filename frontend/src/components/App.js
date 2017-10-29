@@ -12,24 +12,22 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				<Navbar inverse >
+				<Navbar inverse collapseOnSelect>
 					<Navbar.Header>
 						<Navbar.Brand>
-							<a href="/">Kinotimes</a>
+							Kinotimes
 						</Navbar.Brand>
-						<Navbar.Toggle />
 					</Navbar.Header>
-					<Navbar.Collapse>
-						<Nav onSelect={this.props.sidebarClick}>
-							<NavItem eventKey={1} href="#">Filters</NavItem>
-						</Nav>
-					</Navbar.Collapse>
+					<Nav>
+						<NavItem onSelect={this.props.sidebarClick}
+							eventKey={1}>{(this.props.showSidebar) ? 'Hide ' : ''}Filters</NavItem>
+					</Nav>
 				</Navbar>
 				<Row id="row-main">
-					<Col md={3} id="sidebar" className={(this.props.showSidebar ? null : 'collapsed')}>
+					<Col xs={12} md={3} id="sidebar" className={(this.props.showSidebar ? null : 'collapsed')}>
 						<Sidebar />
 					</Col>
-					<Col md={(this.props.showSidebar ? 9 : 12)} id="content">
+					<Col xs={12} md={(this.props.showSidebar ? 9 : 12)} id="content">
 						<VisibleFilmList />
 					</Col>
 				</Row>
