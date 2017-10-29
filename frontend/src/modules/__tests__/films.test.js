@@ -328,7 +328,7 @@ it('filter film by end date', () => {
 });
 
 
-it('add genre filter', () => {
+it.skip('filter film by genre', () => {
 	const stateBefore = {
 		films: [
 			{'_id': '1', 'title': 'first', 'details':
@@ -345,9 +345,10 @@ it('add genre filter', () => {
 	const stateAfter = {
 		films: [
 			{'_id': '1', 'title': 'first', 'details':
-				{'director': 'Kubrick', 'genre': 'Horror, Adventure'}
+				{'director': 'Kubrick', 'genre': 'Horror, Adventure'},
+				'hidden': true
 			},
-			{'_id': '2', 'title': 'second'}
+			{'_id': '2', 'title': 'second', 'hidden': false}
 		],
 		filters: {...initialFilterState, filterGenres: ['Adventure']},
 		"form": {},
@@ -360,13 +361,14 @@ it('add genre filter', () => {
 	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
 });
 
-it('remove genre filter', () => {
+it.skip('remove filtered film by genre', () => {
 	const stateBefore = {
 		films: [
 			{'_id': '1', 'title': 'first', 'details':
-				{'director': 'Kubrick', 'genre': 'Horror, Adventure'}
+				{'director': 'Kubrick', 'genre': 'Horror, Adventure'},
+				'hidden': true
 			},
-			{'_id': '2', 'title': 'second'}
+			{'_id': '2', 'title': 'second', 'hidden': false}
 		],
 		filters: {...initialFilterState, filterGenres: ['Adventure']}
 	};
@@ -377,9 +379,10 @@ it('remove genre filter', () => {
 	const stateAfter = {
 		films: [
 			{'_id': '1', 'title': 'first', 'details':
-				{'director': 'Kubrick', 'genre': 'Horror, Adventure'}
+				{'director': 'Kubrick', 'genre': 'Horror, Adventure'},
+				'hidden': false
 			},
-			{'_id': '2', 'title': 'second'}
+			{'_id': '2', 'title': 'second', 'hidden': false}
 		],
 		filters: initialFilterState,
 		"form": {},

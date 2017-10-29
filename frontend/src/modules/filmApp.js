@@ -49,6 +49,17 @@ export const films = (state = [], action) => {
 			})
 			return updatedTimes
 
+		case FILTER_GENRE_FILTER:
+			const filterGenres = state.map(film => {
+				let genreStrings = (film.details && film.details.genre) ?
+					film.details.genre.split(',').map((item) => item.trim()) :
+					[]
+				//console.log(genreStrings, film.title, film.hidden)
+				return {...film,
+					hidden: (genreStrings.indexOf(action.genre) > -1) ? !film.hidden : film.hidden }
+			})
+			return filterGenres
+
 
 		case FILMS_HAS_SAVED:
 			const updatedFilms = state.map(film => {

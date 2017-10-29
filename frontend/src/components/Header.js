@@ -1,7 +1,7 @@
 import React from 'react'
 import ViewFilter from '../containers/ViewFilters'
 import Filters from '../containers/Filters'
-import Genres from '../containers/Genres'
+// import Genres from '../containers/Genres'
 import DateFilters from '../containers/DateFilters'
 import { PanelGroup, Panel } from 'react-bootstrap'
 
@@ -23,9 +23,12 @@ const Header = () => (
     <Panel collapsible expanded header="Time" eventKey="12">
       <DateFilters />
     </Panel>
-    <Panel collapsible expanded header="Genres" eventKey="13">
+    {/* Remove genre filtering for now
+        logic is buggy, and not sure how best to make it usable
+    */}
+    {/*<Panel collapsible expanded header="Genres" eventKey="13">
       <Genres />
-    </Panel>
+    </Panel> */}
     <Panel collapsible expanded eventKey="14">
       <Filters />
     </Panel>
