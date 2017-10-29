@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   toggleFilmFilter,
+  toggleFilmSave,
   filmsFetchData
 } from '../actions'
 import FilmList from '../components/FilmList'
@@ -39,7 +40,7 @@ const mapStateToProps = state => {
 
 VisibleFilmList = connect(
   mapStateToProps,
-  { onFilmClick: toggleFilmFilter, fetchData : filmsFetchData}
+  { onFilterClick: toggleFilmFilter, onFilmSave: toggleFilmSave, fetchData : filmsFetchData}
 )(VisibleFilmList)
 
 export default VisibleFilmList

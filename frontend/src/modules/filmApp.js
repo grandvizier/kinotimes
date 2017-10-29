@@ -8,6 +8,7 @@ export const FILMS_HAS_SAVED = 'films/HAS_SAVED'
 
 export const FILTER_SHOW_FILTERS = 'filters/SHOW_FILTERS'
 export const FILTER_FILM_FILTER = 'filters/FILM_FILTER'
+export const FILTER_FILM_FAVORITE = 'filters/FILM_FAVORITE'
 export const FILTER_UPDATE_DATES = 'filters/UPDATE_DATES'
 export const FILTER_GENRE_FILTER = 'filters/GENRE_FILTER'
 
@@ -20,6 +21,7 @@ const initialFilterState = {
 		end: null
 	},
 	filterFilms: [],
+	favoriteFilms: [],
 	filterGenres: []
 }
 
@@ -47,6 +49,15 @@ export const films = (state = [], action) => {
 				return { ...film, showtimes: acceptableTimes }
 			})
 			return updatedTimes
+
+		case FILTER_FILM_FAVORITE:
+			const updatedFavorites = state.map(film => {
+				if(film._id === action.saveFilmId) {
+					return {...film, favorite: !film.favorite}
+				}
+				return film
+			})
+			return updatedFavorites
 
 		case FILTER_GENRE_FILTER:
 			const filterGenres = state.map(film => {
@@ -108,6 +119,21 @@ export const filters = (state = initialFilterState, action) => {
 			return {
 				...state,
 				filterFilms
+			}
+
+		case FILTER_FILM_FAVORITE:
+			let filmAlreadyFavorite = state.favoriteFilms.indexOf(action.saveFilmId) > -1;
+			let favoriteFilms = state.favoriteFilms.slice();
+
+			if(filmAlreadyFavorite) {
+				favoriteFilms = favoriteFilms.filter(id => id !== action.saveFilmId);
+			}
+			else {
+				favoriteFilms.push(action.saveFilmId);
+			}
+			return {
+				...state,
+				favoriteFilms
 			}
 
 		case FILTER_GENRE_FILTER:

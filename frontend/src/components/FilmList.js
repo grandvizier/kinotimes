@@ -4,11 +4,13 @@ import Film from './Film'
 import { Col } from 'react-bootstrap'
 
 
-const FilmList = ({ films, onFilmClick }) => (
+const FilmList = ({ films, onFilterClick, onFilmSave }) => (
  	<Col xs={12}>
 		{films.map(film => {
 			if (!film.hidden) {
-				return (<Film key={film._id} {...film} onClick={() => onFilmClick(film._id)} />)
+				return (<Film key={film._id} {...film}
+						onClick={() => onFilterClick(film._id)}
+						onFilmSave={() => onFilmSave(film._id)} />)
 			}
 			return null
 		})}
@@ -17,7 +19,8 @@ const FilmList = ({ films, onFilmClick }) => (
 
 FilmList.propTypes = {
 	films: PropTypes.array.isRequired,
-	onFilmClick: PropTypes.func.isRequired
+	onFilterClick: PropTypes.func.isRequired,
+	onFilmSave: PropTypes.func.isRequired
 }
 
 export default FilmList

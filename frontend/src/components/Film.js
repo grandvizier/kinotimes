@@ -4,7 +4,7 @@ import { Row, Col, Panel } from 'react-bootstrap'
 import MapShowtimes from '../containers/MapShowtimes'
 import FontAwesome from 'react-fontawesome'
 
-const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => {
+const Film = ({ onClick, onFilmSave, title, imdbID, img, details, showtimes, reviewed, favorite }) => {
   let filmDetails = (details) ? details : {};
   let imagePath = (img !== 'N/A') ? img : '/image_not_found.jpg';
   // don't show films if there's no times to display
@@ -43,7 +43,11 @@ const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => 
             </Col>
             <img className="img-responsive img-thumbnail pull-right" alt="" src={imagePath} />
         </Row>
-        <Row className="filterOut" onClick={onClick}>
+        <Row className="filter favorite" onClick={onFilmSave}>
+          <FontAwesome name={(favorite) ? 'star' : 'star-o'} className={favorite && 'starred'}/>
+          <span className="filterText">{(favorite) ? 'saved' : 'save'}</span>
+        </Row>
+        <Row className="filter filterOut" onClick={onClick}>
           <FontAwesome name='ban' />
           <span className="filterText">filter</span>
         </Row>
@@ -58,6 +62,7 @@ const Film = ({ onClick, title, imdbID, img, details, showtimes, reviewed }) => 
 
 Film.propTypes = {
   onClick: PropTypes.func.isRequired,
+  onFilmSave: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired
   // details: PropTypes.object.isRequired,
   // createdAt: PropTypes.number.isRequired

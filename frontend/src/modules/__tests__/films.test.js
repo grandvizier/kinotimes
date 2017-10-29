@@ -9,6 +9,7 @@ const initialFilterState = {
 		end: null
 	},
 	filterFilms: [],
+	favoriteFilms: [],
 	filterGenres: []
 }
 
@@ -237,6 +238,7 @@ it('filter film by start date', () => {
 				end: null
 			},
 			filterFilms: [],
+			favoriteFilms: [],
 			filterGenres: []
 		},
 		"form": {},
@@ -286,6 +288,7 @@ it('filter film by end date', () => {
 				end: endTime
 			},
 			filterFilms: [],
+			favoriteFilms: [],
 			filterGenres: []
 		},
 		"form": {},
@@ -354,6 +357,63 @@ it.skip('remove filtered film by genre', () => {
 				'hidden': false
 			},
 			{'_id': '2', 'title': 'second', 'hidden': false}
+		],
+		filters: initialFilterState,
+		"form": {},
+		"routing": {"location": null}
+	};
+
+	deepFreeze(stateBefore);
+	deepFreeze(action);
+
+	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
+});
+
+
+it('favorite a film by id', () => {
+	const stateBefore = {
+		films: [
+			{'_id': '1', 'title': 'first'},
+			{'_id': '2', 'title': 'second'}
+		],
+		filters: initialFilterState
+	};
+	const action = {
+		type: 'filters/FILM_FAVORITE',
+		saveFilmId: '1'
+	}
+	const stateAfter = {
+		films: [
+			{'_id': '1', 'title': 'first', 'favorite': true},
+			{'_id': '2', 'title': 'second'}
+		],
+		filters: {...initialFilterState, favoriteFilms: ['1']},
+		"form": {},
+		"routing": {"location": null}
+	};
+
+	deepFreeze(stateBefore);
+	deepFreeze(action);
+
+	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
+});
+
+it('remove favorite film by id', () => {
+	const stateBefore = {
+		films: [
+			{'_id': '1', 'title': 'first', 'favorite': true},
+			{'_id': '2', 'title': 'second'}
+		],
+		filters: {...initialFilterState, favoriteFilms: ['1']}
+	};
+	const action = {
+		type: 'filters/FILM_FAVORITE',
+		saveFilmId: '1'
+	}
+	const stateAfter = {
+		films: [
+			{'_id': '1', 'title': 'first', 'favorite': false},
+			{'_id': '2', 'title': 'second'}
 		],
 		filters: initialFilterState,
 		"form": {},

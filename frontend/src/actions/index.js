@@ -64,6 +64,13 @@ export function toggleGenreFilter(genre) {
     };
 }
 
+export function toggleFilmSave(id) {
+    return {
+        type: 'filters/FILM_FAVORITE',
+        saveFilmId: id
+    };
+}
+
 export const toggleFilmFilter = (id) => {
     console.log(id)
     return {
