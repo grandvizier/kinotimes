@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactGA from 'react-ga'
 
 const ViewLink = ({ allFilters, active, children, onClick }) => {
   if (active) {
@@ -9,6 +10,10 @@ const ViewLink = ({ allFilters, active, children, onClick }) => {
   return (
     <button onClick={e => {
       e.preventDefault()
+      ReactGA.event({
+        category: 'View',
+        action: 'Change View'
+      });
       onClick()
     }} >
       {children}
