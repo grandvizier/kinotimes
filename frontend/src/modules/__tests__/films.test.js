@@ -88,35 +88,6 @@ it('has saved', () => {
 });
 
 
-it('sort by title', () => {
-	const stateBefore = {
-		films: [
-			{'_id': '2', 'title': 'second'},
-			{'_id': '1', 'title': 'first'}
-		],
-		filters: initialFilterState
-	};
-	const action = {
-		type: 'films/SWITCH_VIEW',
-		viewType: 'byTitle'
-	}
-	const stateAfter = {
-		films: [
-			{'_id': '1', 'title': 'first'},
-			{'_id': '2', 'title': 'second'}
-		],
-		filters: initialFilterState,
-		"form": {},
-		"routing": {"location": null}
-	};
-
-	deepFreeze(stateBefore);
-	deepFreeze(action);
-
-	expect(filmApp(stateBefore, action)).toEqual(stateAfter);
-});
-
-
 it('show filters', () => {
 	const stateBefore = {
 		films: [],

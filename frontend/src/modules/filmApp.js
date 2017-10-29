@@ -1,5 +1,4 @@
 import moment from 'moment'
-const sortBy = require('lodash/sortBy');
 
 // Action types:
 export const FILMS_HAS_ERRORED = 'films/HAS_ERRORED'
@@ -33,8 +32,8 @@ export const films = (state = [], action) => {
 		case FILMS_FETCH_DATA_SUCCESS:
 			return action.films
 
-		case FILMS_SWITCH_VIEW:
-			return sortFilms(state, action.viewType)
+		// case FILMS_SWITCH_VIEW:
+		// 	return sortFilms(state, action.viewType)
 
 		case FILTER_UPDATE_DATES:
 			const updatedTimes = state.map(film => {
@@ -136,58 +135,3 @@ export const filters = (state = initialFilterState, action) => {
 			return state
 	}
 }
-
-
-function sortFilms(films, by){
-	if (by === "byTitle"){
-		return sortBy(films, 'title');
-	} else if (by === "byTheater"){
-		return sortBy(films, 'createdAt');
-	} else {
-		return films;
-	}
-
-}
-
-// function dynamicSort(property) {
-//     var sortOrder = 1;
-//     if(property[0] === "-") {
-//         sortOrder = -1;
-//         property = property.substr(1);
-//     }
-//     return function (a,b) {
-//         var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-//         return result * sortOrder;
-//     }
-// }
-
-
-// export function filmsHasErrored(state = false, action) {
-//     switch (action.type) {
-//         case 'FILMS_HAS_ERRORED':
-//             return action.hasErrored;
-
-//         default:
-//             return state;
-//     }
-// }
-
-// export function filmsIsLoading(state = false, action) {
-//     switch (action.type) {
-//         case 'FILMS_IS_LOADING':
-//             return action.isLoading;
-
-//         default:
-//             return state;
-//     }
-// }
-
-// export function films(state = [], action) {
-//     switch (action.type) {
-//         case 'FILMS_FETCH_DATA_SUCCESS':
-//             return action.films;
-
-//         default:
-//             return state;
-//     }
-// }
