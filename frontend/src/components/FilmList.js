@@ -6,9 +6,12 @@ import { Col } from 'react-bootstrap'
 
 const FilmList = ({ films, onFilmClick }) => (
  	<Col xs={12}>
-		{films.map(film => (
-			<Film key={film._id} {...film} onClick={() => onFilmClick(film._id)} />
-		))}
+		{films.map(film => {
+			if (!film.hidden) {
+				return (<Film key={film._id} {...film} onClick={() => onFilmClick(film._id)} />)
+			}
+			return null
+		})}
 	</Col>
 )
 

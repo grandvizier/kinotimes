@@ -10,7 +10,6 @@ import TheaterList from '../components/TheaterList'
 const getVisibleFilms = (films, filters) => {
   if (filters.filterFilms.length) {
     return films.filter(function( obj ) {
-      // console.log("show only", filters.filterFilms.includes(obj._id))
       return !filters.filterFilms.includes(obj._id);
     });
   } else {
