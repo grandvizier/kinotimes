@@ -87,6 +87,13 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 				    logger.error('IMDB error.', film.imdbID, err);
 				    return cb();
 				}
+				var aka = ""
+				var re = /[3d|\.]/gi;;
+				let n1 = film.title.toLowerCase().replace(re, '').trim()
+				let n2 = movie.title.toLowerCase().replace(re, '').trim()
+				if (n1 !== n2) {
+					aka = movie.title;
+				}
 				var toSave = {
 					'title': film.title,
 					'img': movie.poster,
@@ -100,7 +107,7 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 						'genre': movie.genres,
 						'language': movie.languages,
 						'country': movie.country,
-						'aka': (film.title != movie.title) ? movie.title : ""
+						'aka': aka
 					}
 				};
 				db.saveFilmInfo(toSave, function(err, saved){
