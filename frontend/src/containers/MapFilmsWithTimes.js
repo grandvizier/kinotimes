@@ -43,7 +43,7 @@ const EachTime = ({ t }) => {
 
 const FilmView = ({ film }) => {
   return (
-    <Col xs={2} className="film">
+    <Col md={2} xs={3} className="film">
         <Row>
           {film.film_title}
         </Row>
