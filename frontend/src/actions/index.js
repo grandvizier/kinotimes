@@ -6,6 +6,12 @@ export function clearCache() {
         type: 'clearCache'
     };
 }
+export function removeOldFilms() {
+    fetch(apiBaseUrl + "/api/clearOldFilms")
+    return {
+        type: 'removeOldFilms'
+    };
+}
 export function updateImdb() {
     fetch(apiBaseUrl + "/api/updateImdb")
     return {
