@@ -14,6 +14,7 @@ router.route("/byTitle").get(cache('1 hour'), getFilmsWithTimes);
 router.route("/byTheater").get(cache('1 hour'), getTheatersWithTimes);
 
 router.route("/updateImdb").get(updateFilms);
+router.route("/clearOldFilms").get(clearOldFilms);
 
 router.route("/cache/clear").get((req, res) => {
     logger.info('clearing cache', apicache.getIndex());
@@ -82,6 +83,16 @@ function updateFilms(req, res) {
             logger.info('done image updating', err);
             res.send('done updating');
         })
+    });
+}
+
+function clearOldFilms(req, res) {
+    var UpdateFilmInfo = require('../core/UpdateFilmInfo.js');
+    var updater = new UpdateFilmInfo();
+    logger.info('cleaning out old films...');
+    updater.removeFilmsWithoutShowtimes(function(err){
+        logger.info('done cleaning out old films');
+        res.send('done updating');
     });
 }
 

@@ -62,12 +62,9 @@ if (argv.days){
 }
 
 if (argv.genUpdate){
-	updater.removeFilmsWithoutShowtimes(function(err){
-		logger.info('done cleaning out old films');
-		updater.omdbUpdate(function(err){
-			logger.info('done omdb updating');
-			db.disconnect();
-		});
+	updater.omdbUpdate(function(err){
+		logger.info('done omdb updating');
+		db.disconnect();
 	});
 } else if (argv.imdb){
 	updater.imdbUpdateById(function(err){
