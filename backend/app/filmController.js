@@ -9,6 +9,7 @@ let cache = apicache.middleware;
 
 // routes served at /api/...
 router.route("/getAll").get(getAllFilms);
+router.route("/getDuplicates").get(cache('1 hour'), getDuplicateFilmTitles);
 router.route("/byTitle").get(cache('1 hour'), getFilmsWithTimes);
 router.route("/byTheater").get(cache('1 hour'), getTheatersWithTimes);
 
@@ -22,6 +23,17 @@ router.route("/cache/clear").get((req, res) => {
 function getAllFilms(req, res) {
     logger.info('get all films');
     db.getAllFilms(function (err, films) {
+        if (err){
+            res.send(err);
+        } else {
+            res.json(films);
+        }
+    });
+}
+function getDuplicateFilmTitles(req, res) {
+    logger.info('get films that are saved with different original ids, but same title');
+    req.apicacheGroup = "getDuplicates"
+    db.duplicateFilmNames(function (err, films) {
         if (err){
             res.send(err);
         } else {
@@ -68,6 +80,7 @@ function updateFilms(req, res) {
         logger.info('done imdb updating', err);
         imager.getImages([], function(err){
             logger.info('done image updating', err);
+            res.send('done updating');
         })
     });
 }

@@ -149,6 +149,25 @@ Database.prototype.getAllFilms = function(cb) {
 	});
 }
 
+Database.prototype.duplicateFilmNames = function(cb) {
+	logger.debug('find films that are duplicate');
+	FilmModel.aggregate().group({
+		_id: "$imdbID", films: { $push: {
+			title: "$title",
+			originalID: "$originalID",
+			id: "$_id",
+		} }
+	}).exec(function (err, films) {
+		if (!films || !films.length){
+			logger.warn('no films found');
+			cb(null, []);
+		}else{
+			var duplicates = films.filter(films => films._id && films.films.length > 1)
+			cb(err, duplicates);
+		}
+	});
+}
+
 Database.prototype.getFilmsWithTimeFilter = function(startPoint, cutoff, cb) {
 	logger.debug('get all the films and their showtimes between', startPoint, cutoff);
 	FilmModel.find({'showtimes.0': {$exists: true}}).populate({
