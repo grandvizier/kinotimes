@@ -126,7 +126,7 @@ export const filmUpdateImdb = (film, imdbID) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({"title":film.title,"imdbID":imdbID})
+            body: JSON.stringify({"title":film.title, "originalID":film.originalID, "imdbID":imdbID})
             })
             .then((response) => {
                 if (!response.ok) {
