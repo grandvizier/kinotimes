@@ -205,7 +205,11 @@ Database.prototype.updateImdbID = function(toSave, cb) {
 	// wipe out all the film details, so the next update uses the correct info
 	toSave.details = null;
 	toSave.reviewed = true;
-	FilmModel.update({title : toSave.title}, { $set: toSave}, cb);
+	var query = {title : toSave.title}
+	if(toSave.originalID) {
+		query.originalID = toSave.originalID;
+	}
+	FilmModel.update(query, { $set: toSave}, cb);
 }
 
 
