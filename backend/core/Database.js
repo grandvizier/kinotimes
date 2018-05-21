@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
 	logger = new (require('../utils/logger.js'));
 
+mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema;
 
 var showtimeSchema = new Schema({

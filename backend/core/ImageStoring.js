@@ -1,5 +1,4 @@
-var async = require('async'),
-mongoose = require('mongoose');
+var async = require('async');
 var logger = new (require('../utils/logger.js'));
 var db = new (require('./Database.js'));
 var tmdb = require('moviedb')(process.env.TMDB_TOKEN);

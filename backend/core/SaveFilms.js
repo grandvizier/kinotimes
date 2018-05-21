@@ -1,6 +1,5 @@
 var moment = require('moment'),
-async = require('async'),
-mongoose = require('mongoose');
+async = require('async');
 var logger = new (require('../utils/logger.js'));
 var db = new (require('./Database.js'));
 
