@@ -30,13 +30,18 @@ export REACT_APP_KT_PORT=3000
 
 **frontend**
 * `cd frontend`
+* `npm install`
 * `npm run build`
 * `sudo docker build -f Dockerfile.web -t kinotimes_web .`
 
 ## To run in dev mode:
 * `npm install -g create-react-app`
+* `npm install -g nodemon`
 * set appropriate env vars (see above)
   * you'll need `mongo` running at localhost:27017 (or maybe setup a free instance @ mlab.com)
+  * if using mlab, set env vars:
+    * KT_MONGO_HOST=<dbuser>:<dbpassword>@<assigned-id>.mlab.com:<assigned-port>
+    * KT_MONGO_DB=<unique-db-name>
 * in backend & frontend: `npm install`
 * if first time, run initialize data:
   * `node backend/core/getFilmsJob.js --days 2`
