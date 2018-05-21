@@ -43,3 +43,12 @@ integrations:
   hub:
     - integrationName: quay-integration
       type: quay.io
+
+jobs:
+  - name: deploy-to-prod
+    type: deploy
+    steps:
+      - IN: pauls_vm
+      - TASK:
+        - script: cd /root/app
+        - script: export BUILD=$BUILD_NUMBER; docker-compose up -d
