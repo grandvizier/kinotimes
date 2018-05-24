@@ -7,7 +7,7 @@ branches:
 
 env:
   global:
-    - secure: wanIxV23G7lMD7lfzFlcpH2n1tTMRbU6aAc28X2ZlPGhmORCRaE79+t5X6nYOGVDihz/jyrQPAbPpr+HS8EBdKPu0wUAH+3A/HEMh1Lv0xmJOHEqdOqRNHFnmd9pPWH03M+ciwbzn0E65I+47ngstEHYeZnLeaQhzd7YOE/Joto1Hyh7X5Mbu1EC6WpBZV4lJe3WRYxiIcdKneJK26+SdJ5cuY2/mtemjxL7/f+YGH7Du/STAcesElu5KbPpoH/jXENQX7maQq0/VBHIo/bjO6ITcqx8ZoyMvyDK2crddC1vkScbl54QMj2A0DT6TMe4Kp2JNP2IzMspoH7p020VaQ==
+    - secure: ze/SrM7abm6jS/uEB3r4TBT2mCAvJouayuzcgOPfKiVh9z132IlW2R9FmNwzohsGw5l8EfWCDzwaTh4+rqbCH1XTGOz0CXa0AiVyB7OcuygYgznWo4OTAwGtJs8wRlcfufS5niQZhXdDY/OuQs0WtRmeSq0OPWbVpnTNgfc5QlZYQHYwLJELp0UghRkpWIHndtzre9bdNjasWKfLHAnF92F3/Pg/xDGvuoWRi/0OV9Jn9PG5VRw2m+Gu/aqq4MQhHWqqGmzgUEvBFIbF8AttuZslodC+UHqw8k02lDkQVbrfZfeoc1A9RMNg1/kg8Oi0DanWywodM9toD8mi84mUMg==
     - DOCKER_ACC=quay.io/kinotimes
     - CI=true
     - REACT_APP_KT_BACKEND_PORT=8888
