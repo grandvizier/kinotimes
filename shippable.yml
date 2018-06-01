@@ -7,12 +7,13 @@ branches:
 
 env:
   global:
-    - secure: ze/SrM7abm6jS/uEB3r4TBT2mCAvJouayuzcgOPfKiVh9z132IlW2R9FmNwzohsGw5l8EfWCDzwaTh4+rqbCH1XTGOz0CXa0AiVyB7OcuygYgznWo4OTAwGtJs8wRlcfufS5niQZhXdDY/OuQs0WtRmeSq0OPWbVpnTNgfc5QlZYQHYwLJELp0UghRkpWIHndtzre9bdNjasWKfLHAnF92F3/Pg/xDGvuoWRi/0OV9Jn9PG5VRw2m+Gu/aqq4MQhHWqqGmzgUEvBFIbF8AttuZslodC+UHqw8k02lDkQVbrfZfeoc1A9RMNg1/kg8Oi0DanWywodM9toD8mi84mUMg==
+    - secure: zqajz+HhInQjuUPSdMB+WS2vtDQAp7PPdi23+warFD9t9WY3ZE9pUaAfgIvBNM1jSV0H3HglzkaabWXMUADo6J8kzOrrXfi75sis88sknul6ltmY0OsJNMFrA0YvRWIBDqVPSzjuieUrTu1Rf7uAinFyjCZpI11WRDkNolDQyHwe25rEP8cif5sh2Q9DGYhlV3UmtqroOvYmlVASH34q5dGn95DU2OFEGW47J/RWTxloHiGLM5RqxGqiHBX4djIP0dKRZm9yHOd5sjlbZpQFgyMRazWAVcCwcmxXyYfvVj0u0W0qI2oJVtR0NkNcGePBaGmCVWoLa+cPzsvPsqy1Eg==
     - DOCKER_ACC=quay.io/kinotimes
     - CI=true
     - REACT_APP_KT_BACKEND_PORT=8888
     - REACT_APP_KT_PORT=3000
     - REACT_APP_KT_URL=http://kinotimes.tk
+    - BUILD=$BUILD_NUMBER
 
 build:
   cache: true
@@ -39,16 +40,16 @@ build:
     - docker push $DOCKER_ACC/web:$BUILD_NUMBER
     - docker push $DOCKER_ACC/backend:$BUILD_NUMBER
 
+  on_success:
+    - ssh root@$SERVER_IP "
+        cd /root/app
+        docker-compose up -d
+      "
+
 integrations:
   hub:
     - integrationName: quay-integration
       type: quay.io
-
-jobs:
-  - name: deploy-to-prod
-    type: deploy
-    steps:
-      - IN: pauls_vm
-      - TASK:
-        - script: cd /root/app
-        - script: export BUILD=$BUILD_NUMBER; docker-compose up -d
+  key:
+    - integrationName: pauls_vm
+      type: sshKey
