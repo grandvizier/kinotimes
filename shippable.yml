@@ -41,10 +41,7 @@ build:
     - docker push $DOCKER_ACC/backend:$BUILD_NUMBER
 
   on_success:
-    - ssh root@$SERVER_IP "
-        cd /root/app
-        docker-compose up -d
-      "
+    - ssh root@$SERVER_IP "cd /root/app; docker-compose up -d"
 
 integrations:
   hub:
