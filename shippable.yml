@@ -48,5 +48,5 @@ integrations:
     - integrationName: quay-integration
       type: quay.io
   key:
-    - integrationName: pauls_vm
+    - integrationName: vm
       type: sshKey
