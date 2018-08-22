@@ -10,7 +10,8 @@ const AdminFilm = ({ handleSubmit, _id, title, originalID, imdbID, img, details,
   let isfilmReviewd = (reviewed) ? true : false;
   // let showtimesCount = (showtimes.length === 1) ? showtimes[0].timestamp : showtimes.length;
   let showtimesCount = showtimes.length;
-  let origin = (originalID ? 'https://www.berlin.de/kino/_bin/'+originalID : '')
+  // let origin = (originalID ? 'https://www.berlin.de/kino/_bin/'+originalID : '')
+  let origin = (originalID ? 'https://www.berlin.de'+originalID : '')
   let altTitle = (filmDetails.aka) ? filmDetails.aka : null
 
   return (

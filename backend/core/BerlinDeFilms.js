@@ -34,30 +34,35 @@ BerlinDeFilms.prototype.getFilms = function(startDate, callback) {
 		//also tell jsdom to attach jQuery in the scripts and loaded from jQuery.com
 		jsdom.env(body, ["http://code.jquery.com/jquery.js"], function (err, window) {
 			var $ = window.$;
-			var details = $('.searchresult').children();
+			var details = $('.searchresult .trefferliste').children();
 			details.each(function( index, element ) {
 				var tag_type = $(element).get(0).tagName;
 				var film_info = {'name': '', 'times': []};
-				if(tag_type == 'H2') {
+				if(tag_type == 'H3') {
 					if(theaterName){
 						items.push({'name': theaterName, 'films': films});
 					}
-					theaterName = $(element).text();
+					theaterName = $(element).text().trim();
+					theaterName = theaterName.substring(0, theaterName.indexOf(','));
 					films = [];
-
-				} else if (tag_type == 'H3') {
-					// get times to add to film
-					var timeStr = $(element).next().find('td.uhrzeit').text();
-					var times = timeStr.split(",").map(function(s) {
-						return s.trim();
+					// logger.debug(theaterName)
+				} else if (tag_type == 'DL')  {
+					let title = '';
+					let times = '';
+					$(element).children().each(function( i, subEl ) {
+						subTag = $(subEl).get(0).tagName;
+						if(subTag == 'DT'){
+							title = $(subEl).find('button').text().trim();
+						} else {
+							let dayStr = $(subEl).find('tr').find('td').text();
+							times = dayStr.substring(dayStr.indexOf(":") + 1).split(",").map(function(s) {
+								return s.trim();
+							});
+							var origID = $(subEl).find('a:first').attr('href');
+							// logger.info({'title': title, 'times': times, 'origID': origID})
+							films.push({'title': title, 'times': times, 'origID': origID});
+						}
 					});
-					try{
-						var origID = $(element).find('a:first').attr('href');
-					} catch(e){
-						logger.error("can't get the original ID", e)
-						var origID = null;
-					}
-					films.push({'title': $(element).text(), 'times': times, 'origID': origID});
 				}
 			});
 			if(theaterName){
