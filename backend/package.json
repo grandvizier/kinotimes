@@ -19,21 +19,21 @@
     "initialData": "node core/getFilmsJob.js --days 1"
   },
   "dependencies": {
-    "apicache": "^1.1.0",
-    "async": "^2.5.0",
-    "body-parser": "^1.17.2",
+    "apicache": "^1.2.3",
+    "async": "^2.6.1",
+    "body-parser": "^1.18.3",
     "cors": "^2.8.4",
-    "express": "^4.15.4",
-    "imdb-api": "^3.1.1",
-    "jquery": "^3.2.1",
+    "express": "^4.16.3",
+    "imdb-api": "^3.1.2",
+    "jquery": "^3.3.1",
     "jsdom": "^9.12.0",
-    "lodash": "^4.17.4",
-    "moment": "^2.18.1",
-    "mongoose": "^4.11.10",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "mongoose": "^5.2.16",
     "moviedb": "^0.2.10",
-    "request": "^2.81.0",
+    "request": "^2.88.0",
     "stack-trace": "0.0.9",
-    "winston": "^2.3.1",
+    "winston": "^2.4.4",
     "yargs": "^6.6.0"
   }
 }

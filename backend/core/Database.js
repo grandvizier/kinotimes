@@ -55,9 +55,7 @@ function Database() {
 
 Database.prototype.connect = function() {
 	logger.verbose('connecting', this.db);
-	mongoose.connect(this.db, {
-		useMongoClient: true
-	});
+	mongoose.connect(this.db, { useNewUrlParser: true });
 }
 Database.prototype.disconnect = function() {
 	logger.verbose('closing connection');
@@ -109,7 +107,7 @@ Database.prototype.saveShowtime = function(toSave, cb) {
 			// map to film
 			var conditions = {_id : toSave._film, 'showtimes': { "$nin": [showtime] } };
 			var update = {$addToSet: { showtimes: showtime } };
-			FilmModel.update(conditions, update, (function (err, saved) {
+			FilmModel.updateOne(conditions, update, (function (err, saved) {
 				if (err){
 					logger.wanr('showtime saving failed.', err);
 					return cb(err);
@@ -117,25 +115,25 @@ Database.prototype.saveShowtime = function(toSave, cb) {
 				// map to time to theater
 				var conditions = {_id : toSave._theater, 'showtimes': { "$nin": [showtime] } };
 				var update = {$addToSet: { showtimes: showtime } };
-				TheaterModel.update(conditions, update, cb);
+				TheaterModel.updateOne(conditions, update, cb);
 			}));
 		}
 	});
 }
 
 Database.prototype.removeShowtimesEverywhere = function(cb) {
-	ShowtimeModel.remove(function(next){
+	ShowtimeModel.deleteMany(function(next){
 		// pre-hook doesn't work, so calling individually here
-		FilmModel.update({}, { $set: { showtimes: [] }}, {multi: true}, cb);
+		FilmModel.updateMany({}, { $set: { showtimes: [] }}, {multi: true}, cb);
 	});
 }
 Database.prototype.removeFilmsWithoutShowtimes = function(cb) {
-	FilmModel.find({ showtimes: []}).remove( cb );
+	FilmModel.find({ showtimes: []}).deleteMany( cb );
 }
 
 Database.prototype.saveFilmInfo = function(toSave, cb) {
 	logger.debug('saving details of film', toSave);
-	FilmModel.update({title : toSave.title}, { $set: toSave}, cb);
+	FilmModel.updateOne({title : toSave.title}, { $set: toSave}, cb);
 }
 
 Database.prototype.getAllFilms = function(cb) {
@@ -229,7 +227,7 @@ Database.prototype.updateImdbID = function(toSave, cb) {
 	if(toSave.originalID) {
 		query.originalID = toSave.originalID;
 	}
-	FilmModel.update(query, { $set: toSave}, cb);
+	FilmModel.updateOne(query, { $set: toSave}, cb);
 }
 
 
