@@ -3,7 +3,8 @@ request = require('request'),
 moment = require('moment');
 var logger = new (require('../utils/logger.js'));
 
-// TODO: create a ParseFilm parent class
+// If this needs any future work, update jsdom to ver 12.0+
+//   https://github.com/jsdom/jsdom/blob/master/Changelog.md
 
 function BerlinDeFilms() {
 	var _base_url = 'https://www.berlin.de/kino/_bin/trefferliste.php?kino=';
