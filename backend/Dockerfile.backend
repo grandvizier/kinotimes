@@ -1,4 +1,4 @@
-FROM node:boron
+FROM node:8.12.0
 MAINTAINER KinoTimes <admin@kinotimes.tk>
 
 RUN mkdir /usr/app
