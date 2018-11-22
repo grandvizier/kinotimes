@@ -142,7 +142,7 @@ Database.prototype.getFilmsWithTimeFilter = function(startPoint, cutoff, cb) {
 			select: {'_id': 1, 'name': 1}
 		}
 	}).sort('title').exec(function (err, showtimes) {
-		if (!showtimes.length){
+		if (!showtimes || !showtimes.length){
 			logger.warn('no showtimes found');
 			cb('Error: no showtimes found', null);
 		}else{
