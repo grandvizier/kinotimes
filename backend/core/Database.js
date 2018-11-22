@@ -2,45 +2,10 @@ var mongoose = require('mongoose'),
 	logger = (require('../utils/logger.js'))(module.id);
 
 mongoose.Promise = global.Promise;
-var Schema = mongoose.Schema;
 
-var showtimeSchema = new Schema({
-	_film: { type: Schema.Types.ObjectId, ref: 'Film' },
-	_theater: { type: Schema.Types.ObjectId, ref: 'Theater' },
-	timestamp: Date
-});
-
-var theaterSchema = new Schema({
-	name: String,
-	street: String,
-	kietz: String,
-	website: String,
-	showtimes: [{ type: Schema.Types.ObjectId, ref: 'Showtime' }]
-});
-
-var filmSchema = new Schema({
-	title: String,
-	originalID: String,
-	img: String,
-	imdbID: String,
-	reviewed: Boolean,
-	details: {
-		director: String,
-		actors: String,
-		description: String,
-		rating: Number,
-		year: String,
-		genre: String,
-		language: String,
-		country: String,
-		aka: String,
-	},
-	showtimes: [{ type: Schema.Types.ObjectId, ref: 'Showtime' }]
-});
-
-var FilmModel = mongoose.model('Film', filmSchema);
-var TheaterModel = mongoose.model('Theater', theaterSchema);
-var ShowtimeModel = mongoose.model('Showtime', showtimeSchema);
+var FilmModel = require('./models/film');
+var TheaterModel = require('./models/showtime');
+var ShowtimeModel = require('./models/showtime');
 
 
 function Database() {
