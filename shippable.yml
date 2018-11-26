@@ -36,11 +36,11 @@ build:
     - docker build -f $SHIPPABLE_BUILD_DIR/backend/Dockerfile.backend -t $DOCKER_ACC/backend:$BUILD_NUMBER  --build-arg tmdb_token=$TMDB_TOKEN --build-arg omdb_apikey=$OMDB_APIKEY $SHIPPABLE_BUILD_DIR/backend/
 
   post_ci:
-    - docker push $DOCKER_ACC/web:$BUILD_NUMBER
-    - docker push $DOCKER_ACC/backend:$BUILD_NUMBER
+    - if [ "$BASE_BRANCH" == "master" ] && [ "$IS_PULL_REQUEST" != true ]; then docker push $DOCKER_ACC/web:$BUILD_NUMBER; fi
+    - if [ "$BASE_BRANCH" == "master" ] && [ "$IS_PULL_REQUEST" != true ]; then docker push $DOCKER_ACC/backend:$BUILD_NUMBER; fi
 
   on_success:
-    - ssh root@$SERVER_IP "cd /root/app; export BUILD=$BUILD_NUMBER && docker-compose up -d"
+    - if [ "$BASE_BRANCH" == "master" ] && [ "$IS_PULL_REQUEST" != true ]; then ssh root@$SERVER_IP "cd /root/app; export BUILD=$BUILD_NUMBER && docker-compose up -d"; fi
 
 integrations:
   hub:
