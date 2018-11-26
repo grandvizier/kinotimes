@@ -48,8 +48,8 @@ var logger = new winston.Logger({
 });
 
 var Logger = function(){
-	path = stackTrace.get()[1].getFileName();
-	codePath = path.replace(/^.*[\\\/]/, '');
+	var pathToFile = stackTrace.get()[1].getFileName();
+	codePath = pathToFile.replace(/^.*[\\\/]/, '');
 	return logger;
 }
 
