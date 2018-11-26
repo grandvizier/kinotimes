@@ -9,8 +9,9 @@ var graphqlHTTP = require('express-graphql');
 
 let port = process.env.REACT_APP_KT_BACKEND_PORT
 let localUrl = process.env.REACT_APP_KT_URL + ":" + process.env.REACT_APP_KT_PORT
+let localServer = process.env.REACT_APP_KT_URL + ":" + port
 
-var whitelist = [localUrl, 'http://kinotimes.tk']
+var whitelist = [localUrl, localServer, 'http://kinotimes.tk']
 var corsOptions = {
 	origin: function (origin, callback) {
 		let approved = whitelist.filter(function( validUrl ) {
@@ -41,7 +42,7 @@ app.use("/adminapi", projectionistController);
 app.use('/graphql', graphqlHTTP(function (req) {
   return {
     schema: schema,
-    graphiql: false
+    graphiql: true
   };
 }));
 

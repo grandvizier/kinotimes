@@ -1,8 +1,3 @@
-// var db = new (require('../../core/Database.js'));
-var filmModel = new (require('../../core/models/film'));
-
-exports.getProjection = getProjection;
-
 const {
   GraphQLObjectType,
   GraphQLNonNull,
@@ -14,13 +9,15 @@ const {
 } = require('graphql/type');
 
 
+import filmModel from '../../core/models/film'
+
 /**
  * generate projection object for mongoose
  * @param  {Object} fieldASTs
  * @return {Project}
  */
-function getProjection(fieldASTs) {
-  return fieldASTs.fieldNodes[0].selectionSet.selections.reduce(function (projections, selection) {
+export function getProjection (fieldASTs) {
+  return fieldASTs.fieldNodes[0].selectionSet.selections.reduce((projections, selection) => {
     projections[selection.name.value] = true;
     return projections;
   }, {});
@@ -82,29 +79,15 @@ var schema = new GraphQLSchema({
             type: new GraphQLNonNull(GraphQLString)
           }
         },
-        // resolve: async (parent, { id }, context, info) => {
-        //   const result = await User.findById(id);
-        //   return result.toObject();
-        // },
         resolve: function resolve(root, _ref, source, fieldASTs) {
-          var imdbID = _ref.imdbID;
-          console.log(_ref);
-          console.log(filmModel);
-
           var projections = getProjection(fieldASTs);
           var foundItems = new Promise(function (resolve, reject) {
-            filmModel.find({imdbID: imdbID}, projections, function (err, films) {
+            filmModel.find({imdbID: _ref.imdbID}, projections, function (err, films) {
               err ? reject(err) : resolve(films);
             });
           });
 
           return foundItems;
-        }
-      },
-      hello: {
-        type: GraphQLString,
-        resolve() {
-          return 'world';
         }
       }
     }
