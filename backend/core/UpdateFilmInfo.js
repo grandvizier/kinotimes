@@ -75,6 +75,7 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 
 
 UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
+	const cli = new imdb.Client({apiKey: omdbApiKey, timeout: 13000});
 	db.getImdbFilmsOnly(function(err, films){
 		if(err){
 			logger.error(err);
@@ -82,11 +83,7 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 		}
 		async.each(films, function(film, cb){
 			logger.verbose('getting details about: `' + film.title + '`. From:', film.imdbID);
-			imdb.getReq({ id: film.imdbID, opts: {apiKey: omdbApiKey, timeout: 13000} }, function(err, movie) {
-				if(err){
-				    logger.error('IMDB error.', film.imdbID, err);
-				    return cb();
-				}
+			cli.get({ id: film.imdbID, short_plot: true}).then(movie => {
 				var aka = ""
 				var re = /[3d|\.]/gi;;
 				let n1 = film.title.toLowerCase().replace(re, '').trim()
@@ -114,6 +111,9 @@ UpdateFilmInfo.prototype.imdbUpdateById = function(callback) {
 					if(err) logger.error(err);
 					cb();
 				});
+			}).catch(err => {
+				logger.error('IMDB error.', film.imdbID, err);
+				return cb();
 			});
 		}, function(err) {
 			if(err) logger.error(err);
