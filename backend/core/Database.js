@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-	logger = new (require('../utils/logger.js'));
+	logger = (require('../utils/logger.js'))(module.id);
 
 mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema;

@@ -1,6 +1,6 @@
 var moment = require('moment'),
 async = require('async');
-var logger = new (require('../utils/logger.js'));
+var logger = (require('../utils/logger.js'))(module.id);
 var db = new (require('./Database.js'));
 
 var stripParenthesis = /\s*\(.*?\)\s*/g;

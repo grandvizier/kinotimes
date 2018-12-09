@@ -1,7 +1,7 @@
 var jsdom = require('jsdom'),
 request = require('request'),
 moment = require('moment');
-var logger = new (require('../utils/logger.js'));
+var logger = (require('../utils/logger.js'))(module.id);
 
 // If this needs any future work, update jsdom to ver 12.0+
 //   https://github.com/jsdom/jsdom/blob/master/Changelog.md

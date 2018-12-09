@@ -1,55 +1,43 @@
-var winston = require('winston'),
-moment = require('moment'),
-_ = require('lodash'),
-stackTrace = require('stack-trace');
-winston.emitErrs = true;
-
-// var env = process.env.NODE_ENV || 'development';
-var codePath = '';
-var logDir = './logs';
+const { createLogger, format, transports } = require('winston');
+const { combine, timestamp, label, printf, colorize, uncolorize } = format;
 
 // Create the log directory if it does not exist
+var logDir = './logs';
 var fs = require('fs');
 if (!fs.existsSync(logDir)) {
 	fs.mkdirSync(logDir);
 }
 
-var tsFormat = () => moment().format('lll');
-var formatterFunc = (options) =>
-	winston.config.colorize(options.level,"["+options.timestamp()+"] ") +
-	winston.config.colorize(options.level,options.level.toUpperCase()) + '\t' +
-	codePath + '\t' +
-	winston.config.colorize(options.level, (undefined !== options.message ? options.message : '')) +
-	" " + (!_.isEmpty(options.meta) ? JSON.stringify(options.meta) : '');
-
-
-var logger = new winston.Logger({
-	transports: [
-		new winston.transports.File({
-			level: 'debug',
-			filename: logDir+'/results.log',
-			handleExceptions: true,
-			timestamp: tsFormat,
-			maxsize: 5242880, //5MB
-			maxFiles: 5,
-			json: false,
-			colorize: false
-		}),
-		new winston.transports.Console({
-			level: 'debug',
-			timestamp: tsFormat,
-			handleExceptions: true,
-			json: false,
-			formatter: formatterFunc,
-			colorize: true
-		})
-	],
-	exitOnError: false
+// level.toUpperCase()
+const formatStr = printf(info => {
+	return `[${info.timestamp}] ${info.level}\t ${info.label} ${info.message}`;
 });
 
-var Logger = function(){
-	var pathToFile = stackTrace.get()[1].getFileName();
-	codePath = pathToFile.replace(/^.*[\\\/]/, '');
+var fileFormat = combine(
+	uncolorize({message: true, level: true})
+)
+
+var Logger = function(f, col){
+	f = f.replace(/^.*[\\\/]/, '');
+	var logger = createLogger({
+		exitOnError: false,
+		format: combine(
+			colorize({message: true, level: true}),
+			label({ label: f }),
+			timestamp({format: 'MMM D, YYYY HH:mm'}),
+			formatStr
+		),
+		transports: [
+			new transports.Console({level: 'debug'}),
+			new transports.File({
+				level: 'debug',
+				filename: logDir+'/results.log',
+				format: fileFormat,
+				maxsize: 5242880, //5MB
+				maxFiles: 5
+			})
+		]
+	});
 	return logger;
 }
 

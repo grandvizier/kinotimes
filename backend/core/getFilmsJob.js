@@ -1,4 +1,4 @@
-var logger = new (require('../utils/logger.js'));
+var logger = (require('../utils/logger.js'))(module.id);
 var moment = require('moment'),
 async = require('async');
 
