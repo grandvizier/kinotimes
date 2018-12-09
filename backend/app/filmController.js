@@ -1,4 +1,4 @@
-var logger = new (require('../utils/logger.js'));
+var logger = (require('../utils/logger.js'))(module.id);
 var db = new (require('../core/Database.js'));
 var router = require("express").Router();
 var apicache = require("apicache");

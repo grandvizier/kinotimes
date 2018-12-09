@@ -3,7 +3,7 @@ var async = require('async'),
 request = require('request'),
 imdb = require('imdb-api');
 
-var logger = new (require('../utils/logger.js'));
+var logger = (require('../utils/logger.js'))(module.id);
 var db = new (require('./Database.js'));
 
 var omdbApiKey = process.env.OMDB_APIKEY
