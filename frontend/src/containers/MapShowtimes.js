@@ -42,6 +42,7 @@ const EachTime = ({ t }) => {
 }
 
 const DayView = ({ day, mapped }) => {
+  moment.locale('en');
   mapped.sort(function(a, b) {
       return moment(a.timestamp).format('x') - moment(b.timestamp).format('x');
   })
