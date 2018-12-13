@@ -4,6 +4,7 @@ const {
   GraphQLSchema,
   GraphQLString,
   GraphQLInt,
+  GraphQLFloat,
   GraphQLBoolean,
   GraphQLList,
 } = require('graphql/type');
@@ -47,22 +48,59 @@ var filmType = new GraphQLObjectType({
       reviewed: {
         type: GraphQLBoolean,
         description: 'Has been reviewed in the admin panel'
-      }
-
-    // details: {
-    //   director: String,
-    //   actors: String,
-    //   description: String,
-    //   rating: Number,
-    //   year: String,
-    //   genre: String,
-    //   language: String,
-    //   country: String,
-    //   aka: String,
-    // },
+      },
+      details: { type: new GraphQLList(filmDetails) }
 
     // showtimes: { type: new GraphQLList(showtimeType) },
 
+    };
+  }
+});
+
+var filmDetails = new GraphQLObjectType({
+  name: 'FilmDetails',
+  description: 'film details',
+  fields: function fields() {
+    return {
+      director: {
+        type: GraphQLString,
+        description: 'The director of the film.'
+      },
+      actors: {
+        type: GraphQLString,
+        description: 'TODO: currently string of actors, should be array.'
+      },
+      description: {
+        type: GraphQLString,
+        description: 'The description of the film.'
+      },
+      genre: {
+        type: GraphQLString,
+        description: 'TODO: currently string of genres, should be an array.'
+      },
+      aka: {
+        type: GraphQLString,
+        description: 'English title of the film, if different from listing'
+      },
+      rating: { type: new GraphQLList(filmRating) }
+
+    //   year: String,
+    //   language: String,
+    //   country: String,
+    // },
+    };
+  }
+});
+
+var filmRating = new GraphQLObjectType({
+  name: 'FilmRating',
+  description: 'ratings of the film (only imdb now)',
+  fields: function fields() {
+    return {
+      imdb: {
+        type: GraphQLFloat,
+        description: 'The imdb rating.'
+      }
     };
   }
 });
