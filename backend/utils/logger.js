@@ -10,7 +10,10 @@ if (!fs.existsSync(logDir)) {
 
 // level.toUpperCase()
 const formatStr = printf(info => {
-	return `[${info.timestamp}] ${info.level}\t ${info.label} ${info.message}`;
+	if ((!info.meta)) {
+		return `[${info.timestamp}] ${info.level}\t ${info.label} ${info.message}`;
+	}
+	return `[${info.timestamp}] ${info.level}\t ${info.label} ${info.message} ${JSON.stringify(info.meta)}`;
 });
 
 var fileFormat = combine(
@@ -25,6 +28,7 @@ var Logger = function(f, col){
 			colorize({message: true, level: true}),
 			label({ label: f }),
 			timestamp({format: 'MMM D, YYYY HH:mm'}),
+			format.splat(),
 			formatStr
 		),
 		transports: [
