@@ -1,28 +1,29 @@
 import FontAwesome from "react-fontawesome";
 import { Row, Col } from "react-bootstrap";
 import * as React from "react";
+import classNames from "classnames";
 
-// TODO: check props type def
 export interface Props {
   filmDetails: any;
-  detailsStyle: string;
   imagePath: string;
   onFilmSave: () => void;
   onFilterClick: () => void;
   favorite: any;
+  reviewed: boolean;
 }
 
 class FilmDetails extends React.PureComponent<Props> {
   render() {
     const {
       filmDetails,
-      detailsStyle,
       imagePath,
       onFilmSave,
       onFilterClick,
-      favorite
+      favorite,
+      reviewed
     } = this.props;
 
+    let detailsStyle = classNames("allDetails small", { reviewed: reviewed }); // the reviewed class greys things out
     return (
       <Col xs={4} className={detailsStyle}>
         <Row>

@@ -4,7 +4,7 @@ import MapShowtimes from "../containers/MapShowtimes";
 import FilmDetails from "./FilmDetails";
 import "./Film.css";
 import { ShowTime } from "../types";
-
+import classNames from "classnames";
 export interface Props {
   onFilterClick: () => void;
   onFilmSave: () => void;
@@ -50,10 +50,12 @@ class Film extends React.Component<Props, State> {
     if (!showtimes.length) {
       return null;
     }
-    let detailsStyle = "allDetails small" + (reviewed ? "" : " reviewed"); // the reviewed class greys things out
+    const panelClassName = classNames("filmPanel", {
+      expand: this.state.expand
+    });
     return (
       <Panel
-        className={`filmPanel ${this.state.expand ? "expand" : ""}`}
+        className={panelClassName} // `filmPanel ${this.state.expand ? "expand" : ""}`
         onClick={this.onPanelClick}
       >
         <Panel.Heading>
@@ -62,12 +64,12 @@ class Film extends React.Component<Props, State> {
         <Panel.Body>
           {filmDetails.aka && <div className="altTitle">{filmDetails.aka}</div>}
           <FilmDetails
-            detailsStyle={detailsStyle}
             filmDetails={filmDetails}
             imagePath={imagePath}
             onFilmSave={onFilmSave}
             onFilterClick={onFilterClick}
             favorite={favorite}
+            reviewed={reviewed}
           />
           <div className="panel-body col-xs-8">
             <div className="panel panel-info">
