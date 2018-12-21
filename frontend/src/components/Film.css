@@ -1,0 +1,9 @@
+.filmPanel {
+  max-height: 52px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.filmPanel.expand {
+  max-height: 600px;
+}

@@ -1,30 +1,30 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Row, Col, Panel } from "react-bootstrap";
-import MapShowtimes from "../containers/MapShowtimes";
 import FontAwesome from "react-fontawesome";
-const Film = ({
-  onClick,
-  onFilmSave,
-  title,
-  imdbID,
-  img,
-  details,
-  showtimes,
-  reviewed,
-  favorite
-}) => {
-  let filmDetails = details ? details : {};
-  let imagePath = img !== "N/A" ? img : "/image_not_found.jpg";
-  // don't show films if there's no times to display
-  if (!showtimes.length) {
-    return null;
-  }
-  let detailsStyle = "allDetails small" + (reviewed ? "" : " reviewed"); // the reviewed class greys things out
+import { Row, Col } from "react-bootstrap";
+import * as React from "react";
+import classNames from "classnames";
 
-  return (
-    <Panel header={title}>
-      {filmDetails.aka && <div className="altTitle">{filmDetails.aka}</div>}
+export interface Props {
+  filmDetails: any;
+  imagePath: string;
+  onFilmSave: () => void;
+  onFilterClick: () => void;
+  favorite: any;
+  reviewed: boolean;
+}
+
+class FilmDetails extends React.PureComponent<Props> {
+  render() {
+    const {
+      filmDetails,
+      imagePath,
+      onFilmSave,
+      onFilterClick,
+      favorite,
+      reviewed
+    } = this.props;
+
+    let detailsStyle = classNames("allDetails small", { reviewed: reviewed }); // the reviewed class greys things out
+    return (
       <Col xs={4} className={detailsStyle}>
         <Row>
           <Col xs={8} className="details">
@@ -66,26 +66,13 @@ const Film = ({
           />
           <span className="filterText">{favorite ? "saved" : "save"}</span>
         </Row>
-        <Row className="filter filterOut" onClick={onClick}>
+        <Row className="filter filterOut" onClick={onFilterClick}>
           <FontAwesome name="ban" />
           <span className="filterText">filter</span>
         </Row>
       </Col>
-      <div className="panel-body col-xs-8">
-        <div className="panel panel-info">
-          <MapShowtimes showtimes={showtimes} />
-        </div>
-      </div>
-    </Panel>
-  );
-};
+    );
+  }
+}
 
-Film.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  onFilmSave: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
-  // details: PropTypes.object.isRequired,
-  // createdAt: PropTypes.number.isRequired
-};
-
-export default Film;
+export default FilmDetails;

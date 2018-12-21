@@ -11,7 +11,7 @@ const FilmList = ({ films, onFilterClick, onFilmSave }) => (
           <Film
             key={film._id}
             {...film}
-            onClick={() => onFilterClick(film._id)}
+            onFilterClick={() => onFilterClick(film._id)}
             onFilmSave={() => onFilmSave(film._id)}
           />
         );
