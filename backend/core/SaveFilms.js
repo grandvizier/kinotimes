@@ -40,7 +40,7 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 					if(err){
 						logger.error(typeof err);
 						logger.error(err);
-						return;
+						return cb2(err);
 					}
 					var filmId = filmModel._id;
 
@@ -56,7 +56,7 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 							if(err){
 								logger.error(typeof err);
 								logger.error(err);
-								return;
+								return cb3(err);
 							}
 							cb3();
 						});
