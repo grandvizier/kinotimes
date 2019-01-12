@@ -11,6 +11,7 @@ const {
 
 
 import filmModel from '../../core/models/film'
+import showtimeModel from '../../core/models/showtime'
 
 /**
  * generate projection object for mongoose
@@ -49,9 +50,9 @@ var filmType = new GraphQLObjectType({
         type: GraphQLBoolean,
         description: 'Has been reviewed in the admin panel'
       },
-      details: { type: new GraphQLList(filmDetails) }
+      // details: { type: new GraphQLObjectType(filmDetails) }
 
-    // showtimes: { type: new GraphQLList(showtimeType) },
+      showtimes: { type: new GraphQLList(showtimeType) },
 
     };
   }
@@ -81,13 +82,26 @@ var filmDetails = new GraphQLObjectType({
       aka: {
         type: GraphQLString,
         description: 'English title of the film, if different from listing'
-      },
-      rating: { type: new GraphQLList(filmRating) }
+      }
+      // rating: { type: new GraphQLList(filmRating) }
 
     //   year: String,
     //   language: String,
     //   country: String,
     // },
+    };
+  }
+});
+
+var showtimeType = new GraphQLObjectType({
+  name: 'Showtimes',
+  description: 'showtime info for a film',
+  fields: function fields() {
+    return {
+      timestamp: {
+        type: GraphQLInt,
+        description: 'The timestamp of when the film is playing.'
+      }
     };
   }
 });
