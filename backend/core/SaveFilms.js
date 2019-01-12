@@ -1,11 +1,12 @@
 var moment = require('moment'),
 async = require('async');
 var logger = (require('../utils/logger.js'))(module.id);
-var db = new (require('./Database.js'));
 
 var stripParenthesis = /\s*\(.*?\)\s*/g;
 
-function SaveFilms() {}
+function SaveFilms(dbInstance) {
+	this.db = dbInstance;
+}
 
 
 /*
@@ -16,6 +17,7 @@ function SaveFilms() {}
 */
 SaveFilms.prototype.save = function(films, dateUsed, callback) {
 	moment.locale('de');
+	let db = this.db;
 	async.each(films, function(theater, cb) {
 		var theaterName = theater.name.replace(stripParenthesis, '');
 		// get theater id from DB

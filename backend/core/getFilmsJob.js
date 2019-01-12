@@ -26,7 +26,7 @@ var parser = new BerlinDeFilms();
 var db = new (require('./Database.js'));
 db.connect();
 var SaveFilms = require('./SaveFilms.js');
-var saver = new SaveFilms();
+var saver = new SaveFilms(db);
 var UpdateFilmInfo = require('./UpdateFilmInfo.js');
 var updater = new UpdateFilmInfo();
 var ImageStoring = require('./ImageStoring.js');
