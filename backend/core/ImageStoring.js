@@ -60,7 +60,7 @@ ImageStoring.prototype.getImages = function(films, callback) {
 							pathToUse = res.posters[x].file_path;
 						}
 					}
-					newPosterPath = tmdb_settings.images_url + tmdb_settings.image_size + pathToUse;
+					let newPosterPath = tmdb_settings.images_url + tmdb_settings.image_size + pathToUse;
 					logger.info(newPosterPath);
 					db.saveFilmInfo({'title': film.title, 'img': newPosterPath}, function(err, saved){
 						if(err) logger.error(err);
