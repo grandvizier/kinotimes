@@ -31,14 +31,18 @@
     "jquery": "^3.3.1",
     "jsdom": "^9.12.0",
     "lodash": "^4.17.11",
-    "mocha": "^5.2.0",
     "moment": "^2.22.2",
     "mongoose": "^5.2.16",
     "moviedb": "^0.2.10",
     "request": "^2.88.0",
-    "sinon": "^7.2.2",
     "stack-trace": "0.0.9",
     "winston": "^3.1.0",
     "yargs": "^12.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "sinon": "^7.2.2",
+    "sinon-chai": "^3.3.0"
   }
 }
