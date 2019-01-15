@@ -14,6 +14,7 @@
   "homepage": "http://kinotimes.tk",
   "private": true,
   "scripts": {
+    "test": "mocha",
     "start": "babel-node app/server.js",
     "start-dev": "nodemon -L app/server.js --exec babel-node",
     "initialData": "babel-node core/getFilmsJob.js --days 2"
@@ -37,5 +38,11 @@
     "stack-trace": "0.0.9",
     "winston": "^3.1.0",
     "yargs": "^12.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "sinon": "^7.2.2",
+    "sinon-chai": "^3.3.0"
   }
 }
