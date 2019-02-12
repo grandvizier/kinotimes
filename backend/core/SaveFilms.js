@@ -16,7 +16,6 @@ function SaveFilms(dbInstance) {
  * @return {Number} sum
 */
 SaveFilms.prototype.save = function(films, dateUsed, callback) {
-	moment.locale('de');
 	let db = this.db;
 	async.each(films, function(theater, cb) {
 		var theaterName = theater.name.replace(stripParenthesis, '');
@@ -46,7 +45,7 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 
 					// add new showtimes (timestamp, theaterId, filmId)
 					async.each(film.times, function(time, cb3){
-						var t = moment(dateUsed + ' ' + time, "YYYY-MM-DD HH:mm").utc();
+						var t = moment(dateUsed + ' ' + time, "YYYY-MM-DD HH:mm");
 						var toSave = {
 							'_theater': theaterId,
 							'_film': filmId,

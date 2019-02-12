@@ -52,4 +52,5 @@ export REACT_APP_KT_PORT=3000
 In different terminals:
 * backend: `npm run start-dev`
 * frontend: `npm run start-dev`
+* backend: `npm test`
 * frontend: `npm test`
