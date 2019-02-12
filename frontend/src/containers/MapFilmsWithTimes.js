@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { Row, Col, Image } from 'react-bootstrap'
 import {
   toggleFilmFilter
@@ -37,7 +37,7 @@ const compressShowtimes = (showtimes, filters) => {
 
 const EachTime = ({ t }) => {
   return (
-    <div className="showtime">{moment(t).format('h:mm a Do MMM')}</div>
+    <div className="showtime">{dayjs(t).format('h:mm a Do MMM')}</div>
   )
 }
 

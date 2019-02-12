@@ -1,4 +1,6 @@
-import moment from 'moment'
+import dayjs from 'dayjs'
+import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+dayjs.extend(LocalizedFormat)
 
 // Action types:
 export const FILMS_HAS_ERRORED = 'films/HAS_ERRORED'
@@ -41,7 +43,7 @@ export const films = (state = [], action) => {
 			const updatedTimes = state.map(film => {
 				let acceptableTimes = film.showtimes.filter(function(showtime)
 				{
-				    var t = moment(showtime.timestamp)
+				    var t = dayjs(showtime.timestamp)
 				    let after = (action.startDate) ? t.format('X') >= action.startDate : true
 				    let before = (action.endDate) ? t.format('X') <= action.endDate : true
 				    return (after && before)
