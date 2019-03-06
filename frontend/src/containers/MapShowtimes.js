@@ -52,7 +52,7 @@ const DayView = ({ day, mapped }) => {
   })
   return (
     <div className="col-xs-3">
-      <div className="panel-heading">{dayjs(day, 'x').add(-6, 'hours').format('ddd Do')}</div>
+      <div className="panel-heading">{dayjs.unix(day).add(-6, 'hours').format('ddd Do')}</div>
       {mapObj(mapped, (t) => (
         <EachTime key={uid()} t={t} />
       ))}
