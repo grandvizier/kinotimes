@@ -23,7 +23,7 @@ class FilmDetails extends React.PureComponent<Props> {
       reviewed
     } = this.props;
 
-    let detailsStyle = classNames("allDetails small", { reviewed: reviewed }); // the reviewed class greys things out
+    let detailsStyle = classNames("allDetails small", { reviewed: !reviewed }); // if not reviewed, grey things out
     return (
       <Col xs={4} className={detailsStyle}>
         <Row>
