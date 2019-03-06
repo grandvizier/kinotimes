@@ -1,5 +1,7 @@
 import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+dayjs.extend(advancedFormat)
 dayjs.extend(LocalizedFormat)
 
 // Action types:
