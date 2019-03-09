@@ -4,6 +4,10 @@ moment = require('moment');
 const { JSDOM } = jsdom;
 var logger = (require('../utils/logger.js'))(module.id);
 
+const DIRECTOR = "Regie:"
+const COUNTRY  = "Land:"
+const YEAR     = "Jahr:"
+
 function BerlinDeFilms() {
 	var _base_url = 'https://www.berlin.de';
 	var _searchPath = '/kino/_bin/trefferliste.php?kino=';
@@ -75,6 +79,56 @@ BerlinDeFilms.prototype.getFilms = function(startDate, callback) {
 	});
 };
 
+
+/*
+ * @param {String} idPath original path to the film data
+ * @param {Function} callback function(err, result)
+ * @return {Object} data that should be updated in the db (if found)
+*/
+BerlinDeFilms.prototype.parsePage = function(idPath, callback) {
+	getUrl = _base_url + idPath
+	var filmInfo = {};
+	request({uri: getUrl}, function(err, response, body){
+		if(err && response.statusCode !== 200){
+			logger.error('Request error.', response);
+			callback(err);
+		}
+
+		const dom = new JSDOM(body, {
+			url: getUrl,
+			contentType: "text/html",
+			includeNodeLocations: true,
+			storageQuota: 10000000
+		}).window.document;
+		var allTitles = dom.querySelectorAll("div.article-attributes ul .title")
+		var allValues = dom.querySelectorAll("div.article-attributes ul .text")
+		if(allTitles.length != allValues.length){
+			return callback("count doesnt match")
+		}
+
+		for (i = 0; i < allTitles.length; i++) {
+			switch (allTitles[i].textContent.trim()) {
+				case DIRECTOR:
+					filmInfo.director = allValues[i].textContent.trim();
+					break;
+				case COUNTRY:
+					filmInfo.country = allValues[i].textContent.trim();
+					break;
+				case YEAR:
+					filmInfo.year = allValues[i].textContent.trim();
+					break;
+				default:
+					// logger.debug("Not using:", allTitles[i].textContent, allValues[i].textContent);
+			}
+		}
+		if(filmInfo == {}){
+			logger.verbose("Not enough data about film to update")
+			callback(null, null)
+		} else {
+			callback(null, filmInfo)
+		}
+	});
+};
 
 
 module.exports = BerlinDeFilms;
