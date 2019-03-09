@@ -13,10 +13,11 @@ function SaveFilms(dbInstance) {
  * @param {Array} films the list of films as an array of json objects
  * @param {String} dateUsed 'YYYY-MM-DD'
  * @param {Function} callback function(err, result)
- * @return {Number} sum
+ * @return {Obj} filmsNotReviewed {id: {filmObj}, ...}
 */
 SaveFilms.prototype.save = function(films, dateUsed, callback) {
 	let db = this.db;
+	filmsNotReviewed = {};
 	async.each(films, function(theater, cb) {
 		var theaterName = theater.name.replace(stripParenthesis, '');
 		// get theater id from DB
@@ -42,6 +43,9 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 						return cb2(err);
 					}
 					var filmId = filmModel._id;
+					if(!filmModel.reviewed && !filmsNotReviewed[filmId]){
+						filmsNotReviewed[filmId] = filmModel
+					}
 
 					// add new showtimes (timestamp, theaterId, filmId)
 					async.each(film.times, function(time, cb3){
@@ -74,7 +78,7 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 			callback(err);
 		} else {
 			logger.info('All films saved successfully');
-			callback(null, {});
+			callback(null, filmsNotReviewed);
 		}
 	});
 
