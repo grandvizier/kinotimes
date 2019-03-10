@@ -7,12 +7,12 @@ var logger = (require('../utils/logger.js'))(module.id);
 const DIRECTOR = "Regie:"
 const COUNTRY  = "Land:"
 const YEAR     = "Jahr:"
+const _BASE_URL   = 'https://www.berlin.de';
+const _SEARCHPATH = '/kino/_bin/trefferliste.php?kino=';
+const _URL_PARAMS = '&genre=&stadtteil=&freitext=&ovomu=check&suche=1';
 
 function BerlinDeFilms() {
-	var _base_url = 'https://www.berlin.de';
-	var _searchPath = '/kino/_bin/trefferliste.php?kino=';
-	var _url_params = '&genre=&stadtteil=&freitext=&ovomu=check&suche=1';
-	this.web_url = (d) => _base_url + _searchPath + '&datum=' + d + _url_params;
+	this.web_url = (d) => _BASE_URL + _SEARCHPATH + '&datum=' + d + _URL_PARAMS;
 }
 
 /*
@@ -85,12 +85,13 @@ BerlinDeFilms.prototype.getFilms = function(startDate, callback) {
  * @param {Function} callback function(err, result)
  * @return {Object} data that should be updated in the db (if found)
 */
-BerlinDeFilms.prototype.parsePage = function(idPath, callback) {
-	getUrl = _base_url + idPath
-	var filmInfo = {};
+BerlinDeFilms.prototype.parseFilmData = function(idPath, callback) {
+	let getUrl = idPath
+	let filmInfo = {};
+	logger.info(' getting more info about film at:', getUrl);
 	request({uri: getUrl}, function(err, response, body){
-		if(err && response.statusCode !== 200){
-			logger.error('Request error.', response);
+		if(err || response.statusCode !== 200){
+			(err) ? logger.error(err) : logger.error('Request invalid', response);
 			callback(err);
 		}
 
@@ -103,7 +104,7 @@ BerlinDeFilms.prototype.parsePage = function(idPath, callback) {
 		var allTitles = dom.querySelectorAll("div.article-attributes ul .title")
 		var allValues = dom.querySelectorAll("div.article-attributes ul .text")
 		if(allTitles.length != allValues.length){
-			return callback("count doesnt match")
+			return callback("attribute count doesn't match")
 		}
 
 		for (i = 0; i < allTitles.length; i++) {
