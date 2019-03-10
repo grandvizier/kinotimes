@@ -22,8 +22,6 @@ const AdminFilm = ({
   let isfilmReviewd = reviewed ? true : false;
   // let showtimesCount = (showtimes.length === 1) ? showtimes[0].timestamp : showtimes.length;
   let showtimesCount = showtimes.length;
-  // let origin = (originalID ? 'https://www.berlin.de/kino/_bin/'+originalID : '')
-  let origin = originalID ? "https://www.berlin.de" + originalID : "";
   let altTitle = filmDetails.aka ? filmDetails.aka : null;
 
   return (
@@ -75,7 +73,7 @@ const AdminFilm = ({
           </a>
         </Col>
         <Col>
-          <a href={origin} target="_blank" rel="noopener noreferrer">
+          <a href={originalID} target="_blank" rel="noopener noreferrer">
             {originalID ? "Original data" : ""}
           </a>
         </Col>

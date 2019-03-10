@@ -81,22 +81,21 @@ BerlinDeFilms.prototype.getFilms = function(startDate, callback) {
 
 
 /*
- * @param {String} idPath original path to the film data
+ * @param {String} idUrl original path to the film data
  * @param {Function} callback function(err, result)
  * @return {Object} data that should be updated in the db (if found)
 */
-BerlinDeFilms.prototype.parseFilmData = function(idPath, callback) {
-	let getUrl = idPath
+BerlinDeFilms.prototype.parseFilmData = function(idUrl, callback) {
 	let filmInfo = {};
-	logger.info(' getting more info about film at:', getUrl);
-	request({uri: getUrl}, function(err, response, body){
+	logger.info(' getting more info about film at:', idUrl);
+	request({uri: idUrl}, function(err, response, body){
 		if(err || response.statusCode !== 200){
 			(err) ? logger.error(err) : logger.error('Request invalid', response);
 			callback(err);
 		}
 
 		const dom = new JSDOM(body, {
-			url: getUrl,
+			url: idUrl,
 			contentType: "text/html",
 			includeNodeLocations: true,
 			storageQuota: 10000000
