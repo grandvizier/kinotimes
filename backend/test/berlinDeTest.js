@@ -1,3 +1,4 @@
+var rewire = require('rewire');
 var fs = require('fs');
 var assert = require('assert');
 var sinon = require('sinon');
@@ -10,6 +11,7 @@ var successCb = sinon.spy();
 
 var BerlinDeFilms = require('../core/BerlinDeFilms.js');
 var berlinDe = new BerlinDeFilms();
+var berlinDeRewired = rewire('../core/BerlinDeFilms.js');
 
 
 require.extensions['.html'] = function (module, filename) {
@@ -25,7 +27,7 @@ var t = {
 	expectedUrlFormatted: "https://www.berlin.de/kino/_bin/trefferliste.php?kino=&datum=22.11.2002&genre=&stadtteil=&freitext=&ovomu=check&suche=1",
 	errorStr: "some error"
 }
-var searchResults = require('./data/subset.html')
+var searchResults = require('./data/exampleSearch.html')
 let expectedFilms = [{
 	"films": [{
 		"origID": "https://www.berlin.de/kino/_bin/filmdetail.php/254366/",
@@ -86,7 +88,8 @@ describe('BerlinDeFilms', function() {
 
 	describe('request', function() {
 		it('should generate a request', function() {
-			items = berlinDe.parseShowtimes(searchResults, t.expectedUrl);
+			var private_parseShowtimes = berlinDeRewired.__get__('parseShowtimes');
+			items = private_parseShowtimes(searchResults, t.expectedUrl);
 			assert.deepEqual(items, expectedFilms, 'parsed data not valid');
 		});
 

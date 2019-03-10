@@ -38,8 +38,7 @@ BerlinDeFilms.prototype.getFilms = function(startDate, callback) {
 };
 
 
-BerlinDeFilms.prototype.parseShowtimes = function(body,urlSearched) {
-// function parseShowtimes(body, urlSearched) {
+function parseShowtimes(body, urlSearched) {
 	var items = new Array();
 	var theaterName = "";
 	var films = [];
