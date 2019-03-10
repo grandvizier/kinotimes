@@ -37,6 +37,7 @@ if (argv.days){
 	for (i = 0; i < argv.days; i++) {
 		daysToCheck.push(moment().add(i, 'days').format('YYYY-MM-DD'));
 	}
+	filmsToScrapeMore = {};
 	// first remove all the showtimes
 	updater.removeShowtimes(function(err){
 		logger.info('done removing old showtimes', err);
@@ -48,17 +49,47 @@ if (argv.days){
 					logger.warn('No films found for ', day);
 					cb();
 				} else {
-					saver.save(films, day, function(err, films){
-						cb(err);
+					saver.save(films, day, function(err, nonReviewedFilms){
+						if(err) {
+							cb(err);
+						} else {
+							for (var id in nonReviewedFilms) {
+								if(!filmsToScrapeMore[id]) {
+									filmsToScrapeMore[id] = nonReviewedFilms[id]
+								}
+							}
+							cb(null)
+						}
 					});
 				}
 			});
 
 		}, function(err) {
-			(err) ? logger.error(err) : logger.info('done');
-			db.disconnect();
+			(err) ? logger.error(err) : logger.info('done collecting info');
+			async.each(filmsNotReviewed, function(filmInfo, cb2){
+				parser.parseFilmData(filmInfo.originalID, function(err, data){
+					if(err) {
+						logger.warn("Failed to get more data for", filmInfo, err);
+						cb2(err);
+					} else {
+						updater.originalDataUpdate(filmInfo._id, data, function(err, success){
+							if(err) {
+								logger.warn("Failed to save additional data for", filmInfo, err);
+							}
+							else {
+								logger.debug("Updated additional data for", filmInfo.title);
+							}
+							cb2(err);
+						})
+					}
+				})
+			}, function(err) {
+				(err) ? logger.error(err) : logger.info('done.');
+				db.disconnect();
+			});
 		});
 	});
+
 }
 
 if (argv.genUpdate){
