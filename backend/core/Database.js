@@ -35,7 +35,13 @@ var filmSchema = new Schema({
 		country: String,
 		aka: String,
 	},
-	showtimes: [{ type: Schema.Types.ObjectId, ref: 'Showtime' }]
+	showtimes: [{ type: Schema.Types.ObjectId, ref: 'Showtime' }],
+	scannedOriginal: Boolean,
+	originalDetails: {
+		director: String,
+		country: String,
+		year: String,
+	},
 });
 
 var FilmModel = mongoose.model('Film', filmSchema);
