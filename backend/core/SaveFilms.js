@@ -43,7 +43,8 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 						return cb2(err);
 					}
 					var filmId = filmModel._id;
-					if(!filmModel.reviewed && !filmsNotReviewed[filmId]){
+					// check if a second scan of film data is needed, and add it to a list
+					if(!filmModel.reviewed && !filmModel.scannedOriginal && !filmsNotReviewed[filmId]){
 						filmsNotReviewed[filmId] = filmModel
 					}
 
