@@ -20,7 +20,6 @@ function BerlinDeFilms() {
 
 /*
  * @param {String} startDate valid startDate is ISO string: 'YYYY-MM-DD'
-		see http://momentjs.com/docs/#/parsing/
  * @param {Function} callback function(err, result)
  * @return {Array} the list of films as an array of json objects
 */
