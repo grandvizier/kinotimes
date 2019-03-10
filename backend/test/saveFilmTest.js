@@ -34,12 +34,12 @@ var t = {
 			origID: '/kino/_bin/filmdetail.php/12345/'
 		}]
 	},
-	date1: "2019-01-01",
-	date2: "2019-01-02",
-	showtime1: { _theater: '123', _film: '456', timestamp: '2019-01-01T18:45:00.000+00:00' },
-	showtime2: { _theater: '123', _film: '456', timestamp: '2019-01-01T20:30:00.000+00:00' },
-	nextDay1: { _theater: '321', _film: '654', timestamp: '2019-01-02T11:45:00.000+00:00' },
-	nextDay2: { _theater: '321', _film: '654', timestamp: '2019-01-02T17:00:00.000+00:00' },
+	date1: "2019-11-01",
+	date2: "2019-01-24",
+	showtime1: { _theater: '123', _film: '456', timestamp: '2019-11-01T19:45:00.000+01:00' },
+	showtime2: { _theater: '123', _film: '456', timestamp: '2019-11-01T21:30:00.000+01:00' },
+	nextDay1: { _theater: '321', _film: '654', timestamp: '2019-01-24T12:45:00.000+01:00' },
+	nextDay2: { _theater: '321', _film: '654', timestamp: '2019-01-24T18:00:00.000+01:00' },
 	theaterModel: {
 		name: 'Theater Name',
 		_id: '123',

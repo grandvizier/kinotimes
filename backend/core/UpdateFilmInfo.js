@@ -29,9 +29,12 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 			logger.verbose('getting details about: `' + film.title + '`. From url:', url);
 			request({uri: url}, function(err, response, body){
 				if(err || response.statusCode !== 200){
-				    logger.info("error with " + film.title + " response");
-				    logger.error(err);
-				    logger.error('Request error.', response.statusCode);
+					logger.info("error with " + film.title + " response");
+					if (err) {
+						logger.error(err);
+					} else {
+						logger.error('Request error.', response.statusCode);
+					}
 				    return cb();
 				}
 				try{
