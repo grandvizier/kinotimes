@@ -13,15 +13,15 @@ const AdminFilm = ({
   img,
   details,
   showtimes,
-  reviewed
+  reviewed,
+  originalDetails
 }) => {
   let imdbUrl = "http://www.imdb.com/find?ref_=nv_sr_fn&s=all&q=" + title;
   let filmDetails = details ? details : {};
+  let origDetails = originalDetails ? originalDetails : {};
   let isfilmReviewd = reviewed ? true : false;
   // let showtimesCount = (showtimes.length === 1) ? showtimes[0].timestamp : showtimes.length;
   let showtimesCount = showtimes.length;
-  // let origin = (originalID ? 'https://www.berlin.de/kino/_bin/'+originalID : '')
-  let origin = originalID ? "https://www.berlin.de" + originalID : "";
   let altTitle = filmDetails.aka ? filmDetails.aka : null;
 
   return (
@@ -73,9 +73,26 @@ const AdminFilm = ({
           </a>
         </Col>
         <Col>
-          <a href={origin} target="_blank" rel="noopener noreferrer">
+          <a href={originalID} target="_blank" rel="noopener noreferrer">
             {originalID ? "Original data" : ""}
           </a>
+        </Col>
+      </Row>
+      <Row className="extraDetails">
+        <Col>
+          <span className={"value" + ((filmDetails.director && origDetails.director !== filmDetails.director) ? " different" : "")}>
+            {origDetails.director}
+          </span>
+        </Col>
+        <Col>
+          <span className={"value" + ((filmDetails.country && origDetails.country !== filmDetails.country) ? " different" : "")}>
+            {origDetails.country}
+          </span>
+        </Col>
+        <Col>
+          <span className={"value" + ((filmDetails.year && origDetails.year !== filmDetails.year) ? " different" : "")}>
+            {origDetails.year}
+          </span>
         </Col>
       </Row>
 

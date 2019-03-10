@@ -6,10 +6,7 @@ chai.should();
 chai.use(sinonChai);
 
 var Database = require('../core/Database.js');
-var dbStub = sinon.spy(function() {
-  return sinon.createStubInstance(Database);
-});
-var db = new dbStub();
+var db = sinon.createStubInstance(Database);
 
 var successCb = sinon.spy();
 
@@ -54,7 +51,7 @@ var t = {
 		_id: '456',
 		title: 'Film Title  (OmU)',
 		originalID: '12345',
-		reviewed: false,
+		reviewed: true,
 		details: {}
 	},
 	filmModel2: {
@@ -72,9 +69,9 @@ describe('SaveFilms', function() {
 	describe('save', function() {
 		beforeEach(function() {
 			successCb.resetHistory();
-			db.getTheater.resetHistory();
-			db.getFilm.resetHistory();
-			db.saveShowtime.resetHistory();
+			db.getTheater.reset();
+			db.getFilm.reset();
+			db.saveShowtime.reset();
 		});
 
 		it('should not save empty films', function() {
@@ -135,5 +132,56 @@ describe('SaveFilms', function() {
 			db.saveShowtime.should.have.been.calledWith(t.nextDay1);
 			db.saveShowtime.should.have.been.calledWith(t.nextDay2);
 		});
+	});
+
+	describe('return', function() {
+		beforeEach(function() {
+			successCb.resetHistory();
+			db.getFilm.reset();
+			db.saveShowtime.reset();
+
+		});
+
+		it('should return only non reviewed films', function() {
+			db.getTheater.withArgs(t.theaterModel.name).yields(null, t.theaterModel);
+			db.getTheater.withArgs(t.theaterModel2.name).yields(null, t.theaterModel2);
+			db.getFilm.onFirstCall().yields(null, t.filmModel);
+			db.getFilm.onSecondCall().yields(null, t.filmModel2);
+			db.saveShowtime.yields(null, true);
+			response = {}
+			response[t.filmModel2._id] = t.filmModel2
+
+			saver.save([t.singleFilmData, t.nextDayFilmData], t.date1, successCb);
+
+			successCb.should.have.been.calledOnce;
+			successCb.should.have.been.calledWith(null, response);
+		});
+
+		it('should not return anything if all films are reviewed', function() {
+			db.getTheater.yields(null, t.theaterModel);
+			db.getFilm.yields(null, t.filmModel);
+			db.saveShowtime.yields(null, true);
+			response = {}
+
+			saver.save([t.singleFilmData], t.date1, successCb);
+
+			successCb.should.have.been.calledOnce;
+			successCb.should.have.been.calledWith(null, response);
+		});
+
+		it('should not return films when there is an error', function() {
+			db.getTheater.withArgs(t.theaterModel.name).yields(null, t.theaterModel);
+			db.getTheater.withArgs(t.theaterModel2.name).yields(null, t.theaterModel2);
+			db.getFilm.onFirstCall().yields(null, t.filmModel);
+			db.getFilm.onSecondCall().yields(null, t.filmModel2);
+			db.saveShowtime.withArgs(t.showtime1).yields(t.errorStr);
+			db.saveShowtime.withArgs(t.showtime2).yields(null, true);
+
+			saver.save([t.singleFilmData, t.nextDayFilmData], t.date1, successCb);
+
+			successCb.should.have.been.calledOnce;
+			successCb.should.have.been.calledWith(t.errorStr);
+		});
+
 	});
 });
