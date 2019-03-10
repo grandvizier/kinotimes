@@ -29,12 +29,8 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 			logger.verbose('getting details about: `' + film.title + '`. From url:', url);
 			request({uri: url}, function(err, response, body){
 				if(err || response.statusCode !== 200){
-					logger.info("error with " + film.title + " response");
-					if (err) {
-						logger.error(err);
-					} else {
-						logger.error('Request error.', response.statusCode);
-					}
+				    logger.info("error with " + film.title + " response");
+				    (err) ? logger.error(err) : logger.error('Request error.', response.statusCode);
 				    return cb();
 				}
 				try{
@@ -45,10 +41,32 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 					return cb();
 				}
 				if(film_details.Response == "True"){
+					// check if the details match what was originally scanned
+					reviewed = false
+					if(film.scannedOriginal) {
+						if(film.originalDetails.director && film.originalDetails.director != film_details.Director) {
+							logger.warn("Directors don't match: ", film.originalDetails.director, film_details.Director)
+						} else if(film.originalDetails.director && film.originalDetails.director == film_details.Director) {
+							reviewed = true
+						}
+						if(film.originalDetails.country && film.originalDetails.country != film_details.Country) {
+							logger.warn("Country doesn't match: ", film.originalDetails.country, film_details.Country)
+							reviewed = false
+						} else if(film.originalDetails.director && film.originalDetails.director == film_details.Director) {
+							reviewed = true
+						}
+						if(film.originalDetails.year && film.originalDetails.year != film_details.Year) {
+							logger.warn("Year doesn't match: ", film.originalDetails.year, film_details.Year)
+							reviewed = false
+						} else if(film.originalDetails.director && film.originalDetails.director == film_details.Director) {
+							reviewed = true
+						}
+					}
 					var toSave = {
 						'title': film.title,
 						'img': film_details.Poster,
 						'imdbID': film_details.imdbID,
+						'reviewed': reviewed,
 						'details': {
 							'director': film_details.Director,
 							'actors': film_details.Actors,
