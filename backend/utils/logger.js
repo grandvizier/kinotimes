@@ -28,6 +28,8 @@ var Logger = function(f, col){
 			colorize({message: true, level: true}),
 			label({ label: f }),
 			timestamp({format: 'MMM D, YYYY HH:mm'}),
+			// change in behavior in winston v3.2.0
+			// https://github.com/winstonjs/winston/blob/master/CHANGELOG.md#new-splat-behavior
 			format.splat(),
 			formatStr
 		),

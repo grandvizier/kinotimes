@@ -1,6 +1,6 @@
 var jsdom = require('jsdom'),
 request = require('request'),
-moment = require('moment');
+dayjs = require('dayjs');
 const { JSDOM } = jsdom;
 var logger = (require('../utils/logger.js'))(module.id);
 
@@ -12,73 +12,80 @@ const _SEARCHPATH = '/kino/_bin/trefferliste.php?kino=';
 const _URL_PARAMS = '&genre=&stadtteil=&freitext=&ovomu=check&suche=1';
 
 function BerlinDeFilms() {
-	this.web_url = (d) => _BASE_URL + _SEARCHPATH + '&datum=' + d + _URL_PARAMS;
+	this.web_url = function(dateString) {
+		var d = (dateString) ? dayjs(dateString).format('DD.MM.YYYY') : dayjs().format('DD.MM.YYYY');
+		return _BASE_URL + _SEARCHPATH + '&datum=' + d + _URL_PARAMS
+	};
 }
 
 /*
  * @param {String} startDate valid startDate is ISO string: 'YYYY-MM-DD'
-		see http://momentjs.com/docs/#/parsing/
  * @param {Function} callback function(err, result)
  * @return {Array} the list of films as an array of json objects
 */
 BerlinDeFilms.prototype.getFilms = function(startDate, callback) {
-	var d = (startDate) ? moment(startDate).format('DD.MM.YYYY') : moment().format('DD.MM.YYYY');
-	var getUrl = this.web_url(d);
+	var getUrl = this.web_url(startDate);
 	logger.info('checking films at:', getUrl);
 	request({uri: getUrl}, function(err, response, body){
-		var items = new Array();
-		var theaterName = "";
-		var films = [];
 
-		if(err && response.statusCode !== 200){
-			logger.error('Request error.', response);
-			callback(err);;
+		if(err || response.statusCode !== 200){
+			(err) ? logger.error(err) : logger.error('Request error.', response);
+			callback(err);
 		}
-		const dom = new JSDOM(body, {
-			url: getUrl,
-			contentType: "text/html",
-			includeNodeLocations: true,
-			storageQuota: 10000000
-		}).window.document;
-
-		var resultList = dom.querySelector('.searchresult .trefferliste').children;
-		for (let element of resultList) {
-			var tag_type = element.tagName;
-			var film_info = {'name': '', 'times': []};
-			if(tag_type == 'H3') {
-				if(theaterName){
-					items.push({'name': theaterName, 'films': films});
-				}
-				theaterName = element.textContent.trim();
-				theaterName = theaterName.substring(0, theaterName.indexOf(','));
-				// TODO theater neighborhood is second part of theaterName.indexOf(',')
-				films = [];
-				// logger.debug(theaterName)
-			} else if (tag_type == 'DL')  {
-				let title = '';
-				let times = '';
-				for (let subEl of element.children) {
-					subTag = subEl.tagName;
-					if(subTag == 'DT'){
-						title = subEl.getElementsByTagName("button")[0].textContent.trim();
-					} else {
-						let ts = subEl.getElementsByTagName("td")[1].textContent;
-						times = ts.split(",").map(function(s) { return s.trim() });
-						var origID = subEl.getElementsByTagName("a")[0].href;
-						// logger.info({'title': title, 'times': times, 'origID': origID})
-						films.push({'title': title, 'times': times, 'origID': origID});
-					}
-				}
-			}
-		}
-		if(theaterName){
-			items.push({'name': theaterName, 'films': films});
-		}
-		callback(null, items);;
-
+		callback(null, parseShowtimes(body, getUrl));
 	});
 };
 
+
+function parseShowtimes(body, urlSearched) {
+	var items = new Array();
+	var theaterName = "";
+	var films = [];
+
+	const dom = new JSDOM(body, {
+		url: urlSearched,
+		contentType: "text/html",
+		includeNodeLocations: true,
+		storageQuota: 10000000
+	}).window.document;
+
+	logger.info('going through the data')
+
+	var resultList = dom.querySelector('.searchresult .trefferliste').children;
+	for (let element of resultList) {
+		var tag_type = element.tagName;
+		var film_info = {'name': '', 'times': []};
+		if(tag_type == 'H3') {
+			if(theaterName){
+				items.push({'name': theaterName, 'films': films});
+			}
+			theaterName = element.textContent.trim();
+			theaterName = theaterName.substring(0, theaterName.indexOf(','));
+			// TODO theater neighborhood is second part of theaterName.indexOf(',')
+			films = [];
+			// logger.debug(theaterName)
+		} else if (tag_type == 'DL')  {
+			let title = '';
+			let times = '';
+			for (let subEl of element.children) {
+				subTag = subEl.tagName;
+				if(subTag == 'DT'){
+					title = subEl.getElementsByTagName("button")[0].textContent.trim();
+				} else {
+					let ts = subEl.getElementsByTagName("td")[1].textContent;
+					times = ts.split(",").map(function(s) { return s.trim() });
+					var origID = subEl.getElementsByTagName("a")[0].href;
+					// logger.info({'title': title, 'times': times, 'origID': origID})
+					films.push({'title': title, 'times': times, 'origID': origID});
+				}
+			}
+		}
+	}
+	if(theaterName){
+		items.push({'name': theaterName, 'films': films});
+	}
+	return items;
+}
 
 /*
  * @param {String} idUrl original path to the film data
