@@ -1,5 +1,5 @@
 var logger = (require('../utils/logger.js'))(module.id);
-var moment = require('moment'),
+var dayjs = require('dayjs'),
 async = require('async');
 
 var argv = require('yargs')
@@ -35,7 +35,7 @@ var imager = new ImageStoring();
 if (argv.days){
 	var daysToCheck = [];
 	for (i = 0; i < argv.days; i++) {
-		daysToCheck.push(moment().add(i, 'days').format('YYYY-MM-DD'));
+		daysToCheck.push(dayjs().add(i, 'days').format('YYYY-MM-DD'));
 	}
 	filmsToScrapeMore = {};
 	// first remove all the showtimes
