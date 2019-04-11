@@ -45,7 +45,7 @@ if (argv.days){
 			parser.getFilms(day, function(err, films){
 				if(err){
 					return cb(err);
-				} else if (films.length == 0) {
+				} else if (!films || films.length == 0) {
 					logger.warn('No films found for ', day);
 					cb();
 				} else {
@@ -66,7 +66,7 @@ if (argv.days){
 
 		}, function(err) {
 			(err) ? logger.error(err) : logger.info('done collecting info');
-			async.each(filmsNotReviewed, function(filmInfo, cb2){
+			async.each(filmsToScrapeMore, function(filmInfo, cb2){
 				parser.parseFilmData(filmInfo.originalID, function(err, data){
 					if(err) {
 						logger.warn("Failed to get more data for", filmInfo, err);
