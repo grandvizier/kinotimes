@@ -51,8 +51,12 @@ function parseShowtimes(body, urlSearched) {
 
 	logger.info('going through the data')
 
-	var resultList = dom.querySelector('.searchresult .trefferliste').children;
-	for (let element of resultList) {
+	let qs = dom.querySelector('.searchresult .trefferliste')
+	if (!qs) {
+		logger.warn("no results found")
+		return items
+	}
+	for (let element of qs.children) {
 		var tag_type = element.tagName;
 		var film_info = {'name': '', 'times': []};
 		if(tag_type == 'H3') {

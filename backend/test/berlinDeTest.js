@@ -28,6 +28,7 @@ var t = {
 	errorStr: "some error"
 }
 var searchResults = require('./data/exampleSearch.html')
+var noResults = require('./data/noResultSearch.html')
 let expectedFilms = [{
 	"films": [{
 		"origID": "https://www.berlin.de/kino/_bin/filmdetail.php/254366/",
@@ -91,6 +92,11 @@ describe('BerlinDeFilms', function() {
 			var private_parseShowtimes = berlinDeRewired.__get__('parseShowtimes');
 			items = private_parseShowtimes(searchResults, t.expectedUrl);
 			assert.deepEqual(items, expectedFilms, 'parsed data not valid');
+		});
+		it('should handle no films in result', function() {
+			var private_parseShowtimes = berlinDeRewired.__get__('parseShowtimes');
+			items = private_parseShowtimes(noResults, t.expectedUrl);
+			assert.deepEqual(items, [], 'actual items were found');
 		});
 
 	});
