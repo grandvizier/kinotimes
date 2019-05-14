@@ -6,8 +6,8 @@ import DateFilters from '../containers/DateFilters'
 import { PanelGroup, Panel } from 'react-bootstrap'
 
 const Sidebar = () => (
-  <PanelGroup className="filters pre-scrollable">
-    <Panel collapsible expanded eventKey="11">
+  <PanelGroup className="filters pre-scrollable" id="sidebar">
+    <Panel defaultExpanded eventKey="11">
       <ViewFilter filter="byTitle">
         Title
       </ViewFilter>
@@ -20,7 +20,7 @@ const Sidebar = () => (
         Time
       </ViewFilter>
     </Panel>
-    <Panel collapsible expanded header="Time" eventKey="12">
+    <Panel defaultExpanded header="Time" eventKey="12">
       <DateFilters />
     </Panel>
     {/* Remove genre filtering for now
@@ -29,7 +29,7 @@ const Sidebar = () => (
     {/*<Panel collapsible expanded header="Genres" eventKey="13">
       <Genres />
     </Panel> */}
-    <Panel collapsible expanded eventKey="14">
+    <Panel defaultExpanded eventKey="14">
       <Filters />
     </Panel>
   </PanelGroup>
