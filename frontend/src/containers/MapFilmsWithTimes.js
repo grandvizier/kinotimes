@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import dayjs from 'dayjs'
-import { Row, Col, Image } from 'react-bootstrap'
+import { Grid, Typography } from '@material-ui/core'
 import {
   toggleFilmFilter
 } from '../actions'
@@ -37,38 +37,38 @@ const compressShowtimes = (showtimes, filters) => {
 
 const EachTime = ({ t }) => {
   return (
-    <div className="showtime">{dayjs(t).format('h:mm a Do MMM')}</div>
+    <Typography className="showtime">{dayjs(t).format('h:mm a Do MMM')}</Typography>
   )
 }
 
 const FilmView = ({ film }) => {
   return (
-    <Col md={2} xs={3} className="film">
-        <Row>
-          {film.film_title}
-        </Row>
-        <Row>
-          <Col xs={9} className="details">
-              <Image src={film.film_image} thumbnail responsive />
-          </Col>
-          <Col xs={6} className="details showtimes">
+    <Grid container className="film">
+        <Grid item>
+            <Typography>{film.film_title}</Typography>
+        </Grid>
+        <Grid container>
+          <Grid item xs={9} className="details">
+              <img src={film.film_image} alt={film.film_title} />
+          </Grid>
+          <Grid item xs={6} className="details showtimes">
               {film.times.map(time => (
                   <EachTime key={uid()} t={time} />
               ))}
-          </Col>
-        </Row>
-    </Col>
+          </Grid>
+        </Grid>
+    </Grid>
   )
 }
 
 class MapFilmsWithTimes extends Component {
   render() {
     return (
-      <Row className="theaterTimes">
+      <Grid container className="theaterTimes">
         {mapObj(this.props.filmAndTimes, (film, key) => (
           <FilmView key={uid()} film={film} onClick={() => this.props.onFilmClick(film.film_id)} />
         ))}
-      </Row>
+      </Grid>
     )
   }
 }

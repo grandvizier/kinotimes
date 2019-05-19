@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FilmSmall from './FilmSmall'
-import { Row } from 'react-bootstrap'
+import { Grid } from '@material-ui/core'
 
 const FilterBlock = ({ filterDateTime, filterFilms, allFilms, onFilmClick }) => {
   let filteredFilms = allFilms.filter(function( obj ) {
@@ -9,11 +9,11 @@ const FilterBlock = ({ filterDateTime, filterFilms, allFilms, onFilmClick }) => 
   });
 
   return (
-    <Row className="smallBorder">
+    <Grid container spacing={24} className="smallBorder">
         {filteredFilms.map(film => (
             <FilmSmall key={film._id} {...film} onClick={() => onFilmClick(film._id)} />
         ))}
-    </Row>
+    </Grid>
   )
 }
 

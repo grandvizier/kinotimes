@@ -1,7 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 
-import { Col, FormControl, FormGroup } from 'react-bootstrap';
+import { Grid, FormControl, FormGroup, Button } from '@material-ui/core';
 
 const FieldInput = ({ input, meta, type, placeholder, min, max }) => {
 	return (
@@ -18,7 +18,7 @@ const FieldInput = ({ input, meta, type, placeholder, min, max }) => {
 let AdminUpdateFilm = ({ form, handleSubmit, imdbID }) => {
 	return (
 		<form onSubmit={ handleSubmit }>
-			<Col xs={6}>
+			<Grid item xs={6}>
 				<FormGroup controlId="imdbID" bsSize="sm">
 					<Field name="imdbID"
 						type='text'
@@ -26,12 +26,12 @@ let AdminUpdateFilm = ({ form, handleSubmit, imdbID }) => {
 						placeholder={imdbID}
 					/>
 				</FormGroup>
-			</Col>
-			<Col xs={6}>
+			</Grid>
+			<Grid item xs={6}>
 				<FormGroup>
-					<button type="submit">Update Film</button>
+					<Button type="submit">Update Film</Button>
 				</FormGroup>
-			</Col>
+			</Grid>
 		</form>
 	)
 }

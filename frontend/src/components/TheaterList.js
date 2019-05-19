@@ -1,15 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Theater from './Theater'
-import { Col } from 'react-bootstrap'
-
+import { Grid } from '@material-ui/core'
 
 const TheaterList = ({ films, filters, onFilmClick }) => (
- 	<Col xs={12}>
+ 	<Grid item xs={12}>
 		{films.map(theater => (
 			<Theater key={theater._id} {...theater} filters={filters} onClick={onFilmClick} />
 		))}
-	</Col>
+	</Grid>
 )
 
 TheaterList.propTypes = {

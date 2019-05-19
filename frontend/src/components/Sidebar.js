@@ -1,38 +1,55 @@
-import React from 'react'
+import React, {Component} from 'react'
+import { withStyles } from '@material-ui/core/styles';
 import ViewFilter from '../containers/ViewFilters'
 import Filters from '../containers/Filters'
-// import Genres from '../containers/Genres'
 import DateFilters from '../containers/DateFilters'
-import { PanelGroup, Panel } from 'react-bootstrap'
+import {Grid, Paper} from '@material-ui/core'
 
-const Sidebar = () => (
-  <PanelGroup className="filters pre-scrollable" id="sidebar">
-    <Panel defaultExpanded eventKey="11">
-      <ViewFilter filter="byTitle">
-        Title
-      </ViewFilter>
-      {'  '}
-      <ViewFilter filter="byTheater">
-        Theater
-      </ViewFilter>
-      {'  '}
-      <ViewFilter filter="byTime">
-        Time
-      </ViewFilter>
-    </Panel>
-    <Panel defaultExpanded header="Time" eventKey="12">
-      <DateFilters />
-    </Panel>
-    {/* Remove genre filtering for now
-        logic is buggy, and not sure how best to make it usable
-    */}
-    {/*<Panel collapsible expanded header="Genres" eventKey="13">
-      <Genres />
-    </Panel> */}
-    <Panel defaultExpanded eventKey="14">
-      <Filters />
-    </Panel>
-  </PanelGroup>
-)
+const styles = {
+    root: {
+        zIndex: 10000,
+        flexGrow: 1,
+        position:'fixed',
+        top: '50px',
+        width: '100%'
+    },
+    grow: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginLeft: -12,
+        marginRight: 20,
+    },
+};
 
-export default Sidebar
+class Sidebar extends Component {
+    render() {
+        return (
+            <div style={styles.root}>
+                <Grid container className="filters pre-scrollable" id="sidebar">
+                    <Paper>
+                        <ViewFilter filter="byTitle">
+                            Title
+                        </ViewFilter>
+                        {'  '}
+                        <ViewFilter filter="byTheater">
+                            Theater
+                        </ViewFilter>
+                        {'  '}
+                        <ViewFilter filter="byTime">
+                            Time
+                        </ViewFilter>
+                    </Paper>
+                    <Paper header="Time">
+                        <DateFilters/>
+                    </Paper>
+                    <Paper>
+                        <Filters/>
+                    </Paper>
+                </Grid>
+            </div>
+        )
+    }
+}
+
+export default withStyles(styles)(Sidebar);

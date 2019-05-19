@@ -1,7 +1,13 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #292929;
+    background-image: url('./assets/kinotimes_logo.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
 }
 
 /* ------- */
@@ -10,32 +16,38 @@ body {
 .collapsed {
     display: none; /* hide it for small displays */
 }
+
 @media (min-width: 992px) {
     .collapsed {
         display: block;
         margin-left: -25%; /* same width as sidebar */
     }
 }
+
 #row-main {
     overflow-x: hidden; /* necessary to hide collapsed sidebar */
 }
+
 #content {
     -webkit-transition: width 0.3s ease;
     -moz-transition: width 0.3s ease;
     -o-transition: width 0.3s ease;
     transition: width 0.3s ease;
 }
+
 #sidebar {
     -webkit-transition: margin 0.3s ease;
     -moz-transition: margin 0.3s ease;
     -o-transition: margin 0.3s ease;
     transition: margin 0.3s ease;
 }
+
 @media (max-width: 700px) {
-   #sidebar .filters {
-      position: relative;
-  }
+    #sidebar .filters {
+        position: relative;
+    }
 }
+
 @media (min-width: 701px) {
     #sidebar .filters {
         position: fixed;
@@ -44,7 +56,7 @@ body {
     }
 }
 
-#sidebar .filters .panel-title{
+#sidebar .filters .panel-title {
     font-size: 13px;
     height: 6px;
 }
@@ -56,9 +68,8 @@ body {
 
 /* ------- */
 
-
 .smallBorder, .theaterTimes .film {
-    margin-top:10px;
+    margin-top: 10px;
     border: #cdcdcd medium solid;
     border-radius: 10px;
     -moz-border-radius: 10px;
@@ -66,27 +77,31 @@ body {
 }
 
 .smallBorder, .theaterTimes {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display:         flex;
-  flex-wrap: wrap;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.allDetails img{
+.allDetails img {
     max-height: 135px
 }
 
-.allDetails .row, .showtime{
+.allDetails .row, .showtime {
     padding-bottom: 8px;
 }
 
-.details .type{
+.details {
+    color: white;
+}
+
+.details .type {
     font-weight: bold;
     padding-right: 10px;
 }
 
-.allDetails .language{
+.allDetails .language {
     font-weight: bold;
 }
 
@@ -95,24 +110,28 @@ body {
     margin: -7px 1px 3px 0px;
 }
 
-
 .allDetails .filter {
     position: relative;
     cursor: pointer;
 }
+
 .allDetails .filter .starred {
     color: yellow;
 }
+
 .filterOut {
     bottom: -15px;
 }
+
 .filterOut:hover {
-  color: red;
+    color: red;
 }
+
 .filterOut .filterText {
-  padding-left: 3px;
-  font-size: medium;
+    padding-left: 3px;
+    font-size: medium;
 }
+
 .filteredFilm .addFilm {
     display: none;
     position: absolute;
@@ -121,10 +140,10 @@ body {
     color: green;
     text-shadow: 1px 1px 9px #333;
 }
+
 .filteredFilm:hover .addFilm, .filteredFilm.hover .addFilm {
     display: block;
 }
-
 
 /* for now, in theater view, hide showtimes - todo: use toggle */
 /*.details.showtimes{

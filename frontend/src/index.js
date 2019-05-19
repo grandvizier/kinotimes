@@ -6,9 +6,6 @@ import store, { history } from './store'
 import App from './containers/app'
 import ReactGA from 'react-ga'
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-
 import './index.css'
 import './dateTime.css'
 
