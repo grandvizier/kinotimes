@@ -12,15 +12,16 @@ let localUrl = process.env.REACT_APP_KT_URL + ":" + process.env.REACT_APP_KT_POR
 var whitelist = [localUrl, 'http://kinotimes.tk']
 var corsOptions = {
 	origin: function (origin, callback) {
-		let approved = whitelist.filter(function( validUrl ) {
-			// TODO: call error - nobody should be calling api directly
-			return (origin) ? origin.indexOf(validUrl) !== -1 : true;
-		});
-		if (approved.length) {
-			callback(null, true)
-		} else {
-			callback(new Error('Not allowed by CORS'))
-		}
+		callback(null, true); // try removing the CORS check while in development phase
+		// let approved = whitelist.filter(function( validUrl ) {
+		// 	// TODO: call error - nobody should be calling api directly
+		// 	return (origin) ? origin.indexOf(validUrl) !== -1 : true;
+		// });
+		// if (approved.length) {
+		// 	callback(null, true)
+		// } else {
+		// 	callback(new Error('Not allowed by CORS'))
+		// }
 	}
 }
 
