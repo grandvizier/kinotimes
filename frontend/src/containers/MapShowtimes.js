@@ -4,6 +4,13 @@ import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 
+import {
+    Typography,
+    Grid,
+    Paper
+} from "@material-ui/core";
+
+
 const mapObj = require('lodash/map');
 dayjs.extend(LocalizedFormat)
 dayjs.extend(advancedFormat)
@@ -40,9 +47,11 @@ const mapTimestoDays = (showtimes) => {
 
 const EachTime = ({t}) => {
     return (
-        <div className="showtime">{dayjs(t.timestamp).format('LT')}
-            <div className="small">({t._theater.name})</div>
-        </div>
+        <Grid className="showtime">{dayjs(t.timestamp).format('LT')}
+            <Typography variant="body1">
+                ({t._theater.name})
+            </Typography>
+        </Grid>
     )
 }
 
@@ -52,23 +61,27 @@ const DayView = ({day, mapped}) => {
         return dayjs(a.timestamp).format('x') - dayjs(b.timestamp).format('x');
     })
     return (
-        <div className="col-xs-3">
-            <div className="panel-heading">{dayjs.unix(day).add(-6, 'hours').format('ddd Do')}</div>
+        <Grid item xs={3}>
+            <Typography variant="subtitle1" styles="{text-decoration: underline}">
+                {dayjs.unix(day).add(-6, 'hours').format('ddd Do')}
+            </Typography>
             {mapObj(mapped, (t) => (
                 <EachTime key={uid()} t={t}/>
             ))}
-        </div>
+        </Grid>
     )
 }
 
 class MapShowtimes extends Component {
     render() {
         return (
-            <div>
+            <Paper>
+                <Grid container>
                 {mapObj(this.props.mappedShowtimes, (mapped, key) => (
                     <DayView key={uid()} day={key} mapped={mapped}/>
                 ))}
-            </div>
+                </Grid>
+            </Paper>
         )
     }
 }

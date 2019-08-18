@@ -89,7 +89,7 @@ class Film extends React.Component<Props> {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <Grid container>
-                            <Grid item xs={12}>
+                            <Grid item>
                                 <Grid container spacing={8} className={detailsStyle}>
                                     <Grid item xs={2}>
                                         <img alt={title} src={imagePath}/>
@@ -140,11 +140,9 @@ class Film extends React.Component<Props> {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            {false &&
-                            <Grid item>
+                            <Grid item xs={8}>
                                 <MapShowtimes showtimes={showtimes}/>
                             </Grid>
-                            }
                         </Grid>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
