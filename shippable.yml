@@ -22,14 +22,15 @@ build:
 
   ci:
     - npm install -g create-react-app
+    - npm install -g yarn
 
     # build backend
     - shippable_retry cd $SHIPPABLE_BUILD_DIR/backend/; npm install
 
     # build frontend
-    - shippable_retry cd $SHIPPABLE_BUILD_DIR/frontend/; npm install
+    - shippable_retry cd $SHIPPABLE_BUILD_DIR/frontend/; yarn
     - cd $SHIPPABLE_BUILD_DIR/frontend/; npm test
-    - shippable_retry cd $SHIPPABLE_BUILD_DIR/frontend/; npm run build
+    - shippable_retry cd $SHIPPABLE_BUILD_DIR/frontend/; yarn build
 
     # build docker images
     - docker build -f $SHIPPABLE_BUILD_DIR/frontend/Dockerfile.web -t $DOCKER_ACC/web:$BUILD_NUMBER $SHIPPABLE_BUILD_DIR/frontend/
