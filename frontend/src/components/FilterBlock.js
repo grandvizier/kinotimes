@@ -9,7 +9,7 @@ const FilterBlock = ({ filterDateTime, filterFilms, allFilms, onFilmClick }) => 
   });
 
   return (
-    <Grid container spacing={24} className="smallBorder">
+    <Grid container className="smallBorder">
         {filteredFilms.map(film => (
             <FilmSmall key={film._id} {...film} onClick={() => onFilmClick(film._id)} />
         ))}

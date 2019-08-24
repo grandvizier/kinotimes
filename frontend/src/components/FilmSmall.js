@@ -3,15 +3,13 @@ import PropTypes from 'prop-types'
 import {Grid, Typography} from '@material-ui/core'
 import PlusCircleIcon from '@material-ui/icons/PlusOneOutlined'
 const FilmSmall = ({onClick, title, img}) => (
-    <Grid container onClick={onClick} className="filteredFilm">
+    <Grid item xs={3} onClick={onClick} className="filteredFilm">
         <PlusCircleIcon/>
-        <Grid item>
+        <Grid item xs={12}>
             <Typography>{title}</Typography>
         </Grid>
-        <Grid container>
-            <Grid item xs={9}>
-                <img src={img} alt={title}/>
-            </Grid>
+        <Grid item>
+            <img src={img} alt={title} className="small-thumbnail"/>
         </Grid>
     </Grid>
 )
