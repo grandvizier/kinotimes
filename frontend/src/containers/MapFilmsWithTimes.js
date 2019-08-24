@@ -43,13 +43,13 @@ const EachTime = ({ t }) => {
 
 const FilmView = ({ film }) => {
   return (
-    <Grid container className="film">
+    <Grid item xs={4} className="film">
         <Grid item>
             <Typography>{film.film_title}</Typography>
         </Grid>
         <Grid container>
           <Grid item xs={9} className="details">
-              <img src={film.film_image} alt={film.film_title} />
+              <img src={film.film_image} alt={film.film_title} className="small-thumbnail" />
           </Grid>
           <Grid item xs={6} className="details showtimes">
               {film.times.map(time => (

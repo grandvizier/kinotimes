@@ -7,12 +7,15 @@ const Theater = ({onClick, name, street, kietz, website, showtimes, filters}) =>
     if (!showtimes.length) {
         return null
     }
+    let theaterDetails = street + " | " + kietz + " | " + website
 
     return (
         <Card>
-            <CardHeader>{name}</CardHeader>
+            <CardHeader
+                title={name}
+                subheader={theaterDetails}
+            />
             <CardContent>
-                <span className="theaterDetails">{street} {kietz} {website}</span>
                 <MapFilmsWithTimes showtimes={showtimes} onClick={onClick} filters={filters}/>
             </CardContent>
         </Card>
