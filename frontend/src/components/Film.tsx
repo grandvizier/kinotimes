@@ -12,7 +12,7 @@ import classNames from "classnames";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BanIcon from "@material-ui/icons/Warning";
-import StarOffIcon from "@material-ui/icons/StarOutlined";
+// import StarOffIcon from "@material-ui/icons/StarOutlined";
 import StarOnIcon from "@material-ui/icons/Star";
 
 const styles = {
@@ -60,7 +60,6 @@ export interface Props {
     onFilterClick: () => void;
     onFilmSave: () => void;
     title: string;
-    imdbID: string;
     img: string;
     // what is details reviewed and favorite type
     details: any;
@@ -76,7 +75,6 @@ class Film extends React.Component<Props> {
             onFilterClick,
             onFilmSave,
             title,
-            imdbID,
             img,
             details,
             showtimes,
@@ -91,7 +89,7 @@ class Film extends React.Component<Props> {
             return null;
         }
         let showLanguage = filmDetails.language && filmDetails.language.indexOf("English") === -1
-        let detailsStyle = classNames("", {reviewed: !reviewed}); // if not reviewed, grey things out
+        // let detailsStyle = classNames("", {reviewed: !reviewed}); // if not reviewed, grey things out
 
 
         // https://material-ui.com/components/cards/
