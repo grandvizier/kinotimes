@@ -1,85 +1,146 @@
-import * as React from "react";
-import { Panel } from "react-bootstrap";
+import * as React from 'react'
+import {
+    Typography,
+    Grid,
+    ExpansionPanel,
+    ExpansionPanelSummary,
+    ExpansionPanelDetails
+} from "@material-ui/core";
 import MapShowtimes from "../containers/MapShowtimes";
-import FilmDetails from "./FilmDetails";
-import "./Film.css";
-import { ShowTime } from "../types";
-import classNames from "classnames";
-export interface Props {
-  onFilterClick: () => void;
-  onFilmSave: () => void;
-  title: string;
-  imdbID: string;
-  img: string;
-  // what is details reviewed and favorite type
-  details: any;
-  showtimes: ShowTime[];
-  reviewed: boolean;
-  favorite: any;
-}
+import {ShowTime} from "../types";
 
-export interface State {
-  expand: boolean;
-}
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import BanIcon from "@material-ui/icons/Warning";
+// import StarOffIcon from "@material-ui/icons/StarOutlined";
+import StarOnIcon from "@material-ui/icons/Star";
 
-class Film extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = { expand: true };
-  }
-  onPanelClick = () => {
-    this.setState({ expand: !this.state.expand });
-  };
-
-  render() {
-    const {
-      onFilterClick,
-      onFilmSave,
-      title,
-      imdbID,
-      img,
-      details,
-      showtimes,
-      reviewed,
-      favorite
-    } = this.props;
-
-    let filmDetails = details ? details : {};
-    let imagePath = img !== "N/A" ? img : "/image_not_found.jpg";
-    // don't show films if there's no times to display
-    if (!showtimes.length) {
-      return null;
+const styles = {
+    root: {
+        flexGrow: 1,
+        overflow: 'hidden',
+        padding: `0 30px`,
+    },
+    paper: {
+        maxWidth: '90%',
+        margin: `10px auto`,
+        backgroundColor: `rgba(168, 166, 173,0.9)`,
+    },
+    title: {
+        color: '#000000',
+    },
+    contentTitle: {
+        color: '#000000',
+        fontWeight: 600,
+        fontSize: 'smaller',
+    },
+    contentText: {
+        color: '#000000',
+        fontWeight: 100,
+        fontSize: 'small',
+    },
+    contentDesc: {
+        padding: '8px 0',
+        color: '#000000',
+        fontWeight: 100,
+        fontSize: 'small',
+        fontStyle: 'italic',
+    },
+    language: {
+        color: 'red',
+        fontWeight: 400,
+        fontSize: 'small',
+    },
+    panelHeader: {
+        borderBottom: '1px solid rgba(0,0,0,.125)',
     }
-    const panelClassName = classNames("filmPanel", {
-      expand: this.state.expand
-    });
-    return (
-      <Panel
-        className={panelClassName} // `filmPanel ${this.state.expand ? "expand" : ""}`
-        onClick={this.onPanelClick}
-      >
-        <Panel.Heading>
-          <Panel.Title componentClass="h3">{title}</Panel.Title>
-        </Panel.Heading>
-        <Panel.Body>
-          {filmDetails.aka && <div className="altTitle">{filmDetails.aka}</div>}
-          <FilmDetails
-            filmDetails={filmDetails}
-            imagePath={imagePath}
-            onFilmSave={onFilmSave}
-            onFilterClick={onFilterClick}
-            favorite={favorite}
-            reviewed={reviewed}
-          />
-          <div className="panel-body col-xs-8">
-            <div className="panel panel-info">
-              <MapShowtimes showtimes={showtimes} />
+};
+
+export interface Props {
+    onFilterClick: () => void;
+    onFilmSave: () => void;
+    title: string;
+    img: string;
+    // what is details reviewed and favorite type
+    details: any;
+    showtimes: ShowTime[];
+    favorite: any;
+}
+
+class Film extends React.Component<Props> {
+
+    render() {
+        const {
+            onFilterClick,
+            onFilmSave,
+            title,
+            img,
+            details,
+            showtimes,
+            favorite
+        } = this.props;
+
+        let filmDetails = details ? details : {};
+        let imagePath = img !== "N/A" ? img : "/image_not_found.jpg";
+        // don't show films if there's no times to display
+        if (!showtimes.length) {
+            return null;
+        }
+        let showLanguage = filmDetails.language && filmDetails.language.indexOf("English") === -1
+        // let detailsStyle = classNames("", {reviewed: !reviewed}); // if not reviewed, grey things out
+
+
+        // https://material-ui.com/components/cards/
+        return (
+            <div style={styles.root}>
+                <ExpansionPanel style={styles.paper} square defaultExpanded>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} style={styles.panelHeader}>
+                        <Typography style={styles.title}>{title} {filmDetails.aka &&
+                        <div className="altTitle">({filmDetails.aka})</div>}</Typography>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                        <Grid container justify="space-evenly" alignItems="flex-start">
+                            <Grid container item xs={12} md={4}>
+                                <Grid container item xs={4} md={4}>
+                                    <img alt={title} src={imagePath} className="small-thumbnail"    />
+                                    <Grid item xs={6} className="filter favorite" onClick={onFilmSave}>
+                                        <StarOnIcon className={favorite && "starred"}/>
+                                        <Typography
+                                            className="filterText">{favorite ? "saved" : "save"}</Typography>
+                                    </Grid>
+                                    <Grid item xs={6} className="filter filterOut" onClick={onFilterClick}>
+                                        <BanIcon/>
+                                        <Typography className="filterText">filter</Typography>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={8} md={8}>
+                                    <Grid>
+                                        <Typography style={styles.contentText}>{filmDetails.genre}</Typography>
+                                        <Typography style={styles.contentText}>{filmDetails.year}</Typography>
+                                        <Typography style={styles.contentText}>{filmDetails.rating}</Typography>
+                                        {filmDetails.director ? <Typography style={styles.contentTitle}>
+                                            Director: <span style={styles.contentText}>{filmDetails.director}</span></Typography> : null}
+
+                                        {filmDetails.actors ? <Typography style={styles.contentTitle}>
+                                            Actors: <span style={styles.contentText}>{filmDetails.actors}</span></Typography> : null}
+
+                                        {showLanguage ?
+                                            <Typography style={styles.language}>{filmDetails.language}</Typography> : null
+                                        }
+                                    </Grid>
+                                    <Grid>
+                                        <Typography variant="body1" style={styles.contentDesc}>{filmDetails.description}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12} md={8}>
+                                <MapShowtimes showtimes={showtimes}/>
+                            </Grid>
+                        </Grid>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
             </div>
-          </div>
-        </Panel.Body>
-      </Panel>
-    );
-  }
+        );
+    }
 }
 
 export default Film;

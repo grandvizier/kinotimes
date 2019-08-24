@@ -1,27 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import AdminFilm from './AdminFilm'
-import { Col, Panel } from 'react-bootstrap'
+import { Grid, Paper } from '@material-ui/core'
 
 const AdminFilmList = ({ films, addImdbId, removeOldFilms, clearCache, updateImdb }) => (
-	<Col xs={18} md={12}>
-		<Panel>
-			<Col>Film count: { films.length }</Col>
-			<Col><button onClick={e => {
+	<Grid container>
+		<Paper>
+            <Grid item>Film count: { films.length }</Grid>
+			<Grid item><button onClick={e => {
 		      e.preventDefault()
 		      removeOldFilms()
-		    }} >Remove Old Films</button></Col>
+		    }} >Remove Old Films</button></Grid>
 
-		    <Col><button onClick={e => {
+		    <Grid item><button onClick={e => {
 		      e.preventDefault()
 		      clearCache()
-		    }} >Clear cache</button></Col>
+		    }} >Clear cache</button></Grid>
 
-			<Col><button onClick={e => {
+			<Grid item><button onClick={e => {
 		      e.preventDefault()
 		      updateImdb()
-		    }} >Update imdb</button></Col>
-		</Panel>
+		    }} >Update imdb</button></Grid>
+		</Paper>
+		<Grid container>
 		{films.map(film => (
 			<AdminFilm key={film._id} {...film}
 				handleSubmit={values => {
@@ -29,7 +30,8 @@ const AdminFilmList = ({ films, addImdbId, removeOldFilms, clearCache, updateImd
 				}}
 				/>
 		))}
-	</Col>
+		</Grid>
+	</Grid>
 )
 
 AdminFilmList.propTypes = {
