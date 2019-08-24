@@ -4,7 +4,7 @@ import AdminFilm from './AdminFilm'
 import { Grid, Paper } from '@material-ui/core'
 
 const AdminFilmList = ({ films, addImdbId, removeOldFilms, clearCache, updateImdb }) => (
-	<Grid container spacing={24}>
+	<Grid container>
 		<Paper>
             <Grid item>Film count: { films.length }</Grid>
 			<Grid item><button onClick={e => {
@@ -22,6 +22,7 @@ const AdminFilmList = ({ films, addImdbId, removeOldFilms, clearCache, updateImd
 		      updateImdb()
 		    }} >Update imdb</button></Grid>
 		</Paper>
+		<Grid container>
 		{films.map(film => (
 			<AdminFilm key={film._id} {...film}
 				handleSubmit={values => {
@@ -29,6 +30,7 @@ const AdminFilmList = ({ films, addImdbId, removeOldFilms, clearCache, updateImd
 				}}
 				/>
 		))}
+		</Grid>
 	</Grid>
 )
 

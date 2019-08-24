@@ -25,17 +25,14 @@ const AdminFilm = ({
     let altTitle = filmDetails.aka ? filmDetails.aka : null;
 
     return (
-        <Grid container spacing={24}
+        <Grid item sm={6}
               className={"editDetails " + (isfilmReviewd ? "reviewed" : "")}
         >
-            <Typography variant="h3">
-                {title}
-            </Typography>
-            <Typography variant="caption">
-                ({showtimesCount})
+            <Typography variant="h5">
+                {title} <span className="caption">({showtimesCount})</span>
             </Typography>
             {altTitle && <div className="altTitle">{altTitle}</div>}
-            <Grid item>
+            <Grid container justify="space-between" alignItems="flex-start">
                 <Grid item xs={6} className="details">
                     <span className="type col-xs-6">Current IMDB </span>
                     <span className="value"> {imdbID} </span>
@@ -45,78 +42,67 @@ const AdminFilm = ({
                     <span className="value">{filmDetails.country}</span>
                 </Grid>
             </Grid>
-            <Grid container spacing={24}>
+            <Grid container justify="space-between" alignItems="flex-start">
                 <Grid item xs={6} className="details">
-                    <span className="type"> Director </span>
-                    <span className="value">{filmDetails.director}</span>
+                    <span className="type"> Genre </span>
+                    <span className="value">{filmDetails.genre}</span>
                 </Grid>
                 <Grid item xs={6} className="details">
                     <span className="type col-xs-4">Year</span>
                     <span className="value">{filmDetails.year}</span>
                 </Grid>
             </Grid>
-            <Grid container spacing={24}>
-                <Grid item xs={6} className="details">
-                    <Typography>Actors</Typography>
+            <Grid container justify="space-between" alignItems="flex-start">
+                <Grid item xs={3} className="details">
+                    <span className="type"> Director</span>
                 </Grid>
-                <Grid item xs={6} className="details">
-                    <Typography>{filmDetails.actors}</Typography>
-                </Grid>
-            </Grid>
-            <Grid
-                container
-                spacing={24}>
-                <Grid item xs={12} className="details">
-                    <Typography>Genre</Typography>
-                </Grid>
-                <Grid item xs={12} className="details">
-                    <Typography>{filmDetails.genre}</Typography>
+                <Grid item xs={9} className="details">
+                    <span className="value"> {filmDetails.director}</span>
                 </Grid>
             </Grid>
-            <Grid container pacing={24}>
-                <Grid item>
-                    <Link
-                        href={imdbUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        Search
-                        IMDB
-                    </Link>
+            <Grid container justify="space-between" alignItems="flex-start">
+                <Grid item xs={3} className="details">
+                    <span className="type"> Actors</span>
                 </Grid>
-                <Grid item>
-                    <Link href={originalID} target="_blank" rel="noopener noreferrer">
-                        {originalID ? "Original data" : ""}
-                    </Link>
+                <Grid item xs={9} className="details">
+                    <span className="value"> {filmDetails.actors}</span>
                 </Grid>
             </Grid>
-            <Grid container spacing={24} className="extraDetails">
-                <Grid item>
-                    <Typography
-                        className={"value" + ((filmDetails.director && origDetails.director !== filmDetails.director) ? " different" : "")}>
-                        {origDetails.director}
+            <Grid item>
+                <Link
+                    href={imdbUrl} target="_blank"
+                    underline="hover"
+                    rel="noopener noreferrer">
+                    Search IMDB
+                </Link>
+                <Link href={originalID} target="_blank"
+                    underline="hover"
+                    rel="noopener noreferrer">
+                    {originalID ? "Original data" : ""}
+                </Link>
+            </Grid>
+            <Grid item spacing={2} className="extraDetails">
+                <Typography variant="caption"
+                    className={"value" + ((filmDetails.director && origDetails.director !== filmDetails.director) ? " different" : "")}>
+                    {origDetails.director}
+                </Typography>
+                <Typography variant="caption"
+                    className={"value" + ((filmDetails.country && origDetails.country !== filmDetails.country) ? " different" : "")}>
+                    {origDetails.country}
                     </Typography>
-                </Grid>
-                <Grid item>
-                    <Typography
-                        className={"value" + ((filmDetails.country && origDetails.country !== filmDetails.country) ? " different" : "")}>
-                        {origDetails.country}
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <Typography
-                        className={"value" + ((filmDetails.year && origDetails.year !== filmDetails.year) ? " different" : "")}>
-                        {origDetails.year
-                        }
-                    </Typography>
-                </Grid>
+                <Typography variant="caption"
+                    className={"value" + ((filmDetails.year && origDetails.year !== filmDetails.year) ? " different" : "")}>
+                    {origDetails.year}
+                </Typography>
             </Grid>
+            <Grid container>
+                <Grid item xs={4} sm={4} spacing={2}>
+                    <AdminUpdateFilm form={`updateImdb_${_id}`} imdbID={imdbID} onSubmit={handleSubmit}/>
+                </Grid>
 
-            <Grid item xs={6} className="updateFilm">
-                <AdminUpdateFilm form={`updateImdb_${_id}`} imdbID={imdbID} onSubmit={handleSubmit}/>
-            </Grid>
-
-            <Grid item sm={6} md={6} className="details">
-                <img src={img} alt={title} className="pull-right"/>
+                <Grid item xs={6} sm={6} className="details">
+                    <img src={img} alt={title} className="small-thumbnail"/>
+                </Grid>
             </Grid>
         </Grid>
     )

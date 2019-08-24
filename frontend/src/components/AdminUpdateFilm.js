@@ -1,37 +1,34 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 
-import { Grid, FormControl, FormGroup, Button } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
+
+// import InputLabel from '@material-ui/core/InputLabel';
+// import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 const FieldInput = ({ input, meta, type, placeholder, min, max }) => {
 	return (
-		<FormControl
-			type={type}
-			defaultValue={placeholder}
-			placeholder={placeholder}
-			onFocus={input.onChange}
-			onChange={input.onChange} />
+		<TextField
+	        id="imdbID"
+	        value={placeholder}
+	        label="imdb id"
+	        margin="dense"
+	        variant="outlined"
+	        onChange={input.onChange}
+	      />
 	)
 }
 
 
 let AdminUpdateFilm = ({ form, handleSubmit, imdbID }) => {
 	return (
-		<form onSubmit={ handleSubmit }>
-			<Grid item xs={6}>
-				<FormGroup controlId="imdbID" bsSize="sm">
-					<Field name="imdbID"
-						type='text'
-						component={FieldInput}
-						placeholder={imdbID}
-					/>
-				</FormGroup>
-			</Grid>
-			<Grid item xs={6}>
-				<FormGroup>
-					<Button type="submit">Update Film</Button>
-				</FormGroup>
-			</Grid>
+		<form onSubmit={ handleSubmit } className="updateFilm">
+			<Field name="imdbID"
+				type='text'
+				component={FieldInput}
+				placeholder={imdbID}
+				/>
+			<Button variant="contained" type="submit">Update Film</Button>
 		</form>
 	)
 }
