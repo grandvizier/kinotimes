@@ -30,25 +30,25 @@ const styles = {
     },
     contentTitle: {
         color: '#000000',
-        'font-weight': '600',
-        'font-size': 'smaller',
+        fontWeight: 600,
+        fontSize: 'smaller',
     },
     contentText: {
         color: '#000000',
-        'font-weight': '100',
-        'font-size': 'small',
+        fontWeight: 100,
+        fontSize: 'small',
     },
     contentDesc: {
         padding: '8px 0',
         color: '#000000',
-        'font-weight': '100',
-        'font-size': 'small',
-        'font-style': 'italic',
+        fontWeight: 100,
+        fontSize: 'small',
+        fontStyle: 'italic',
     },
     language: {
         color: 'red',
-        'font-weight': '400',
-        'font-size': 'small',
+        fontWeight: 400,
+        fontSize: 'small',
     },
     panelHeader: {
         borderBottom: '1px solid rgba(0,0,0,.125)',
@@ -99,8 +99,8 @@ class Film extends React.Component<Props> {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <Grid container justify="space-evenly" alignItems="flex-start">
-                            <Grid container xs={12} md={4}>
-                                <Grid container xs={4} md={4}>
+                            <Grid container item xs={12} md={4}>
+                                <Grid container item xs={4} md={4}>
                                     <img alt={title} src={imagePath} className="small-thumbnail"    />
                                     <Grid item xs={6} className="filter favorite" onClick={onFilmSave}>
                                         <StarOnIcon className={favorite && "starred"}/>
