@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import MapShowtimes from "../containers/MapShowtimes";
 import {ShowTime} from "../types";
-import classNames from "classnames";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BanIcon from "@material-ui/icons/Warning";
@@ -64,7 +63,6 @@ export interface Props {
     // what is details reviewed and favorite type
     details: any;
     showtimes: ShowTime[];
-    reviewed: boolean;
     favorite: any;
 }
 
@@ -78,7 +76,6 @@ class Film extends React.Component<Props> {
             img,
             details,
             showtimes,
-            reviewed,
             favorite
         } = this.props;
 
