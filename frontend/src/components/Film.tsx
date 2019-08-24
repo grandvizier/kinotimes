@@ -1,14 +1,7 @@
 import * as React from 'react'
-import {Component} from 'react'
-import {withStyles} from '@material-ui/core/styles';
 import {
-    Card,
-    CardHeader,
-    CardContent,
-    CardMedia,
     Typography,
     Grid,
-    Paper,
     ExpansionPanel,
     ExpansionPanelSummary,
     ExpansionPanelDetails
@@ -36,8 +29,27 @@ const styles = {
     title: {
         color: '#000000',
     },
+    contentTitle: {
+        color: '#000000',
+        'font-weight': '600',
+        'font-size': 'smaller',
+    },
     contentText: {
         color: '#000000',
+        'font-weight': '100',
+        'font-size': 'small',
+    },
+    contentDesc: {
+        padding: '8px 0',
+        color: '#000000',
+        'font-weight': '100',
+        'font-size': 'small',
+        'font-style': 'italic',
+    },
+    language: {
+        color: 'red',
+        'font-weight': '400',
+        'font-size': 'small',
     },
     panelHeader: {
         borderBottom: '1px solid rgba(0,0,0,.125)',
@@ -78,8 +90,11 @@ class Film extends React.Component<Props> {
         if (!showtimes.length) {
             return null;
         }
-
+        let showLanguage = filmDetails.language && filmDetails.language.indexOf("English") === -1
         let detailsStyle = classNames("", {reviewed: !reviewed}); // if not reviewed, grey things out
+
+
+        // https://material-ui.com/components/cards/
         return (
             <div style={styles.root}>
                 <ExpansionPanel style={styles.paper} square defaultExpanded>
@@ -88,59 +103,41 @@ class Film extends React.Component<Props> {
                         <div className="altTitle">({filmDetails.aka})</div>}</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                        <Grid container>
-                            <Grid item>
-                                <Grid container spacing={8} className={detailsStyle}>
-                                    <Grid item xs={2}>
-                                        <img alt={title} src={imagePath}/>
-                                        <Grid item className="filter favorite" onClick={onFilmSave}>
-                                            <StarOnIcon className={favorite && "starred"}/>
-                                            <Typography
-                                                className="filterText">{favorite ? "saved" : "save"}</Typography>
-                                        </Grid>
-                                        <Grid item className="filter filterOut" onClick={onFilterClick}>
-                                            <BanIcon/>
-                                            <Typography className="filterText">filter</Typography>
-                                        </Grid>
+                        <Grid container justify="space-evenly" alignItems="flex-start">
+                            <Grid container xs={12} md={4}>
+                                <Grid container xs={4} md={4}>
+                                    <img alt={title} src={imagePath} className="small-thumbnail"    />
+                                    <Grid item xs={6} className="filter favorite" onClick={onFilmSave}>
+                                        <StarOnIcon className={favorite && "starred"}/>
+                                        <Typography
+                                            className="filterText">{favorite ? "saved" : "save"}</Typography>
                                     </Grid>
-                                    <Grid item xs={10}>
-                                        <Grid item container>
-                                            <Grid item className="details">
-                                                <Typography
-                                                    style={styles.contentText}>Genre: {filmDetails.genre}</Typography>
-                                                <Typography
-                                                    style={styles.contentText}>Year: {filmDetails.year}</Typography>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item container>
-                                            <Grid className="details">
-                                                {filmDetails.director ? <Typography
-                                                    style={styles.contentText}>Director: {filmDetails.director}</Typography> : null}
-                                                <Typography
-                                                    style={styles.contentText}>Rating: {filmDetails.rating}</Typography>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item container>
-                                            <Grid item>
-                                                <Typography style={styles.contentText}>
-                                                    Actors: {filmDetails.actors}
-                                                </Typography>
-                                                {filmDetails.language ?
-                                                    <Typography className="language"
-                                                                style={styles.contentText}>{filmDetails.language}</Typography> : null
-                                                }
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item container>
-                                            <Grid item xs={8} className="details">
-                                                <Typography variant="body1"
-                                                            style={styles.contentText}>{filmDetails.description}</Typography>
-                                            </Grid>
-                                        </Grid>
+                                    <Grid item xs={6} className="filter filterOut" onClick={onFilterClick}>
+                                        <BanIcon/>
+                                        <Typography className="filterText">filter</Typography>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={8} md={8}>
+                                    <Grid>
+                                        <Typography style={styles.contentText}>{filmDetails.genre}</Typography>
+                                        <Typography style={styles.contentText}>{filmDetails.year}</Typography>
+                                        <Typography style={styles.contentText}>{filmDetails.rating}</Typography>
+                                        {filmDetails.director ? <Typography style={styles.contentTitle}>
+                                            Director: <span style={styles.contentText}>{filmDetails.director}</span></Typography> : null}
+
+                                        {filmDetails.actors ? <Typography style={styles.contentTitle}>
+                                            Actors: <span style={styles.contentText}>{filmDetails.actors}</span></Typography> : null}
+
+                                        {showLanguage ?
+                                            <Typography style={styles.language}>{filmDetails.language}</Typography> : null
+                                        }
+                                    </Grid>
+                                    <Grid>
+                                        <Typography variant="body1" style={styles.contentDesc}>{filmDetails.description}</Typography>
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={8}>
+                            <Grid item xs={12} md={8}>
                                 <MapShowtimes showtimes={showtimes}/>
                             </Grid>
                         </Grid>
