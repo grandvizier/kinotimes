@@ -46,7 +46,7 @@
     "redux-form": "^7.4.2",
     "redux-thunk": "^2.3.0",
     "request": "^2.75.0",
-    "typescript": "^3.1.6",
+    "typescript": "^3.5.3",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
