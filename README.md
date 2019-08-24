@@ -54,3 +54,12 @@ In different terminals:
 * frontend: `npm run start-dev`
 * backend: `npm test`
 * frontend: `npm test`
+
+-----
+To update dependencies, use `ncu`.
+```
+npm i -g npm-check-updates
+ncu
+ncu -u
+yarn install
+```

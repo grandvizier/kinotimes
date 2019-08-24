@@ -13,6 +13,16 @@ const initialFilterState = {
 	filterGenres: []
 }
 
+const routerObj = {
+	"action": "POP",
+	"location": {
+		"hash": "",
+		"pathname": "/",
+		"search": "",
+		"state": undefined,
+	}
+}
+
 it('handles errors', () => {
 	const stateBefore = {};
 	const action = {
@@ -23,7 +33,7 @@ it('handles errors', () => {
 		films: [],
 		filters: {...initialFilterState, hasErrored: true},
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
@@ -49,7 +59,7 @@ it('successful data fetch', () => {
 		],
 		filters: initialFilterState,
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
@@ -79,7 +89,7 @@ it('has saved', () => {
 		],
 		filters: initialFilterState,
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
@@ -101,7 +111,7 @@ it('show filters', () => {
 		films: [],
 		filters: {...initialFilterState, showFilters: true},
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
@@ -119,7 +129,7 @@ it('hide filters', () => {
 		films: [],
 		filters: {...initialFilterState, showFilters: false},
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
@@ -148,7 +158,7 @@ it('filter film by id', () => {
 		],
 		filters: {...initialFilterState, filterFilms: ['1']},
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
@@ -194,7 +204,7 @@ it('remove filtered film by id', () => {
 			filterGenres: []
 		},
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
@@ -242,7 +252,7 @@ it('filter film by start date', () => {
 			filterGenres: []
 		},
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
@@ -292,7 +302,7 @@ it('filter film by end date', () => {
 			filterGenres: []
 		},
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
@@ -326,7 +336,7 @@ it.skip('filter film by genre', () => {
 		],
 		filters: {...initialFilterState, filterGenres: ['Adventure']},
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
@@ -360,7 +370,7 @@ it.skip('remove filtered film by genre', () => {
 		],
 		filters: initialFilterState,
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
@@ -389,7 +399,7 @@ it('favorite a film by id', () => {
 		],
 		filters: {...initialFilterState, favoriteFilms: ['1']},
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
@@ -417,7 +427,7 @@ it('remove favorite film by id', () => {
 		],
 		filters: initialFilterState,
 		"form": {},
-		"routing": {"location": null}
+		"router": routerObj
 	};
 
 	deepFreeze(stateBefore);
