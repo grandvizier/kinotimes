@@ -56,7 +56,7 @@ function Database() {
 		logger.warn("   KT_MONGO_DB:   films");
 	}
 	let mongo_path = process.env.KT_MONGO_HOST + "/" + process.env.KT_MONGO_DB
-	this.db = "mongodb://" + mongo_path;
+	this.db = "mongodb+srv://" + mongo_path;
 }
 
 Database.prototype.connect = function() {
