@@ -56,7 +56,8 @@ In different terminals:
 * frontend: `npm test`
 
 -----
-To update dependencies, use `ncu`.
+## To update dependencies
+use `ncu`
 ```
 npm i -g npm-check-updates
 ncu

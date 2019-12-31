@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import ViewFilter from '../containers/ViewFilters'
 import Filters from '../containers/Filters'
 import DateFilters from '../containers/DateFilters'
 import {Grid, Paper} from '@material-ui/core'
@@ -27,22 +26,11 @@ class Sidebar extends Component {
         return (
             <div style={styles.root}>
                 <Grid container className="filters pre-scrollable" id="sidebar">
-                    <Paper>
-                        <ViewFilter filter="byTitle">
-                            Title
-                        </ViewFilter>
-                        {'  '}
-                        <ViewFilter filter="byTheater">
-                            Theater
-                        </ViewFilter>
-                        {'  '}
-                        <ViewFilter filter="byTime">
-                            Time
-                        </ViewFilter>
-                    </Paper>
                     <Paper header="Time">
                         <DateFilters/>
                     </Paper>
+                </Grid>
+                <Grid container className="filters pre-scrollable" id="sidebar">
                     <Paper>
                         <Filters/>
                     </Paper>
