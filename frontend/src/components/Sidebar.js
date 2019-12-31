@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import ViewFilter from '../containers/ViewFilters'
 import Filters from '../containers/Filters'
 import DateFilters from '../containers/DateFilters'
 import {Grid, Paper} from '@material-ui/core'

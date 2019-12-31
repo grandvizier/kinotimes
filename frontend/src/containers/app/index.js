@@ -21,6 +21,7 @@ const darkTheme = createMuiTheme({
 });
 
 /*
+import ViewFilter from '../containers/ViewFilters'
     <ViewFilter filter="byTitle">
         Title
     </ViewFilter>
