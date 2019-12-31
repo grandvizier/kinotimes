@@ -11,6 +11,19 @@ const styles = {
     }
 };
 
+/*
+    <ViewFilter filter="byTitle">
+        Title
+    </ViewFilter>
+    {'  '}
+    <ViewFilter filter="byTheater">
+        Theater
+    </ViewFilter>
+    {'  '}
+    <ViewFilter filter="byTime">
+        Time
+    </ViewFilter>
+*/
 class App extends Component {
     render() {
         return (
