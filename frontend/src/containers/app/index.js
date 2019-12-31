@@ -11,9 +11,11 @@ const styles = {
     }
 };
 
+// next theme element change should be font
+// https://material-ui.com/customization/typography/
+// as well as spacing, and a few other things...
 const darkTheme = createMuiTheme({
   palette: {
-    // Switching the dark mode on is a single property value change.
     type: 'dark',
   },
 });
