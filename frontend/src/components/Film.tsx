@@ -100,10 +100,10 @@ class Film extends React.Component<Props> {
                 <ExpansionPanel style={styles.paper} square>
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} style={styles.panelHeader}>
                         <Grid container justify="space-evenly" alignItems="flex-start">
-                            <Grid container item xs={2} md={2}>
+                            <Grid container item xs={3} md={2}>
                                 <img alt={title} src={imagePath} className="small-thumbnail"    />
                             </Grid>
-                            <Grid item xs={6} md={6}>
+                            <Grid item xs={4} md={6}>
                                 <Grid>
                                     <Typography style={styles.title}>{title} {filmDetails.aka &&
                                     <div className="altTitle">({filmDetails.aka})</div>}</Typography>
@@ -124,7 +124,7 @@ class Film extends React.Component<Props> {
                                     <Typography variant="body1" style={styles.contentDesc}>{filmDetails.description}</Typography>
                                 </Grid>
                             </Grid>
-                            <Grid container item xs={2} md={2}></Grid>
+                            <Grid container item xs={1} md={2}></Grid>
                             <Grid container item xs={2} md={2}>
                                 <Grid item xs={8} className="filter favorite" onClick={onFilmSave}>
                                     <StarOnIcon className={favorite && "starred"}/>
