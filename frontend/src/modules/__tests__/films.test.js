@@ -18,6 +18,7 @@ const routerObj = {
 	"location": {
 		"hash": "",
 		"pathname": "/",
+		"query": {},
 		"search": "",
 		"state": undefined,
 	}
