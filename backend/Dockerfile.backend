@@ -1,4 +1,4 @@
-FROM node:8.12.0
+FROM node:12.14
 MAINTAINER KinoTimes <admin@kinotimes.tk>
 
 RUN mkdir /usr/app
@@ -15,11 +15,12 @@ COPY ./core ./core
 COPY ./utils ./utils
 
 # set env vars
-ENV KT_MONGO_HOST=mongo:27017 KT_MONGO_DB=films REACT_APP_KT_BACKEND_PORT=8888
+ENV KT_MONGO_HOST=mongo:27017 KT_MONGO_DB=films REACT_APP_KT_BACKEND_PORT=8888 TZ=Europe/Berlin
 ARG tmdb_token
 ARG omdb_apikey
 ENV TMDB_TOKEN $tmdb_token
 ENV OMDB_APIKEY $omdb_apikey
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 #   REACT_APP_KT_BACKEND_PORT
 EXPOSE 8888
