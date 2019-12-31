@@ -20,9 +20,6 @@ const styles = {
         overflow: 'hidden',
         padding: `0 30px`,
     },
-    expansion: {
-        color: 'rgba(168, 166, 173,0.9)'
-    },
     paper: {
         maxWidth: '90%',
         margin: `10px auto`,
@@ -55,7 +52,7 @@ const styles = {
     },
     panelHeader: {
         borderBottom: '1px solid rgba(0,0,0,.125)',
-        backgroundColor: `#000000`,
+        backgroundColor: `rgba(0, 0, 0, 0.6)`,
         color: `#D4AF37`,
     },
     showtimeContent: {
@@ -101,7 +98,7 @@ class Film extends React.Component<Props> {
         return (
             <div style={styles.root}>
                 <ExpansionPanel style={styles.paper} square>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon style={styles.expansion} />} style={styles.panelHeader}>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} style={styles.panelHeader}>
                         <Grid container justify="space-evenly" alignItems="flex-start">
                             <Grid container item xs={2} md={2}>
                                 <img alt={title} src={imagePath} className="small-thumbnail"    />

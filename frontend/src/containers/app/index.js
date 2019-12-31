@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
-import {withStyles} from '@material-ui/core/styles';
+import {withStyles, createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 
 import Film from '../../components/App'
 import Admin from '../projectionist'
@@ -10,6 +10,13 @@ const styles = {
         paddingTop: '10px',
     }
 };
+
+const darkTheme = createMuiTheme({
+  palette: {
+    // Switching the dark mode on is a single property value change.
+    type: 'dark',
+  },
+});
 
 /*
     <ViewFilter filter="byTitle">
@@ -27,15 +34,17 @@ const styles = {
 class App extends Component {
     render() {
         return (
-            <div style={styles.root}>
-                <main>
-                    <Route exact path="/" component={Film}/>
-                    <Route path="/titles" component={Film}/>
-                    <Route path="/theaters" component={Film}/>
-                    <Route path="/times" component={Film}/>
-                    <Route exact path="/projectionist" component={Admin}/>
-                </main>
-            </div>
+            <ThemeProvider theme={darkTheme}>
+                <div style={styles.root}>
+                    <main>
+                        <Route exact path="/" component={Film}/>
+                        <Route path="/titles" component={Film}/>
+                        <Route path="/theaters" component={Film}/>
+                        <Route path="/times" component={Film}/>
+                        <Route exact path="/projectionist" component={Admin}/>
+                    </main>
+                </div>
+            </ThemeProvider>
         )
     }
 }
