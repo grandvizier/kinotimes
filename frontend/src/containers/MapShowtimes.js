@@ -66,9 +66,6 @@ const DayView = ({day, mapped}) => {
     mapped.sort(function (a, b) {
         return dayjs(a.timestamp).format('x') - dayjs(b.timestamp).format('x');
     })
-    // if (mapped.length < 1){
-    //     return null
-    // }
     return (
         <Grid container style={styles.showtimeRow}>
             <Grid item xs={1} className="showtime-date" style={styles.showtimeDate}>
