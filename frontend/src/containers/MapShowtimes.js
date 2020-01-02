@@ -60,7 +60,7 @@ const mapTimestoDays = (showtimes) => {
 
 const EachTime = ({t}) => {
     return (
-        <Grid item className="showtime" style={styles.showtimeListing}>{dayjs(t.timestamp).format('LT')}
+        <Grid item className="showtime" style={styles.showtimeListing}>{dayjs(t.timestamp).format('H:mm')}
             <Typography variant="body2">
                 ({t._theater.name})
             </Typography>
