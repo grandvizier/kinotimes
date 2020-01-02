@@ -18,6 +18,15 @@ const darkTheme = createMuiTheme({
   palette: {
     type: 'dark',
   },
+  overrides: {
+    MuiGrid: {
+      item: {
+        // border: 'white solid 1px',
+        borderRadius: 3,
+        boxShadow: '0 1px 3px 1px rgba(255, 188, 105, 0.3)',
+      },
+    },
+  },
 });
 
 /*

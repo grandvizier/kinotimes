@@ -53,10 +53,11 @@ const styles = {
     panelHeader: {
         borderBottom: '1px solid rgba(0,0,0,.125)',
         backgroundColor: `rgba(0, 0, 0, 0.6)`,
-        color: `#D4AF37`,
+        color: `#bf997e`,
     },
     showtimeContent: {
-        backgroundColor: `rgba(168, 166, 173,0.9)`,
+        backgroundImage: 'linear-gradient(rgba(35,35,35,0.5) 20%, rgba(25,25,25,0))',
+        color: `#bf997e`,
     }
 };
 
@@ -140,9 +141,7 @@ class Film extends React.Component<Props> {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={styles.showtimeContent}>
                         <Grid container justify="space-evenly" alignItems="flex-start">
-                            <Grid item xs={12} md={8}>
-                                <MapShowtimes showtimes={showtimes}/>
-                            </Grid>
+                            <MapShowtimes showtimes={showtimes}/>
                         </Grid>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>

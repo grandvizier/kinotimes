@@ -2,17 +2,23 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
-import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+import {Typography, Grid} from "@material-ui/core";
 
-import {
-    Typography,
-    Grid,
-    Paper
-} from "@material-ui/core";
 
+const styles = {
+    showtimeDate: {
+        margin: '10px',
+    },
+    showtimeListing: {
+        margin: '5px',
+    },
+    showtimeRow: {
+        paddingBottom: '5px',
+        borderBottom: '2px solid rgba(67,54,25,0.6)',
+    }
+};
 
 const mapObj = require('lodash/map');
-dayjs.extend(LocalizedFormat)
 dayjs.extend(advancedFormat)
 
 const uid = () => {
@@ -47,8 +53,8 @@ const mapTimestoDays = (showtimes) => {
 
 const EachTime = ({t}) => {
     return (
-        <Grid className="showtime">{dayjs(t.timestamp).format('LT')}
-            <Typography variant="body1">
+        <Grid item className="showtime" style={styles.showtimeListing}>{dayjs(t.timestamp).format('H:mm')}
+            <Typography variant="body2">
                 ({t._theater.name})
             </Typography>
         </Grid>
@@ -61,10 +67,12 @@ const DayView = ({day, mapped}) => {
         return dayjs(a.timestamp).format('x') - dayjs(b.timestamp).format('x');
     })
     return (
-        <Grid item xs={3}>
-            <Typography variant="subtitle1" styles="{text-decoration: underline}">
-                {dayjs.unix(day).add(-6, 'hours').format('ddd Do')}
-            </Typography>
+        <Grid container style={styles.showtimeRow}>
+            <Grid item xs={1} className="showtime-date" style={styles.showtimeDate}>
+                <Typography variant="subtitle1" styles="{text-decoration: underline}">
+                    {dayjs.unix(day).add(-6, 'hours').format('ddd Do')}
+                </Typography>
+            </Grid>
             {mapObj(mapped, (t) => (
                 <EachTime key={uid()} t={t}/>
             ))}
@@ -75,13 +83,11 @@ const DayView = ({day, mapped}) => {
 class MapShowtimes extends Component {
     render() {
         return (
-            <Paper>
-                <Grid container>
+            <Grid item xs={12}>
                 {mapObj(this.props.mappedShowtimes, (mapped, key) => (
                     <DayView key={uid()} day={key} mapped={mapped}/>
                 ))}
-                </Grid>
-            </Paper>
+            </Grid>
         )
     }
 }

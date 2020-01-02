@@ -25,7 +25,7 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 				logger.info(film.title, ' already has details');
 				return cb();
 			}
-			var url = self.omdb_url + '?apikey='+ omdbApiKey + '&t='+ film.title;
+			var url = encodeURI(self.omdb_url + '?apikey='+ omdbApiKey + '&t='+ film.title);
 			logger.verbose('getting details about: `' + film.title + '`. From url:', url);
 			request({uri: url}, function(err, response, body){
 				if(err || response.statusCode !== 200){
@@ -45,18 +45,18 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 					reviewed = false
 					if(film.scannedOriginal) {
 						if(film.originalDetails.director && film.originalDetails.director != film_details.Director) {
-							logger.warn("Directors don't match: ", film.originalDetails.director, film_details.Director)
+							logger.debug("Directors don't match: ", film.originalDetails.director, film_details.Director)
 						} else if(film.originalDetails.director && film.originalDetails.director == film_details.Director) {
 							reviewed = true
 						}
 						if(film.originalDetails.country && film.originalDetails.country != film_details.Country) {
-							logger.warn("Country doesn't match: ", film.originalDetails.country, film_details.Country)
+							logger.debug("Country doesn't match: ", film.originalDetails.country, film_details.Country)
 							reviewed = false
 						} else if(film.originalDetails.director && film.originalDetails.director == film_details.Director) {
 							reviewed = true
 						}
 						if(film.originalDetails.year && film.originalDetails.year != film_details.Year) {
-							logger.warn("Year doesn't match: ", film.originalDetails.year, film_details.Year)
+							logger.debug("Year doesn't match: ", film.originalDetails.year, film_details.Year)
 							reviewed = false
 						} else if(film.originalDetails.director && film.originalDetails.director == film_details.Director) {
 							reviewed = true
@@ -84,6 +84,7 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 						cb();
 					});
 				} else {
+					logger.debug("Unable to get general data for film: " + film.title, film_details.Error);
 					cb();
 				}
 			});
