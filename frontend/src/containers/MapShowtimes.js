@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
-import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 import {Typography, Grid} from "@material-ui/core";
 
 
@@ -20,7 +19,6 @@ const styles = {
 };
 
 const mapObj = require('lodash/map');
-dayjs.extend(LocalizedFormat)
 dayjs.extend(advancedFormat)
 
 const uid = () => {
