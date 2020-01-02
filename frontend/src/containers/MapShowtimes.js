@@ -3,12 +3,7 @@ import {connect} from 'react-redux'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
-
-import {
-    Typography,
-    Grid,
-    Paper
-} from "@material-ui/core";
+import {Typography, Grid} from "@material-ui/core";
 
 
 const styles = {
