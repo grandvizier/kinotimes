@@ -84,7 +84,6 @@ UpdateFilmInfo.prototype.omdbUpdate = function(callback) {
 						cb();
 					});
 				} else {
-					// TODO: try search again with just
 					logger.debug("Unable to get general data for film: " + film.title, film_details.Error);
 					cb();
 				}
