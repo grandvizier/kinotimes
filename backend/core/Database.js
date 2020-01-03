@@ -61,7 +61,11 @@ function Database() {
 
 Database.prototype.connect = function() {
 	logger.verbose('connecting', this.db);
-	mongoose.connect(this.db, { useNewUrlParser: true });
+	mongoose.connect(this.db, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false
+	});
 }
 Database.prototype.disconnect = function() {
 	logger.verbose('closing connection');
