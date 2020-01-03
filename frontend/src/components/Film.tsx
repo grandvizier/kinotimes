@@ -107,9 +107,13 @@ export default function Film({
     showtimes,
     favorite
 }: FilmProps) {
-
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+
+    // don't show films if there's no times to display
+    if (!showtimes.length) {
+        return null;
+    }
 
     let filmDetails = details ? details : {};
     let imagePath = img !== "N/A" ? img : "/image_not_found.jpg";
