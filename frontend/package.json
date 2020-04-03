@@ -54,6 +54,9 @@
   "devDependencies": {
     "deep-freeze": "0.0.1"
   },
+  "resolutions": {
+    "@types/react": "^16.9.32"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
