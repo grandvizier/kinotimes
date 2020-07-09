@@ -16,8 +16,8 @@ import {ShowTime} from "../types";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import BanIcon from "@material-ui/icons/Warning";
-// import StarOffIcon from "@material-ui/icons/StarOutlined";
-import StarOnIcon from "@material-ui/icons/Star";
+import StarOffIcon from "@material-ui/icons/StarBorderOutlined";
+// import StarOnIcon from "@material-ui/icons/Star";
 
 
 const styles = {
@@ -44,6 +44,8 @@ const useStyles = makeStyles(theme => ({
     card: {
         margin: '50px',
         backgroundColor: `rgba(0, 0, 0, 0.8)`,
+        borderRadius: '20px',
+        border: "3px solid rgb(237, 208, 179)",
     },
     bullet: {
         display: 'inline-block',
@@ -60,8 +62,15 @@ const useStyles = makeStyles(theme => ({
     expandOpen: {
         transform: 'rotate(180deg)',
     },
+    expander: {
+        backgroundImage: 'linear-gradient(#9c7651, #edd0b3)',
+        maxWidth: '5%',
+    },
     title: {
         color: `#bf997e`,
+    },
+    photo: {
+        paddingRight: '20px',
     },
     language: {
         color: 'red',
@@ -77,8 +86,18 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center',
         border: 'white solid 2px'
     },
+    ratingSection: {
+        color: `#bf997e`,
+        padding: '40px',
+    },
+    favoriteSection: {
+        maxWidth: '5%',
+    },
+    save: {
+        color: `#bf997e`,
+    },
     showtimeContent: {
-        backgroundColor: `rgba(0, 0, 0, 0.1)`,
+        backgroundColor: `rgba(255, 255, 255, 0.3)`,
         backgroundImage: 'linear-gradient(rgba(35,35,35,0.2) 20%, rgba(25,25,25,0))',
         color: `#bf997e`,
     }
@@ -132,10 +151,10 @@ export default function Film({
     <Card className={classes.card}>
         <CardContent>
             <Grid container>
-                <Grid item xs={3} md={2}>
+                <Grid item xs={3} md={2} className={classes.photo}>
                     <img alt={title} src={imagePath} className="small-thumbnail" />
                 </Grid>
-                <Grid item xs={4} md={6}>
+                <Grid item xs={6} md={7}>
                     <Typography className={classes.title}>{title} {filmDetails.aka &&
                         <span className="altTitle">({filmDetails.aka})</span>}</Typography>
                     <Typography>
@@ -150,14 +169,19 @@ export default function Film({
 
                     <Typography variant="body2" style={styles.contentDesc}>{filmDetails.description}</Typography>
                 </Grid>
-                <Grid item xs={1} md={2}>
+                <Grid item xs={1} md={1} className={classes.ratingSection}>
                     <Typography className={classes.rating}>{filmDetails.rating}</Typography>
                 </Grid>
-                <Grid item xs={2} md={2}>
+                <Grid item xs={1} md={1} className={classes.favoriteSection}>
                     <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                            <StarOnIcon />
+                        <IconButton aria-label="add to favorites" className={classes.save}>
+                            <StarOffIcon />
+                            <Typography>Save</Typography>
                         </IconButton>
+                    </CardActions>
+                </Grid>
+                <Grid item xs={1} md={1} className={classes.expander}>
+                    <CardActions disableSpacing>
                         <IconButton
                               className={clsx(classes.expand, {
                                 [classes.expandOpen]: expanded,
