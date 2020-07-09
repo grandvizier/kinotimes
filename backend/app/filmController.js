@@ -47,7 +47,7 @@ function getFilmsWithTimes(req, res) {
     req.apicacheGroup = "byTitle"
     var startPoint = moment().toDate();
     var cutoff = moment().add(4, 'days').toDate();
-    db.getFilmsWithTimeFilter(startPoint, cutoff, function (err, films) {
+    db.getFilmsbyShowtimesWithTimeFilter(startPoint, cutoff, function (err, films) {
         if (err){
             res.send(err);
         } else {

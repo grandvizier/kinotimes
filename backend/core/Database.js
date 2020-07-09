@@ -196,6 +196,43 @@ Database.prototype.getFilmsWithTimeFilter = function(startPoint, cutoff, cb) {
 	});
 }
 
+Database.prototype.getFilmsbyShowtimesWithTimeFilter = function(startPoint, cutoff, cb) {
+	logger.debug('get all the films and showtimes sorted by amount of showtimes between', startPoint, cutoff);
+	FilmModel.aggregate([
+		{$lookup: {
+			from: 'showtimes',
+			localField: '_id',
+			foreignField: '_film',
+			as: 'showtimes'
+		} },
+		{$addFields: {
+			"showtimes": {
+				"$filter": {
+					"input": "$showtimes",
+					"as": "show",
+					"cond": { $and: [
+						{ $gte: [ "$$show.timestamp", startPoint ] },
+						{ $lte: [ "$$show.timestamp", cutoff ] }
+					]}
+				}
+			},
+		} },
+		{$addFields: {
+			"showtimeCount": {
+				$size: "$showtimes"
+			}
+		} },
+		{ $sort : { showtimeCount : -1 } }
+	]).exec(function (err, showtimes) {
+		if (showtimes == undefined || !showtimes.length){
+			logger.warn('no showtimes found');
+			cb('Error: no showtimes found', null);
+		} else {
+			cb(err, showtimes);
+		}
+	});
+}
+
 Database.prototype.getTheatersWithTimes = function(startPoint, cutoff, cb) {
 	logger.debug('get films and showtimes (grouped by Theater) between', startPoint, cutoff);
 	TheaterModel.find({'showtimes.0': {$exists: true}}).populate({
