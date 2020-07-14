@@ -216,7 +216,7 @@ it('remove filtered film by id', () => {
 
 
 it('filter film by start date', () => {
-	const unixTime = 1509052320 // 10/26/2017 @ 21:12 (UTC)
+	const unixTime = 1509052320000 // 10/26/2017 @ 21:12 (UTC)
 	const stateBefore = {
 		films: [
 			{'_id': '1', 'title': 'first', 'showtimes': [
@@ -263,8 +263,8 @@ it('filter film by start date', () => {
 });
 
 it('filter film by end date', () => {
-	const startTime = 1508959800 // 10/25/2017 @ 19:30 (UTC)
-	const endTime	= 1509052500 // 10/26/2017 @ 21:15 (UTC)
+	const startTime = 1508959800000 // 10/25/2017 @ 19:30 (UTC)
+	const endTime   = 1509052500000 // 10/26/2017 @ 21:15 (UTC)
 	const stateBefore = {
 		films: [
 			{'_id': '1', 'title': 'first', 'showtimes': [
