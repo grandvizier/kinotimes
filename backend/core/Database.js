@@ -158,18 +158,6 @@ Database.prototype.getAllFilms = function(cb) {
 	});
 }
 
-Database.prototype.getAllTheaters = function(cb) {
-	logger.debug('get all the theaters');
-	TheaterModel.find().exec(function (err, theaters) {
-		if (!theaters.length){
-			logger.warn('no theaters found');
-			cb('Error: no theaters found', null);
-		}else{
-			cb(err, theaters);
-		}
-	});
-}
-
 Database.prototype.duplicateFilmNames = function(cb) {
 	logger.debug('find films that are duplicate');
 	FilmModel.aggregate().group({
