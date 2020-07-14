@@ -64,3 +64,12 @@ ncu
 ncu -u
 yarn install
 ```
+
+-----
+## To check js source size
+use `source-map-explorer`
+```
+cd frontend
+yarn build
+npm run analyze
+```
