@@ -32,6 +32,7 @@ it('handles errors', () => {
 	}
 	const stateAfter = {
 		films: [],
+		theaters: {},
 		filters: {...initialFilterState, hasErrored: true},
 		"form": {},
 		"router": routerObj
@@ -58,6 +59,7 @@ it('successful data fetch', () => {
 			{'_id': '1', 'title': 'first'},
 			{'_id': '2', 'title': 'second'}
 		],
+		theaters: {},
 		filters: initialFilterState,
 		"form": {},
 		"router": routerObj
@@ -75,6 +77,7 @@ it('has saved', () => {
 			{'_id': '1', 'title': 'first'},
 			{'_id': '2', 'title': 'second'}
 		],
+		theaters: {},
 		filters: initialFilterState
 	};
 	const action = {
@@ -88,6 +91,7 @@ it('has saved', () => {
 			{'_id': '1', 'title': 'first', 'reviewed': true, 'imdbID': 'tt123'},
 			{'_id': '2', 'title': 'second'}
 		],
+		theaters: {},
 		filters: initialFilterState,
 		"form": {},
 		"router": routerObj
@@ -103,6 +107,7 @@ it('has saved', () => {
 it('show filters', () => {
 	const stateBefore = {
 		films: [],
+		theaters: {},
 		filters: {...initialFilterState, showFilters: false}
 	};
 	const action = {
@@ -110,6 +115,7 @@ it('show filters', () => {
 	}
 	const stateAfter = {
 		films: [],
+		theaters: {},
 		filters: {...initialFilterState, showFilters: true},
 		"form": {},
 		"router": routerObj
@@ -128,6 +134,7 @@ it('hide filters', () => {
 	}
 	const stateAfter = {
 		films: [],
+		theaters: {},
 		filters: {...initialFilterState, showFilters: false},
 		"form": {},
 		"router": routerObj
@@ -146,6 +153,7 @@ it('filter film by id', () => {
 			{'_id': '1', 'title': 'first'},
 			{'_id': '2', 'title': 'second'}
 		],
+		theaters: {},
 		filters: initialFilterState
 	};
 	const action = {
@@ -157,6 +165,7 @@ it('filter film by id', () => {
 			{'_id': '1', 'title': 'first'},
 			{'_id': '2', 'title': 'second'}
 		],
+		theaters: {},
 		filters: {...initialFilterState, filterFilms: ['1']},
 		"form": {},
 		"router": routerObj
@@ -174,6 +183,7 @@ it('remove filtered film by id', () => {
 			{'_id': '1', 'title': 'first'},
 			{'_id': '2', 'title': 'second'}
 		],
+		theaters: {},
 		filters: {
 			showFilters: true,
 			viewType: 'byTitle',
@@ -194,6 +204,7 @@ it('remove filtered film by id', () => {
 			{'_id': '1', 'title': 'first'},
 			{'_id': '2', 'title': 'second'}
 		],
+		theaters: {},
 		filters: {
 			showFilters: true,
 			viewType: 'byTitle',
@@ -227,6 +238,7 @@ it('filter film by start date', () => {
 				{_id: "59d", timestamp: "2017-10-25T17:30:00.000Z"}
 			]}
 		],
+		theaters: {},
 		filters: initialFilterState
 	};
 	const action = {
@@ -241,6 +253,7 @@ it('filter film by start date', () => {
 			]},
 			{'_id': '2', 'title': 'second', 'showtimes': []}
 		],
+		theaters: {},
 		filters: {
 			showFilters: true,
 			viewType: 'byTitle',
@@ -275,6 +288,7 @@ it('filter film by end date', () => {
 				{_id: "59d", timestamp: "2017-10-25T19:30:00.000Z"}
 			]}
 		],
+		theaters: {},
 		filters: initialFilterState
 	};
 	const action = {
@@ -291,6 +305,7 @@ it('filter film by end date', () => {
 				{_id: "59d", timestamp: "2017-10-25T19:30:00.000Z"}
 			]}
 		],
+		theaters: {},
 		filters: {
 			showFilters: true,
 			viewType: 'byTitle',
@@ -321,6 +336,7 @@ it.skip('filter film by genre', () => {
 			},
 			{'_id': '2', 'title': 'second'}
 		],
+		theaters: {},
 		filters: initialFilterState
 	};
 	const action = {
@@ -335,6 +351,7 @@ it.skip('filter film by genre', () => {
 			},
 			{'_id': '2', 'title': 'second', 'hidden': false}
 		],
+		theaters: {},
 		filters: {...initialFilterState, filterGenres: ['Adventure']},
 		"form": {},
 		"router": routerObj
@@ -355,6 +372,7 @@ it.skip('remove filtered film by genre', () => {
 			},
 			{'_id': '2', 'title': 'second', 'hidden': false}
 		],
+		theaters: {},
 		filters: {...initialFilterState, filterGenres: ['Adventure']}
 	};
 	const action = {
@@ -369,6 +387,7 @@ it.skip('remove filtered film by genre', () => {
 			},
 			{'_id': '2', 'title': 'second', 'hidden': false}
 		],
+		theaters: {},
 		filters: initialFilterState,
 		"form": {},
 		"router": routerObj
@@ -387,6 +406,7 @@ it('favorite a film by id', () => {
 			{'_id': '1', 'title': 'first'},
 			{'_id': '2', 'title': 'second'}
 		],
+		theaters: {},
 		filters: initialFilterState
 	};
 	const action = {
@@ -398,6 +418,7 @@ it('favorite a film by id', () => {
 			{'_id': '1', 'title': 'first', 'favorite': true},
 			{'_id': '2', 'title': 'second'}
 		],
+		theaters: {},
 		filters: {...initialFilterState, favoriteFilms: ['1']},
 		"form": {},
 		"router": routerObj
@@ -415,6 +436,7 @@ it('remove favorite film by id', () => {
 			{'_id': '1', 'title': 'first', 'favorite': true},
 			{'_id': '2', 'title': 'second'}
 		],
+		theaters: {},
 		filters: {...initialFilterState, favoriteFilms: ['1']}
 	};
 	const action = {
@@ -426,6 +448,7 @@ it('remove favorite film by id', () => {
 			{'_id': '1', 'title': 'first', 'favorite': false},
 			{'_id': '2', 'title': 'second'}
 		],
+		theaters: {},
 		filters: initialFilterState,
 		"form": {},
 		"router": routerObj
