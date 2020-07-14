@@ -46,9 +46,9 @@ export const films = (state = [], action) => {
 				let acceptableTimes = film.showtimes.filter(function(showtime)
 				{
 				    var t = dayjs(showtime.timestamp)
-				    let after = (action.startDate) ? t.format('X') >= action.startDate : true
-				    let before = (action.endDate) ? t.format('X') <= action.endDate : true
-				    return (after && before)
+				    let after = (action.startDate) ? t.format('x') >= action.startDate : true
+				    let before = (action.endDate) ? t.format('x') <= action.endDate : true
+					return (after && before)
 				})
 				return { ...film, showtimes: acceptableTimes }
 			})
