@@ -51,17 +51,17 @@ const mapTimestoDays = (showtimes) => {
     return mappedTimes;
 }
 
-const EachTime = ({t}) => {
+const EachTime = ({t, theater}) => {
     return (
         <Grid item className="showtime" style={styles.showtimeListing}>{dayjs(t.timestamp).format('H:mm')}
             <Typography variant="body2">
-                ({t._theater.name})
+                ({theater.name})
             </Typography>
         </Grid>
     )
 }
 
-const DayView = ({day, mapped}) => {
+const DayView = ({day, mapped, theaters}) => {
     dayjs.locale('en');
     mapped.sort(function (a, b) {
         return dayjs(a.timestamp).format('x') - dayjs(b.timestamp).format('x');
@@ -74,7 +74,7 @@ const DayView = ({day, mapped}) => {
                 </Typography>
             </Grid>
             {mapObj(mapped, (t) => (
-                <EachTime key={uid()} t={t}/>
+                <EachTime key={uid()} t={t} theater={theaters[t._theater]}/>
             ))}
         </Grid>
     )
@@ -85,7 +85,7 @@ class MapShowtimes extends Component {
         return (
             <Grid item xs={12}>
                 {mapObj(this.props.mappedShowtimes, (mapped, key) => (
-                    <DayView key={uid()} day={key} mapped={mapped}/>
+                    <DayView key={uid()} day={key} mapped={mapped} theaters={this.props.theaters}/>
                 ))}
             </Grid>
         )

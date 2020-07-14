@@ -10,6 +10,8 @@ export const FILMS_FETCH_DATA_SUCCESS = 'films/FETCH_DATA_SUCCESS'
 export const FILMS_SWITCH_VIEW = 'films/SWITCH_VIEW'
 export const FILMS_HAS_SAVED = 'films/HAS_SAVED'
 
+export const THEATERS_FETCH_DATA_SUCCESS = 'theaters/FETCH_DATA_SUCCESS'
+
 export const FILTER_SHOW_FILTERS = 'filters/SHOW_FILTERS'
 export const FILTER_FILM_FILTER = 'filters/FILM_FILTER'
 export const FILTER_FILM_FAVORITE = 'filters/FILM_FAVORITE'
@@ -83,6 +85,16 @@ export const films = (state = [], action) => {
 				return film
 			})
 			return updatedFilms
+
+		default:
+			return state
+	}
+}
+
+export const theaters = (state = {}, action) => {
+	switch (action.type) {
+		case THEATERS_FETCH_DATA_SUCCESS:
+			return action.theaters
 
 		default:
 			return state

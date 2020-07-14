@@ -158,6 +158,22 @@ Database.prototype.getAllFilms = function(cb) {
 	});
 }
 
+Database.prototype.getAllTheaters = function(cb) {
+	logger.debug('get all the theaters');
+	TheaterModel.find({}, 'name street kietz website').exec(function (err, theaters) {
+		if (!theaters.length){
+			logger.warn('no theaters found');
+			cb('Error: no theaters found', null);
+		} else {
+			var th = {};
+			theaters.forEach(function (t) {
+				th[t._id] = t;
+			});
+			cb(err, th);
+		}
+	});
+}
+
 Database.prototype.duplicateFilmNames = function(cb) {
 	logger.debug('find films that are duplicate');
 	FilmModel.aggregate().group({

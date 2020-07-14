@@ -12,6 +12,7 @@ router.route("/getAll").get(getAllFilms);
 router.route("/getDuplicates").get(cache('1 hour'), getDuplicateFilmTitles);
 router.route("/byTitle").get(cache('1 hour'), getFilmsWithTimes);
 router.route("/byTheater").get(cache('1 hour'), getTheatersWithTimes);
+router.route("/getTheaters").get(cache('1 hour'), getAllTheaters);
 
 router.route("/updateImdb").get(updateFilms);
 router.route("/clearOldFilms").get(clearOldFilms);
@@ -66,6 +67,18 @@ function getTheatersWithTimes(req, res) {
             res.send(err);
         } else {
             res.json(films);
+        }
+    });
+}
+
+function getAllTheaters(req, res) {
+    logger.info('get theaters and their info');
+    req.apicacheGroup = "getTheaters"
+    db.getAllTheaters(function (err, theaters) {
+        if (err){
+            res.send(err);
+        } else {
+            res.json(theaters);
         }
     });
 }
