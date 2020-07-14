@@ -1,8 +1,9 @@
-import React, {Component} from 'react'
+import React, { Component, Suspense, lazy } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import Filters from '../containers/Filters'
-import DateFilters from '../containers/DateFilters'
 import {Grid, Paper} from '@material-ui/core'
+const LazyDateFilters = lazy(() => import('../containers/DateFilters'))
+
 
 const styles = {
     root: {
@@ -27,7 +28,9 @@ class Sidebar extends Component {
             <div style={styles.root}>
                 <Grid container className="filters pre-scrollable" id="sidebar">
                     <Paper header="Time">
-                        <DateFilters/>
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <LazyDateFilters />
+                        </Suspense>
                     </Paper>
                 </Grid>
                 <Grid container className="filters pre-scrollable" id="sidebar">

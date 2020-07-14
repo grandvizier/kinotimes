@@ -49,6 +49,13 @@ export function filmsHasErrored(bool, err) {
     };
 }
 
+export function theatersFetchDataSuccess(theaters) {
+    return {
+        type: 'theaters/FETCH_DATA_SUCCESS',
+        theaters
+    };
+}
+
 export function toggleFilters() {
     return {
         type: 'filters/SHOW_FILTERS'
@@ -119,6 +126,17 @@ export const filmsFetchData = (filters = 'getAll') => {
             })
             .then((response) => response.json())
             .then((films) => dispatch(filmsFetchDataSuccess(films)))
+            .catch((e) => dispatch(filmsHasErrored(true, e)));
+
+        fetch(apiBaseUrl + "/api/getTheaters")
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response;
+            })
+            .then((response) => response.json())
+            .then((films) => dispatch(theatersFetchDataSuccess(films)))
             .catch((e) => dispatch(filmsHasErrored(true, e)));
     };
 }

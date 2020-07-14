@@ -1,22 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import Datetime from 'react-datetime'
-import moment from 'moment'
+import DatePicker from "react-datepicker";
 import { Grid } from '@material-ui/core';
-require('moment/locale/de');
+import "react-datepicker/dist/react-datepicker.css";
 
-const DateFilter = ({ updateClick, handleStartDate, handleEndDate }) => {
+const DateFilter = ({ updateClick, startDate, endDate, handleStartDate, handleEndDate }) => {
   return (
     <Grid container spacing={3}>
       <Grid item xs>
         Time:
       </Grid>
       <Grid item xs>
-        <Datetime locale="de" onChange={handleStartDate} defaultValue={moment()} />
+        <DatePicker
+          selected={startDate}
+          onChange={handleStartDate}
+          showTimeSelect
+          timeIntervals={60}
+          dateFormat="d MMM - HH:mm"
+          todayButton="Now"
+          minDate={new Date()}
+          />
       </Grid>
       <Grid item xs>
-        <Datetime locale="de" onChange={handleEndDate} defaultValue={moment().add(4, 'days')} />
+        <DatePicker
+          selected={endDate}
+          onChange={handleEndDate}
+          showTimeSelect
+          timeIntervals={60}
+          dateFormat="d MMM - HH:mm"
+          todayButton="Now"
+          minDate={new Date()}
+        />
       </Grid>
       <Grid item xs>
         <button onClick={e => {

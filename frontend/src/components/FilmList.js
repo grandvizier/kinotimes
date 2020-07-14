@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Film from "./Film";
 
-const FilmList = ({films, onFilterClick, onFilmSave}) => (
+const FilmList = ({films, theaters, onFilterClick, onFilmSave}) => (
     <div>
         {films.map(film => {
             if (!film.hidden) {
@@ -10,6 +10,7 @@ const FilmList = ({films, onFilterClick, onFilmSave}) => (
                     <Film
                         key={film._id}
                         {...film}
+                        theaters={theaters}
                         onFilterClick={() => onFilterClick(film._id)}
                         onFilmSave={() => onFilmSave(film._id)}
                     />
@@ -22,6 +23,7 @@ const FilmList = ({films, onFilterClick, onFilmSave}) => (
 
 FilmList.propTypes = {
     films: PropTypes.array.isRequired,
+    theaters: PropTypes.object.isRequired,
     onFilterClick: PropTypes.func.isRequired,
     onFilmSave: PropTypes.func.isRequired
 };

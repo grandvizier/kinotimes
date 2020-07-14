@@ -30,6 +30,7 @@ class VisibleFilmList extends Component {
 const mapStateToProps = state => {
   return {
     films: getVisibleFilms(state.films, state.filters),
+    theaters: state.theaters,
     filters: state.filters
   };
 };

@@ -158,6 +158,22 @@ Database.prototype.getAllFilms = function(cb) {
 	});
 }
 
+Database.prototype.getAllTheaters = function(cb) {
+	logger.debug('get all the theaters');
+	TheaterModel.find({}, 'name street kietz website').exec(function (err, theaters) {
+		if (!theaters.length){
+			logger.warn('no theaters found');
+			cb('Error: no theaters found', null);
+		} else {
+			var th = {};
+			theaters.forEach(function (t) {
+				th[t._id] = t;
+			});
+			cb(err, th);
+		}
+	});
+}
+
 Database.prototype.duplicateFilmNames = function(cb) {
 	logger.debug('find films that are duplicate');
 	FilmModel.aggregate().group({
@@ -191,6 +207,43 @@ Database.prototype.getFilmsWithTimeFilter = function(startPoint, cutoff, cb) {
 			logger.warn('no showtimes found');
 			cb('Error: no showtimes found', null);
 		}else{
+			cb(err, showtimes);
+		}
+	});
+}
+
+Database.prototype.getFilmsbyShowtimesWithTimeFilter = function(startPoint, cutoff, cb) {
+	logger.debug('get all the films and showtimes sorted by amount of showtimes between', startPoint, cutoff);
+	FilmModel.aggregate([
+		{$lookup: {
+			from: 'showtimes',
+			localField: '_id',
+			foreignField: '_film',
+			as: 'showtimes'
+		} },
+		{$addFields: {
+			"showtimes": {
+				"$filter": {
+					"input": "$showtimes",
+					"as": "show",
+					"cond": { $and: [
+						{ $gte: [ "$$show.timestamp", startPoint ] },
+						{ $lte: [ "$$show.timestamp", cutoff ] }
+					]}
+				}
+			},
+		} },
+		{$addFields: {
+			"showtimeCount": {
+				$size: "$showtimes"
+			}
+		} },
+		{ $sort : { showtimeCount : -1 } }
+	]).exec(function (err, showtimes) {
+		if (showtimes == undefined || !showtimes.length){
+			logger.warn('no showtimes found');
+			cb('Error: no showtimes found', null);
+		} else {
 			cb(err, showtimes);
 		}
 	});

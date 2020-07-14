@@ -112,6 +112,7 @@ type FilmProps = {
     // https://www.robinwieruch.de/react-pass-props-to-component
     details: any;
     showtimes: ShowTime[];
+    theaters: object;
     favorite: any;
 }
 
@@ -124,6 +125,7 @@ export default function Film({
     img,
     details,
     showtimes,
+    theaters,
     favorite
 }: FilmProps) {
     const classes = useStyles();
@@ -198,7 +200,7 @@ export default function Film({
         </CardContent>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent className={classes.showtimeContent}>
-                <MapShowtimes showtimes={showtimes}/>
+                <MapShowtimes showtimes={showtimes} theaters={theaters}/>
             </CardContent>
         </Collapse>
     </Card>

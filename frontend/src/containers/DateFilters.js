@@ -3,18 +3,19 @@ import { updateDateFilters } from '../actions'
 import DateFilter from '../components/DateFilter'
 import ReactGA from 'react-ga'
 
-let startDate = null
-let endDate = null
+let startDate = (new Date()).getTime()
+let _ed = new Date()
+let endDate = (_ed.setDate(_ed.getDate() + 4))
 
 const handleStartDate = (date) => {
-	startDate = date.unix();
+	startDate = date.getTime();
 	ReactGA.event({
 		category: 'Filter',
 		action: 'Start Date',
 	});
 }
 const handleEndDate = (date) => {
-	endDate = date.unix();
+	endDate = date.getTime();
 	ReactGA.event({
 		category: 'Filter',
 		action: 'End Date',
@@ -23,6 +24,8 @@ const handleEndDate = (date) => {
 
 const mapStateToProps = state => {
 	return {
+		startDate,
+		endDate,
 		handleStartDate,
 		handleEndDate
 	}
