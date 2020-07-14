@@ -186,7 +186,7 @@ export default function Film({
                     <CardActions disableSpacing>
                         <IconButton
                               className={clsx(classes.expand, {
-                                [classes.expandOpen]: expanded,
+                                [classes.expandOpen]: !expanded,
                               })}
                               onClick={handleExpandClick}
                               aria-expanded={expanded}
@@ -198,7 +198,7 @@ export default function Film({
                 </Grid>
             </Grid>
         </CardContent>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse in={!expanded} timeout="auto" unmountOnExit>
             <CardContent className={classes.showtimeContent}>
                 <MapShowtimes showtimes={showtimes} theaters={theaters}/>
             </CardContent>
