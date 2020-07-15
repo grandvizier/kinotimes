@@ -55,7 +55,7 @@ const EachTime = ({t, theater}) => {
     return (
         <Grid item className="showtime" style={styles.showtimeListing}>{dayjs(t.timestamp).format('H:mm')}
             <Typography variant="body2">
-                ({theater.name})
+                ({theater ? theater.name : ""})
             </Typography>
         </Grid>
     )
