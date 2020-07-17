@@ -20,8 +20,9 @@ SaveFilms.prototype.save = function(films, dateUsed, callback) {
 	filmsNotReviewed = {};
 	async.each(films, function(theater, cb) {
 		var theaterName = theater.name.replace(stripParenthesis, '');
-		// get theater id from DB
-		db.getTheater(theaterName, function(err, theaterModel){
+		var origTheaterId = theater.theaterId;
+		var kietz = theater.kietz;
+		db.getTheater({name: theaterName, originalID: origTheaterId, kietz: kietz}, function(err, theaterModel){
 			if(err){
 				logger.error(typeof err);
 				logger.error(err);

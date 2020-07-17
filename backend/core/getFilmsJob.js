@@ -3,7 +3,7 @@ var dayjs = require('dayjs'),
 async = require('async');
 
 var argv = require('yargs')
-	.usage('Usage: $0 -d [num] [--imdb | --genUpdate | --images]')
+	.usage('Usage: $0 -d [num] [--imdb | --genUpdate | --images | --theaters]')
 	.alias('d', 'days')
 	.coerce('d', function (arg) {
 		if (arg > 0 && arg < 14 && typeof arg != 'boolean'){
@@ -14,15 +14,13 @@ var argv = require('yargs')
 	.alias('h', 'help')
 	.argv;
 
-// TODO add start date of not today
-logger.debug("args parsed (days, imdb, genUpdate, images):", argv.d, argv.imdb, argv.genUpdate, argv.images);
+logger.debug("args parsed (days, imdb, genUpdate, images, theaters):",
+	argv.d, argv.imdb, argv.genUpdate, argv.images, argv.theaters);
 logger.verbose("Days to search ahead (including today):", argv.days);
 
 
-// TODO: option for picking different film sites to parse
 var BerlinDeFilms = require('./BerlinDeFilms.js');
 var parser = new BerlinDeFilms();
-
 var db = new (require('./Database.js'));
 db.connect();
 var SaveFilms = require('./SaveFilms.js');
@@ -31,6 +29,9 @@ var UpdateFilmInfo = require('./UpdateFilmInfo.js');
 var updater = new UpdateFilmInfo();
 var ImageStoring = require('./ImageStoring.js');
 var imager = new ImageStoring();
+var BerlinDeTheaters = require('./BerlinDeTheaters.js');
+var theaterParser = new BerlinDeTheaters(db);
+
 
 if (argv.days){
 	var daysToCheck = [];
@@ -106,5 +107,28 @@ if (argv.genUpdate){
 	imager.getImages([], function(err){
 		logger.info('done imdb updating');
 		db.disconnect();
+	});
+} else if (argv.theaters){
+	theaterParser.getTheaters(function(err, theaterList){
+		if(err){
+			logger.error(err);
+			db.disconnect();
+		} else if (!theaterList || theaterList.length == 0) {
+			logger.warn('No theaters found');
+			db.disconnect();
+		} else {
+			async.each(theaterList, function(theater, cb){
+				if(!theater.originalID || theater.originalID == "") {
+					logger.debug("no id to check theater:", theater.name)
+					cb(null)
+				}
+				theaterParser.saveNewTheater(theater, function(err, result){
+					(err) ? cb(err) : cb(null);
+				});
+			}, function(err) {
+				(err) ? logger.error(err) : logger.info('done.');
+				db.disconnect();
+			});
+		}
 	});
 }

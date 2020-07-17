@@ -29,46 +29,53 @@ var t = {
 }
 var searchResults = require('./data/exampleSearch.html')
 var noResults = require('./data/noResultSearch.html')
-let expectedFilms = [{
-	"films": [{
-		"origID": "https://www.berlin.de/kino/_bin/filmdetail.php/254366/",
-		"times": [
-			"20:15"
-		],
-		"title": "Gegen den Strom  (OmU)"
-	}],
-	"name": "Acud Kino"
-}, {
-	"films": [{
-		"origID": "https://www.berlin.de/kino/_bin/filmdetail.php/48772/",
-		"times": [
-			"19:30"
-		],
-		"title": "Die Ferien des Monsieur Hulot  (OV)"
-	}],
-	"name": "Arsenal"
-}, {
-	"films": [{
-		"origID": "https://www.berlin.de/kino/_bin/filmdetail.php/255670/",
-		"times": [
-			"14:40"
-		],
-		"title": "#Female Pleasure  (OmU)"
+let expectedFilms = [
+	{
+		"films": [{
+			"origID": "https://www.berlin.de/kino/_bin/filmdetail.php/254366/",
+			"times": [
+				"20:15"
+			],
+			"title": "Gegen den Strom  (OmU)"
+		}],
+		"theaterId": "https://www.berlin.de/kino/_bin/kinodetail.php/30151",
+		"name": "Acud Kino",
+		"kietz": "Mitte"
 	}, {
-		"origID": "https://www.berlin.de/kino/_bin/filmdetail.php/257080/",
-		"times": [
-			"12:20",
-			"20:30"
-		],
-		"title": "Green Book - Eine besondere Freundschaft  (OmU)"
+		"films": [{
+			"origID": "https://www.berlin.de/kino/_bin/filmdetail.php/48772/",
+			"times": [
+				"19:30"
+			],
+			"title": "Die Ferien des Monsieur Hulot  (OV)"
+		}],
+		"theaterId": "https://www.berlin.de/kino/_bin/kinodetail.php/30155",
+		"name": "Arsenal",
+		"kietz": "Tiergarten"
 	}, {
-		"origID": "https://www.berlin.de/kino/_bin/filmdetail.php/255845/",
-		"times": [
-			"11:00"
-		],
-		"title": "Westwood  (OmU)"
-	}],
-	"name": "B-ware! Ladenkino"
+		"films": [{
+			"origID": "https://www.berlin.de/kino/_bin/filmdetail.php/255670/",
+			"times": [
+				"14:40"
+			],
+			"title": "#Female Pleasure  (OmU)"
+		}, {
+			"origID": "https://www.berlin.de/kino/_bin/filmdetail.php/257080/",
+			"times": [
+				"12:20",
+				"20:30"
+			],
+			"title": "Green Book - Eine besondere Freundschaft  (OmU)"
+		}, {
+			"origID": "https://www.berlin.de/kino/_bin/filmdetail.php/255845/",
+			"times": [
+				"11:00"
+			],
+			"title": "Westwood  (OmU)"
+		}],
+		"theaterId": "https://www.berlin.de/kino/_bin/kinodetail.php/35211",
+		"name": "B-ware! Ladenkino",
+		"kietz": "Friedrichshain"
 }]
 
 
