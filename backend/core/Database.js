@@ -107,9 +107,9 @@ Database.prototype.getTheater = function(theater, cb) {
 Database.prototype.saveTheater = function(toSave, cb) {
 	logger.debug('saving info for theater', toSave.name);
 	var thToUpdate = {};
-	thToUpdate = Object.assign(thToUpdate, toSave._doc);
+	thToUpdate = Object.assign(thToUpdate, toSave);
 	delete thToUpdate._id;
-	TheaterModel.findOneAndUpdate({_id : toSave._id}, { $set: thToUpdate}, cb);
+	TheaterModel.findOneAndUpdate({_id : toSave._id}, thToUpdate, {returnOriginal: false}, cb);
 }
 
 Database.prototype.getFilm = function(query, cb) {
@@ -170,7 +170,7 @@ Database.prototype.getAllFilms = function(cb) {
 
 Database.prototype.getAllTheaters = function(cb) {
 	logger.debug('get all the theaters');
-	TheaterModel.find({}, 'name street kietz telephone website').exec(function (err, theaters) {
+	TheaterModel.find({}, 'name street kietz telephone website originalID').exec(function (err, theaters) {
 		if (!theaters.length){
 			logger.warn('no theaters found');
 			cb('Error: no theaters found', null);

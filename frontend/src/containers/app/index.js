@@ -4,6 +4,7 @@ import {withStyles, createMuiTheme, ThemeProvider} from '@material-ui/core/style
 
 import Film from '../../components/App'
 import Admin from '../projectionist'
+import TheaterAdmin from '../projector'
 
 const styles = {
     root: {
@@ -54,6 +55,7 @@ class App extends Component {
                         <Route path="/theaters" component={Film}/>
                         <Route path="/times" component={Film}/>
                         <Route exact path="/projectionist" component={Admin}/>
+                        <Route exact path="/projector" component={TheaterAdmin}/>
                     </main>
                 </div>
             </ThemeProvider>
