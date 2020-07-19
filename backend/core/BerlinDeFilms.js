@@ -39,7 +39,7 @@ BerlinDeFilms.prototype.getFilms = function(startDate, callback) {
 
 function parseShowtimes(body, urlSearched) {
 	var items = new Array();
-	var theaterName = "";
+	var theaterName, theaterId, kietz = "";
 	var films = [];
 
 	const dom = new JSDOM(body, {
@@ -61,13 +61,13 @@ function parseShowtimes(body, urlSearched) {
 		var film_info = {'name': '', 'times': []};
 		if(tag_type == 'H3') {
 			if(theaterName){
-				items.push({'name': theaterName, 'films': films});
+				items.push({'name': theaterName, 'theaterId': theaterId, 'kietz': kietz, 'films': films});
 			}
-			theaterName = element.textContent.trim();
-			theaterName = theaterName.substring(0, theaterName.indexOf(','));
-			// TODO theater neighborhood is second part of theaterName.indexOf(',')
+			displayName = element.textContent.trim();
+			[theaterName, kietz] = displayName.split(',');
+			theaterId = element.children[0].href
+			kietz = kietz.trim()
 			films = [];
-			// logger.debug(theaterName)
 		} else if (tag_type == 'DL')  {
 			let title = '';
 			let times = '';
@@ -86,7 +86,7 @@ function parseShowtimes(body, urlSearched) {
 		}
 	}
 	if(theaterName){
-		items.push({'name': theaterName, 'films': films});
+		items.push({'name': theaterName, 'theaterId': theaterId, 'kietz': kietz, 'films': films});
 	}
 	return items;
 }

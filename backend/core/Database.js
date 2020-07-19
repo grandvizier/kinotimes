@@ -14,7 +14,9 @@ var theaterSchema = new Schema({
 	name: String,
 	street: String,
 	kietz: String,
+	telephone: String,
 	website: String,
+	originalID: String,
 	showtimes: [{ type: Schema.Types.ObjectId, ref: 'Showtime' }]
 });
 
@@ -85,21 +87,29 @@ mongoose.connection.on('disconnected', function () {
 	logger.debug('Mongoose default connection disconnected');
 });
 
-Database.prototype.getTheater = function(theaterName, cb) {
-	logger.debug('looking for theater', theaterName);
+Database.prototype.getTheater = function(theater, cb) {
+	logger.debug('looking for theater', theater.name);
 	// todo try using FindOne()
-	TheaterModel.find({name : theaterName}, function (err, theaters) {
+	TheaterModel.find({name : theater.name}, function (err, theaters) {
 		if (theaters && theaters.length){
 			logger.verbose('theater exists already. found: ', theaters.length);
 			cb(null, theaters[0]);
 		}else{
-			logger.warn('New theater is added: ', theaterName);
-			var t = new TheaterModel({ name: theaterName });
+			logger.warn('New theater is added: ', theater);
+			var t = new TheaterModel(theater);
 			t.save(function(err, t){
 				cb(err,t);
 			});
 		}
 	});
+}
+
+Database.prototype.saveTheater = function(toSave, cb) {
+	logger.debug('saving info for theater', toSave.name);
+	var thToUpdate = {};
+	thToUpdate = Object.assign(thToUpdate, toSave);
+	delete thToUpdate._id;
+	TheaterModel.findOneAndUpdate({_id : toSave._id}, thToUpdate, {returnOriginal: false}, cb);
 }
 
 Database.prototype.getFilm = function(query, cb) {
@@ -160,7 +170,23 @@ Database.prototype.getAllFilms = function(cb) {
 
 Database.prototype.getAllTheaters = function(cb) {
 	logger.debug('get all the theaters');
-	TheaterModel.find({}, 'name street kietz website').exec(function (err, theaters) {
+	TheaterModel.find({}, 'name street kietz telephone website originalID').exec(function (err, theaters) {
+		if (!theaters.length){
+			logger.warn('no theaters found');
+			cb('Error: no theaters found', null);
+		} else {
+			var th = {};
+			theaters.forEach(function (t) {
+				th[t._id] = t;
+			});
+			cb(err, th);
+		}
+	});
+}
+
+Database.prototype.getNewTheaters = function(cb) {
+	logger.debug('get new theaters, meaning the ones without address saved');
+	TheaterModel.find({ street: null }, 'name street kietz telephone website originalID').exec(function (err, theaters) {
 		if (!theaters.length){
 			logger.warn('no theaters found');
 			cb('Error: no theaters found', null);

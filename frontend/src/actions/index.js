@@ -55,6 +55,13 @@ export function theatersFetchDataSuccess(theaters) {
         theaters
     };
 }
+export function theaterHasSaved(response, theater) {
+    return {
+        type: 'theaters/HAS_SAVED',
+        hasSaved: response,
+        theater: theater
+    };
+}
 
 export function toggleFilters() {
     return {
@@ -136,7 +143,25 @@ export const filmsFetchData = (filters = 'getAll') => {
                 return response;
             })
             .then((response) => response.json())
-            .then((films) => dispatch(theatersFetchDataSuccess(films)))
+            .then((theaters) => dispatch(theatersFetchDataSuccess(theaters)))
+            .catch((e) => dispatch(filmsHasErrored(true, e)));
+    };
+}
+
+export const theatersFetchData = () => {
+    return (dispatch) => {
+        // TODO: new Loading & HasErrored state for theater
+        dispatch(filmsIsLoading(true));
+
+        fetch(apiBaseUrl + "/api/getTheaters")
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response;
+            })
+            .then((response) => response.json())
+            .then((theaters) => dispatch(theatersFetchDataSuccess(theaters)))
             .catch((e) => dispatch(filmsHasErrored(true, e)));
     };
 }
@@ -161,6 +186,32 @@ export const filmUpdateImdb = (film, imdbID) => {
             })
             .then((response) => response.json())
             .then((resp) => dispatch(filmsHasSaved(resp, film, imdbID)))
+            .catch((e) => dispatch(filmsHasErrored(true, e)));
+    };
+}
+
+export const updateTheaterData = (data) => {
+    return (dispatch) => {
+        // TODO: use save actions specific to theater
+        dispatch(filmsIsSaving(true));
+        // if theater -> data.name === "", throw error
+
+        fetch(apiBaseUrl + '/adminapi/projector/admin/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+            })
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                dispatch(filmsIsSaving(false));
+                return response;
+            })
+            .then((response) => response.json())
+            .then((resp) => dispatch(theaterHasSaved(resp, data)))
             .catch((e) => dispatch(filmsHasErrored(true, e)));
     };
 }

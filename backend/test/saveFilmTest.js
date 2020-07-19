@@ -17,6 +17,8 @@ var saver = new SaveFilms(db);
 var t = {
 	singleFilmData: {
 		name: 'Theater Name',
+		theaterId: '/_bin/kinodetail.php/123',
+		kietz: "Tiergarten",
 		films: [{
 			title: 'Film Title  (OmU)',
 			times: ['19:45', '21:30'],
@@ -25,6 +27,8 @@ var t = {
 	},
 	nextDayFilmData: {
 		name: 'Diff Theater',
+		theaterId: '/_bin/kinodetail.php/456',
+		kietz: "Mitte",
 		films: [{
 			title: 'Tomorrow',
 			times: ['12:45', '18:00'],
@@ -40,11 +44,15 @@ var t = {
 	theaterModel: {
 		name: 'Theater Name',
 		_id: '123',
-		showtimes: []
+		originalID: '/_bin/kinodetail.php/123',
+		kietz: "Tiergarten",
+		showtimes: [],
 	},
 	theaterModel2: {
 		name: 'Diff Theater',
 		_id: '321',
+		originalID: '/_bin/kinodetail.php/456',
+		kietz: "Mitte",
 		showtimes: []
 	},
 	filmModel: {
@@ -117,8 +125,20 @@ describe('SaveFilms', function() {
 		});
 
 		it('should save multiple days', function() {
-			db.getTheater.withArgs(t.theaterModel.name).yields(null, t.theaterModel);
-			db.getTheater.withArgs(t.theaterModel2.name).yields(null, t.theaterModel2);
+			db.getTheater.withArgs(
+			{
+				name: t.theaterModel.name,
+				originalID: t.theaterModel.originalID,
+				kietz: t.theaterModel.kietz
+			})
+			.yields(null, t.theaterModel);
+			db.getTheater.withArgs(
+			{
+				name: t.theaterModel2.name,
+				originalID: t.theaterModel2.originalID,
+				kietz: t.theaterModel2.kietz
+			})
+			.yields(null, t.theaterModel2);
 			db.getFilm.onFirstCall().yields(null, t.filmModel);
 			db.getFilm.onSecondCall().yields(null, t.filmModel2);
 			db.saveShowtime.yields(null, true);
@@ -143,8 +163,8 @@ describe('SaveFilms', function() {
 		});
 
 		it('should return only non reviewed films', function() {
-			db.getTheater.withArgs(t.theaterModel.name).yields(null, t.theaterModel);
-			db.getTheater.withArgs(t.theaterModel2.name).yields(null, t.theaterModel2);
+			db.getTheater.withArgs(t.theaterModel).yields(null, t.theaterModel);
+			db.getTheater.withArgs(t.theaterModel2).yields(null, t.theaterModel2);
 			db.getFilm.onFirstCall().yields(null, t.filmModel);
 			db.getFilm.onSecondCall().yields(null, t.filmModel2);
 			db.saveShowtime.yields(null, true);
@@ -170,8 +190,8 @@ describe('SaveFilms', function() {
 		});
 
 		it('should not return films when there is an error', function() {
-			db.getTheater.withArgs(t.theaterModel.name).yields(null, t.theaterModel);
-			db.getTheater.withArgs(t.theaterModel2.name).yields(null, t.theaterModel2);
+			db.getTheater.withArgs(t.theaterModel).yields(null, t.theaterModel);
+			db.getTheater.withArgs(t.theaterModel2).yields(null, t.theaterModel2);
 			db.getFilm.onFirstCall().yields(null, t.filmModel);
 			db.getFilm.onSecondCall().yields(null, t.filmModel2);
 			db.saveShowtime.withArgs(t.showtime1).yields(t.errorStr);

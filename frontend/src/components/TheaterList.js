@@ -14,7 +14,7 @@ const TheaterList = ({ films, filters, onFilmClick }) => (
 TheaterList.propTypes = {
 	films: PropTypes.array.isRequired,
 	filters: PropTypes.object.isRequired,
-	onFilmClick: PropTypes.func.isRequired
+	onFilmClick: PropTypes.func
 }
 
 export default TheaterList
