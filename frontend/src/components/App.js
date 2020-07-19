@@ -65,7 +65,7 @@ class App extends Component {
                         </Typography>
                         <Button color="inherit" style={styles.navButton}><NavLink activeClassName="active" to="/titles" style={styles.navLink}>Titles</NavLink></Button>
                         <Button color="inherit" style={styles.navButton}><NavLink activeClassName="active" to="/theaters" style={styles.navLink}>by Theater</NavLink></Button>
-                        <Button color="inherit" style={styles.navButton}><NavLink activeClassName="active" to="/times" style={styles.navLink}>by Time</NavLink></Button>
+                        {/* <Button color="inherit" style={styles.navButton}><NavLink activeClassName="active" to="/times" style={styles.navLink}>by Time</NavLink></Button> */}
                         <div style={styles.grow}/>
                         <div style={styles.search}>
                             <div style={styles.searchIcon}>

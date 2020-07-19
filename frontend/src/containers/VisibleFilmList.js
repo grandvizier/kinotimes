@@ -16,11 +16,15 @@ const getVisibleFilms = (films, filters) => {
 
 class VisibleFilmList extends Component {
   componentDidMount() {
-    this.props.fetchData(this.props.filters.viewType);
+    if (this.props.location !== "/theaters") {
+      this.props.fetchData(this.props.filters.viewType);
+    } else {
+      this.props.fetchData("byTheater");
+    }
   }
 
   render() {
-    if (this.props.filters.viewType === "byTitle") {
+    if (this.props.location !== "/theaters") {
       return <FilmList {...this.props} />;
     }
     return <TheaterList {...this.props} />;
@@ -31,7 +35,8 @@ const mapStateToProps = state => {
   return {
     films: getVisibleFilms(state.films, state.filters),
     theaters: state.theaters,
-    filters: state.filters
+    filters: state.filters,
+    location: state.router.location.pathname,
   };
 };
 

@@ -37,7 +37,8 @@ const compressShowtimes = (showtimes, filters) => {
 
 const EachTime = ({ t }) => {
   return (
-    <Typography className="showtime">{dayjs(t).format('h:mm a Do MMM')}</Typography>
+    // <Typography className="showtime">{dayjs(t).format('h:mm a Do MMM')}</Typography>
+    null
   )
 }
 
