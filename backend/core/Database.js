@@ -105,7 +105,7 @@ Database.prototype.getTheater = function(theater, cb) {
 }
 
 Database.prototype.saveTheater = function(toSave, cb) {
-	logger.debug('saving info for theater', toSave.name);
+	logger.debug('saving info for theater', toSave);
 	var thToUpdate = {};
 	thToUpdate = Object.assign(thToUpdate, toSave);
 	delete thToUpdate._id;
