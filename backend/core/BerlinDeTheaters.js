@@ -52,7 +52,7 @@ function requestTheaterData(theater, db, callback) {
 		}
 		th = parseTheaterData(body, theater);
 		logger.debug('Theater', th, "being saved");
-		db.saveTheater(th, function(err, saved){
+		db.saveTheater(th._doc, function(err, saved){
 			callback(err, saved);
 		})
 	});
