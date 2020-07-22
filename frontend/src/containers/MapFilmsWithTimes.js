@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import dayjs from 'dayjs'
-import { Grid, Typography } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import {
   toggleFilmFilter
 } from '../actions'
+import SmallFilm from '../components/SmallFilm'
 const mapObj = require('lodash/map');
 
 const uid = () => {
@@ -34,40 +34,12 @@ const compressShowtimes = (showtimes, filters) => {
     return films;
 }
 
-
-const EachTime = ({ t }) => {
-  return (
-    // <Typography className="showtime">{dayjs(t).format('h:mm a Do MMM')}</Typography>
-    null
-  )
-}
-
-const FilmView = ({ film }) => {
-  return (
-    <Grid item xs={4} className="film">
-        <Grid item>
-            <Typography>{film.film_title}</Typography>
-        </Grid>
-        <Grid container>
-          <Grid item xs={9} className="details">
-              <img src={film.film_image} alt={film.film_title} className="small-thumbnail" />
-          </Grid>
-          <Grid item xs={6} className="details showtimes">
-              {film.times.map(time => (
-                  <EachTime key={uid()} t={time} />
-              ))}
-          </Grid>
-        </Grid>
-    </Grid>
-  )
-}
-
 class MapFilmsWithTimes extends Component {
   render() {
     return (
       <Grid container className="theaterTimes">
-        {mapObj(this.props.filmAndTimes, (film, key) => (
-          <FilmView key={uid()} film={film} onClick={() => this.props.onFilmClick(film.film_id)} />
+        {mapObj(this.props.filmAndTimes, (sm_film, key) => (
+          <SmallFilm key={uid()} {...sm_film} />
         ))}
       </Grid>
     )
@@ -78,7 +50,6 @@ class MapFilmsWithTimes extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     filmAndTimes: compressShowtimes(ownProps.showtimes, ownProps.filters),
-    onFilmClick: ownProps.onClick
   }
 }
 

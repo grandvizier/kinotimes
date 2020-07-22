@@ -3,18 +3,17 @@ import PropTypes from 'prop-types'
 import Theater from './Theater'
 import { Grid } from '@material-ui/core'
 
-const TheaterList = ({ films, filters, onFilmClick }) => (
+const TheaterList = ({ films, filters }) => (
  	<Grid item xs={12}>
 		{films.map(theater => (
-			<Theater key={theater._id} {...theater} filters={filters} onClick={onFilmClick} />
+			<Theater key={theater._id} {...theater} filters={filters} />
 		))}
 	</Grid>
 )
 
 TheaterList.propTypes = {
 	films: PropTypes.array.isRequired,
-	filters: PropTypes.object.isRequired,
-	onFilmClick: PropTypes.func
+	filters: PropTypes.object.isRequired
 }
 
 export default TheaterList
