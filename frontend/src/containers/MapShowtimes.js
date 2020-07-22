@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
-import {Typography, Grid} from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
+import SmallTheater from '../components/SmallTheater'
 
 
 const styles = {
@@ -20,6 +21,7 @@ const styles = {
 
 const mapObj = require('lodash/map');
 dayjs.extend(advancedFormat)
+dayjs.locale('en');
 
 const uid = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -51,18 +53,7 @@ const mapTimestoDays = (showtimes) => {
     return mappedTimes;
 }
 
-const EachTime = ({t, theater}) => {
-    return (
-        <Grid item className="showtime" style={styles.showtimeListing}>{dayjs(t.timestamp).format('H:mm')}
-            <Typography variant="body2">
-                ({theater ? theater.name : ""})
-            </Typography>
-        </Grid>
-    )
-}
-
 const DayView = ({day, mapped, theaters}) => {
-    dayjs.locale('en');
     mapped.sort(function (a, b) {
         return dayjs(a.timestamp).format('x') - dayjs(b.timestamp).format('x');
     })
@@ -74,7 +65,7 @@ const DayView = ({day, mapped, theaters}) => {
                 </Typography>
             </Grid>
             {mapObj(mapped, (t) => (
-                <EachTime key={uid()} t={t} theater={theaters[t._theater]}/>
+                <SmallTheater key={uid()} timestamp={dayjs(t.timestamp).format('H:mm')} theater={theaters[t._theater]}/>
             ))}
         </Grid>
     )

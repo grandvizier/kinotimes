@@ -1,22 +1,24 @@
 import React from 'react'
 import {Card, CardHeader, CardContent, Link} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import MapFilmsWithTimes from '../containers/MapFilmsWithTimes'
 
 import MapIcon from '@material-ui/icons/MapTwoTone';
 
 
-const useStyles = makeStyles(theme => ({
-    card: {
-        margin: '50px',
-        backgroundColor: `rgba(0, 0, 0, 0.8)`,
-        borderRadius: '20px',
-        border: "3px solid rgb(237, 208, 179)",
-    },
-    link: {
-        color: `#fff`,
-    },
-}));
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        card: {
+            margin: '50px',
+            backgroundColor: `rgba(0, 0, 0, 0.8)`,
+            borderRadius: '20px',
+            border: "3px solid rgb(237, 208, 179)",
+        },
+        link: {
+            color: `#fff`,
+        },
+    }),
+);
 
 type TheaterProps = {
     onClick: () => void;
@@ -66,7 +68,7 @@ export default function Theater({
             />
             {renderMapLink()}
             <CardContent>
-                <MapFilmsWithTimes showtimes={showtimes} onClick={onClick} filters={filters}/>
+                <MapFilmsWithTimes showtimes={showtimes} filters={filters}/>
             </CardContent>
         </Card>
     )
