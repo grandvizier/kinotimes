@@ -26,6 +26,7 @@ const compressShowtimes = (showtimes, filters) => {
             films[showtime._film._id] = {
                 film_id: showtime._film._id,
                 film_title: showtime._film.title,
+                film_details: showtime._film.details,
                 film_image: showtime._film.img,
                 times: [showtime.timestamp]
             }

@@ -6,9 +6,44 @@ import dayjs from 'dayjs'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        // TODO: as each popover apears in a row,
+        // there is less space for the width
         popover: {
             pointerEvents: 'none',
-            width: "100%",
+            width: "50%",
+        },
+        title: {
+            color: `#bf997e`,
+        },
+        photo: {
+            paddingRight: '20px',
+        },
+        bullet: {
+            display: 'inline-block',
+            margin: '0 2px',
+            transform: 'scale(0.8)',
+        },
+        language: {
+            color: 'red',
+            fontWeight: 400,
+            fontSize: 'small',
+        },
+        contentTitle: {
+            // color: '#000000',
+            fontWeight: 600,
+            fontSize: 'smaller',
+        },
+        contentText: {
+            // color: '#000000',
+            fontWeight: 100,
+            fontSize: 'small',
+        },
+        contentDesc: {
+            padding: '8px 0',
+            // color: '#000000',
+            fontWeight: 100,
+            fontSize: 'small',
+            fontStyle: 'italic',
         },
     }),
 );
@@ -17,11 +52,12 @@ type SmallFilmProps = {
     onClick: () => void;
     film_title: string;
     film_image: string;
+    film_details: any;
     times: [string];
 }
 
 export default function SmallFilm({
-    onClick, film_title, film_image, times
+    onClick, film_title, film_image, film_details, times
 }: SmallFilmProps) {
     const classes = useStyles();
 
@@ -40,6 +76,9 @@ export default function SmallFilm({
     if (!times) {
         times = ['--']
     }
+    let filmDetails = film_details ? film_details : {};
+    const bull = <span className={classes.bullet}>•</span>;
+    let showLanguage = filmDetails.language && filmDetails.language.indexOf("English") === -1;
 
     const timePopover = <Popover
         id={id}
@@ -47,7 +86,7 @@ export default function SmallFilm({
         className={classes.popover}
         anchorEl={anchorEl}
         anchorOrigin={{
-            vertical: 'bottom',
+            vertical: 'center',
             horizontal: 'center',
         }}
         transformOrigin={{
@@ -57,10 +96,27 @@ export default function SmallFilm({
         onClose={handlePopoverClose}
         disableRestoreFocus
     >
-        <Grid item>
-            {times.map(t => (
-                <Typography key={uid()} className="showtime">{dayjs(t).format('h:mm a Do MMM')}</Typography>
-            ))}
+        <Grid container>
+            <Grid item xs={12}>
+                <Typography className={classes.title}>{filmDetails.aka &&
+                    <span className="altTitle">({filmDetails.aka})</span>}</Typography>
+                <Typography>
+                    {filmDetails.year}{bull}{filmDetails.genre}
+                </Typography>
+                {showLanguage ? <Typography className={classes.language}>{filmDetails.language}</Typography> : null}
+                {filmDetails.director ? <Typography className={classes.contentTitle}>
+                    Director: <span className={classes.contentText}>{filmDetails.director}</span></Typography> : null}
+
+                {filmDetails.actors ? <Typography className={classes.contentTitle}>
+                    Actors: <span className={classes.contentText}>{filmDetails.actors}</span></Typography> : null}
+
+                <Typography variant="body2" className={classes.contentDesc}>{filmDetails.description}</Typography>
+            </Grid>
+            <Grid item>
+                {times.map(t => (
+                    <Typography key={uid()} className="showtime">{dayjs(t).format('h:mm a Do MMM')}</Typography>
+                    ))}
+            </Grid>
         </Grid>
     </Popover>
 
