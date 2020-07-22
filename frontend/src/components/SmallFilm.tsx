@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type SmallFilmProps = {
-    onClick: () => void;
     film_title: string;
     film_image: string;
     film_details: any;
@@ -57,7 +56,7 @@ type SmallFilmProps = {
 }
 
 export default function SmallFilm({
-    onClick, film_title, film_image, film_details, times
+    film_title, film_image, film_details, times
 }: SmallFilmProps) {
     const classes = useStyles();
 
