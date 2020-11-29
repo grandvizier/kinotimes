@@ -52,13 +52,19 @@ var ShowtimeModel = mongoose.model('Showtime', showtimeSchema);
 
 
 function Database() {
-	if (!process.env.KT_MONGO_HOST || !process.env.KT_MONGO_DB){
-		logger.error("KT_MONGO_HOST or KT_MONGO_DB not set");
-		logger.warn("   KT_MONGO_HOST: localhost:27017");
-		logger.warn("   KT_MONGO_DB:   films");
+	if (process.env.KT_MONGO_URI ){
+		let mongo_path = process.env.KT_MONGO_URI
+		this.db = mongo_path;
+		return
 	}
-	let mongo_path = process.env.KT_MONGO_HOST + "/" + process.env.KT_MONGO_DB
-	this.db = "mongodb://" + mongo_path;
+	if (process.env.KT_MONGO_HOST && process.env.KT_MONGO_DB){
+		let mongo_path = process.env.KT_MONGO_HOST + "/" + process.env.KT_MONGO_DB
+		this.db = "mongodb://" + mongo_path;
+		return
+	}
+	logger.error("KT_MONGO_HOST or KT_MONGO_DB not set");
+	logger.warn("   KT_MONGO_HOST: localhost:27017");
+	logger.warn("   KT_MONGO_DB:   films");
 }
 
 Database.prototype.connect = function() {

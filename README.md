@@ -39,9 +39,8 @@ export REACT_APP_KT_PORT=3000
 * `npm install -g nodemon`
 * set appropriate env vars (see above)
   * you'll need `mongo` running at localhost:27017 (or maybe setup a free instance @ mlab.com)
-  * if using mlab, set env vars:
-    * KT_MONGO_HOST=<dbuser>:<dbpassword>@<assigned-id>.mlab.com:<assigned-port>
-    * KT_MONGO_DB=<unique-db-name>
+  * if using mongo atlas, set env vars:
+    * KT_MONGO_URI=mongodb+srv://<dbuser>:<dbpassword>@<assigned-id>mongodb.net/kinotimes-dev?retryWrites=true&w=majority
 * in backend & frontend: `npm install`
 * if first time, run initialize data:
   * `node backend/core/getFilmsJob.js --days 2`
